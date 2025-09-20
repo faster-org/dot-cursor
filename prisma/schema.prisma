@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Category {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  icon        String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  rules       RuleCategory[]
+
+  @@map("categories")
+}
+
+model Rule {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique
+  description String
+  content     String
+  isPublished Boolean  @default(true) @map("is_published")
+  isFeatured  Boolean  @default(false) @map("is_featured")
+  viewCount   Int      @default(0) @map("view_count")
+  copyCount   Int      @default(0) @map("copy_count")
+  upvotes     Int      @default(0)
+  downvotes   Int      @default(0)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  categories  RuleCategory[]
+  tags        RuleTag[]
+
+  @@index([isPublished])
+  @@index([createdAt(sort: Desc)])
+  @@map("rules")
+}
+
+model Tag {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+
+  rules     RuleTag[]
+
+  @@map("tags")
+}
+
+model RuleCategory {
+  ruleId     String   @map("rule_id")
+  rule       Rule     @relation(fields: [ruleId], references: [id], onDelete: Cascade)
+
+  categoryId String   @map("category_id")
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([ruleId, categoryId])
+  @@map("rule_categories")
+}
+
+model RuleTag {
+  ruleId String @map("rule_id")
+  rule   Rule   @relation(fields: [ruleId], references: [id], onDelete: Cascade)
+
+  tagId  String @map("tag_id")
+  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([ruleId, tagId])
+  @@map("rule_tags")
+}
