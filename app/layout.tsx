@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Toaster } from "@/components/ui/sonner";
 import { ReactQueryProvider } from "@/lib/react-query-provider";
+import { Analytics } from "@vercel/analytics/next"
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -38,7 +39,8 @@ export default function RootLayout({
 			>
 				<ReactQueryProvider>
 					<div className="relative flex min-h-screen flex-col">
-						<Header />
+						<Analytics />
+            <Header />
 						<main className="flex-1">{children}</main>
 						<footer className="border-t py-6 md:py-0">
 							<div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
