@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/select";
 import { Search, Filter, ChevronDown } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import type { ApplicationMode } from "@/data/types";
 
 interface Rule {
 	id: string;
@@ -26,6 +27,8 @@ interface Rule {
 	upvotes: number;
 	downvotes: number;
 	createdAt: string;
+	applicationMode: ApplicationMode;
+	globs?: string;
 	categories: Array<{
 		name: string;
 		slug: string;

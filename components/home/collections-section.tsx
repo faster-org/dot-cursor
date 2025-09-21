@@ -31,11 +31,9 @@ export function CollectionsSection({ collections }: CollectionsSectionProps) {
 					</Link>
 				</div>
 
-				<div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+				<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 					{collections.map((collection) => (
-						<div key={collection.id} className="flex-shrink-0 w-72">
-							<CollectionCard collection={collection} />
-						</div>
+						<CollectionCard key={collection.id} collection={collection} />
 					))}
 				</div>
 			</div>

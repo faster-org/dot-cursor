@@ -46,6 +46,7 @@ export function HomeClient({ allCategories, collections }: HomeClientProps) {
 		allCategories.slice(0, 5)
 	);
 	const [filteredCategories, setFilteredCategories] = useState<Category[]>(allCategories);
+	const [filteredCollections, setFilteredCollections] = useState(collections);
 	const [displayCount, setDisplayCount] = useState(5);
 	const [isClientFiltering, setIsClientFiltering] = useState(false);
 	const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -69,21 +70,37 @@ export function HomeClient({ allCategories, collections }: HomeClientProps) {
 			.filter((category) => category.rules.length > 0);
 	}, []);
 
+	// Client-side filtering for collections
+	const filterCollectionsLocally = useCallback((term: string, collectionsToFilter: (Collection & { ruleCount: number })[]) => {
+		if (!term.trim()) {
+			return collectionsToFilter;
+		}
+
+		const lowercaseSearch = term.toLowerCase();
+		return collectionsToFilter.filter((collection) =>
+			collection.name.toLowerCase().includes(lowercaseSearch) ||
+			collection.description.toLowerCase().includes(lowercaseSearch)
+		);
+	}, []);
+
 	// Client-side filtering effect - instant feedback
 	useEffect(() => {
 		if (searchTerm.trim()) {
 			setIsClientFiltering(true);
 			const filtered = filterCategoriesLocally(searchTerm, allCategories);
+			const filteredColls = filterCollectionsLocally(searchTerm, collections);
 			setFilteredCategories(filtered);
+			setFilteredCollections(filteredColls);
 			setDisplayedCategories(filtered);
 		} else {
 			setIsClientFiltering(false);
 			setFilteredCategories(allCategories);
+			setFilteredCollections(collections);
 			// Show current display count when clearing search
 			const displayed = allCategories.slice(0, displayCount);
 			setDisplayedCategories(displayed);
 		}
-	}, [searchTerm, allCategories, filterCategoriesLocally, displayCount]);
+	}, [searchTerm, allCategories, collections, filterCategoriesLocally, filterCollectionsLocally, displayCount]);
 
 	// Calculate if there are more categories to load
 	const hasMore = !searchTerm && displayedCategories.length < filteredCategories.length;
@@ -135,7 +152,7 @@ export function HomeClient({ allCategories, collections }: HomeClientProps) {
 	return (
 		<div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 			<SearchHero onSearch={setSearchTerm} />
-			<CollectionsSection collections={collections} />
+			<CollectionsSection collections={filteredCollections} />
 			<CategorizedRules
 				categoriesWithRules={displayedCategories}
 				loading={false}

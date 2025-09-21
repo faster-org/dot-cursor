@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { RuleCard } from "@/components/rule/rule-card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowRight } from "lucide-react";
+import type { ApplicationMode } from "@/data/types";
 
 interface Rule {
 	id: string;
@@ -15,10 +16,12 @@ interface Rule {
 	upvotes: number;
 	downvotes: number;
 	createdAt: string;
-	category?: {
+	applicationMode: ApplicationMode;
+	globs?: string;
+	categories: {
 		name: string;
 		slug: string;
-	};
+	}[];
 }
 
 interface CategorizedRulesProps {
@@ -79,12 +82,9 @@ export function CategorizedRules({
 							</>
 						) : (
 							<>
-								<p className="text-muted-foreground text-lg">
-									No rules available yet
+								<p className="text-foreground text-sm font-medium">
+									No results found.
 								</p>
-								<Link href="/submit">
-									<Button className="mt-4">Submit the first rule</Button>
-								</Link>
 							</>
 						)}
 					</div>

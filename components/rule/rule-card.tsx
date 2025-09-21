@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import {
 	Card,
 	CardContent,
@@ -10,11 +9,15 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Copy, ArrowUp, ArrowDown, Download } from "lucide-react";
-import { useVoting } from "@/hooks/use-voting";
+import { useVoting } from "@/hooks/queries/use-voting";
+import { useRuleStats } from "@/hooks/queries/use-rule-stats";
+import { useCopyRule } from "@/hooks/queries/use-copy-rule";
+import { useUserVote } from "@/hooks/queries/use-user-vote";
 import Link from "next/link";
 import { toast } from "sonner";
 import { CategoryBadges } from "./category-badges";
 import { Skeleton } from "@/components/ui/skeleton";
+import type { ApplicationMode } from "@/data/types";
 
 interface RuleCardProps {
 	rule: {
@@ -28,6 +31,8 @@ interface RuleCardProps {
 		upvotes: number;
 		downvotes: number;
 		createdAt: string;
+		applicationMode: ApplicationMode;
+		globs?: string;
 		categories?: Array<{
 			name: string;
 			slug: string;
@@ -35,83 +40,63 @@ interface RuleCardProps {
 	};
 }
 
-export function RuleCard({ rule }: RuleCardProps) {
-	const { userVote, vote } = useVoting(rule.slug);
-	const [currentUpvotes, setCurrentUpvotes] = useState(rule.upvotes);
-	const [currentDownvotes, setCurrentDownvotes] = useState(rule.downvotes);
-	const [optimisticUserVote, setOptimisticUserVote] = useState<
-		"up" | "down" | null
-	>(null);
-	const [isVoting, setIsVoting] = useState(false);
-	const [isLoadingStats, setIsLoadingStats] = useState(true);
+type RuleForCard = RuleCardProps["rule"];
 
-	// Sync optimistic state with actual userVote
-	useEffect(() => {
-		setOptimisticUserVote(userVote);
-	}, [userVote]);
+function buildMdcContent(rule: RuleForCard): string {
+	let frontmatter = "";
 
-	// Load actual stats from server
-	useEffect(() => {
-		const loadStats = async () => {
-			try {
-				const response = await fetch(`/api/rules/${rule.slug}/stats`);
-				if (response.ok) {
-					const data = await response.json();
-					setCurrentUpvotes(data.upvotes);
-					setCurrentDownvotes(data.downvotes);
-				}
-			} catch (error) {
-				console.warn("Failed to load vote stats:", error);
-			} finally {
-				setIsLoadingStats(false);
-			}
-		};
-
-		loadStats();
-	}, [rule.slug]);
-
-	const handleCopy = async () => {
-		try {
-			// Create the same formatted content as download
-			let frontmatter = "";
-
-			switch (rule.applicationMode) {
-				case "always":
-					// Always Apply - no description field
-					frontmatter = `---
+	switch (rule.applicationMode) {
+		case "always":
+			frontmatter = `---
 alwaysApply: true
 ---`;
-					break;
-				case "intelligent":
-					// Apply Intelligently - description decides when to apply
-					frontmatter = `---
+			break;
+		case "intelligent":
+			frontmatter = `---
 description: ${rule.description}
 alwaysApply: false
 ---`;
-					break;
-				case "files":
-					// Apply to Specific Files - globs field for file patterns
-					frontmatter = `---
+			break;
+		case "files":
+			frontmatter = `---
 globs: ${rule.globs || "*.ts,*.tsx"}
 alwaysApply: false
 ---`;
-					break;
-				case "manual":
-				default:
-					// Apply Manually - just alwaysApply: false
-					frontmatter = `---
+			break;
+		case "manual":
+		default:
+			frontmatter = `---
 alwaysApply: false
 ---`;
-					break;
-			}
+			break;
+	}
 
-			const mdcContent = `${frontmatter}
+	return `${frontmatter}
 ${rule.content}`;
+}
 
+export function RuleCard({ rule }: RuleCardProps) {
+	const { data: stats, isLoading: isLoadingStats, isFetching: isFetchingStats } = useRuleStats(rule.slug);
+	const { data: userVoteData, isLoading: isLoadingUserVote, isFetching: isFetchingUserVote } = useUserVote(rule.slug);
+	const votingMutation = useVoting(rule.slug);
+	const copyMutation = useCopyRule();
+
+	// Use stats from React Query, fallback to props
+	const currentUpvotes = stats?.upvotes ?? rule.upvotes;
+	const currentDownvotes = stats?.downvotes ?? rule.downvotes;
+	const userVote = userVoteData?.userVote;
+
+	// Show skeletons until we have actual data with numbers
+	const hasValidStats = stats && typeof stats.upvotes === 'number';
+	const hasValidUserVote = userVoteData && userVoteData.hasOwnProperty('userVote');
+	const isLoadingVoteData = (!hasValidStats || !hasValidUserVote) && !votingMutation.isPending;
+
+	const handleCopy = async () => {
+		try {
+			const mdcContent = buildMdcContent(rule);
 			await navigator.clipboard.writeText(mdcContent);
 			toast.success("Rule copied to clipboard!");
-			// Increment copy count via API
-			fetch(`/api/rules/${rule.slug}/copy`, { method: "POST" });
+			copyMutation.mutate(rule.slug);
 		} catch {
 			toast.error("Failed to copy rule");
 		}
@@ -119,41 +104,7 @@ ${rule.content}`;
 
 	const handleDownload = () => {
 		try {
-			// Create the .mdc file content with frontmatter based on application mode
-			let frontmatter = "";
-
-			switch (rule.applicationMode) {
-				case "always":
-					// Always Apply - no description field
-					frontmatter = `---
-alwaysApply: true
----`;
-					break;
-				case "intelligent":
-					// Apply Intelligently - description decides when to apply
-					frontmatter = `---
-description: ${rule.description}
-alwaysApply: false
----`;
-					break;
-				case "files":
-					// Apply to Specific Files - globs field for file patterns
-					frontmatter = `---
-globs: ${rule.globs || "*.ts,*.tsx"}
-alwaysApply: false
----`;
-					break;
-				case "manual":
-				default:
-					// Apply Manually - just alwaysApply: false
-					frontmatter = `---
-alwaysApply: false
----`;
-					break;
-			}
-
-			const mdcContent = `${frontmatter}
-${rule.content}`;
+			const mdcContent = buildMdcContent(rule);
 
 			// Create blob and download
 			const blob = new Blob([mdcContent], { type: "text/markdown" });
@@ -170,77 +121,8 @@ ${rule.content}`;
 		}
 	};
 
-	const handleVote = async (voteType: "up" | "down") => {
-		// Prevent rapid clicking
-		if (isVoting) return;
-
-		setIsVoting(true);
-
-		// Optimistic update - instant feedback
-		const previousUpvotes = currentUpvotes;
-		const previousDownvotes = currentDownvotes;
-		const previousOptimisticVote = optimisticUserVote;
-
-		// Calculate optimistic values
-		let newUpvotes = currentUpvotes;
-		let newDownvotes = currentDownvotes;
-		let newOptimisticVote: "up" | "down" | null = optimisticUserVote;
-
-		if (voteType === "up") {
-			if (optimisticUserVote === "up") {
-				// Remove upvote
-				newUpvotes = Math.max(0, currentUpvotes - 1);
-				newOptimisticVote = null;
-			} else if (optimisticUserVote === "down") {
-				// Change from downvote to upvote
-				newUpvotes = currentUpvotes + 1;
-				newDownvotes = Math.max(0, currentDownvotes - 1);
-				newOptimisticVote = "up";
-			} else {
-				// Add upvote
-				newUpvotes = currentUpvotes + 1;
-				newOptimisticVote = "up";
-			}
-		} else {
-			if (optimisticUserVote === "down") {
-				// Remove downvote
-				newDownvotes = Math.max(0, currentDownvotes - 1);
-				newOptimisticVote = null;
-			} else if (optimisticUserVote === "up") {
-				// Change from upvote to downvote
-				newDownvotes = currentDownvotes + 1;
-				newUpvotes = Math.max(0, currentUpvotes - 1);
-				newOptimisticVote = "down";
-			} else {
-				// Add downvote
-				newDownvotes = currentDownvotes + 1;
-				newOptimisticVote = "down";
-			}
-		}
-
-		// Apply optimistic update immediately
-		setCurrentUpvotes(newUpvotes);
-		setCurrentDownvotes(newDownvotes);
-		setOptimisticUserVote(newOptimisticVote);
-
-		try {
-			// Make server request
-			const result = await vote(voteType);
-
-			if (result.error) {
-				// Revert on error
-				setCurrentUpvotes(previousUpvotes);
-				setCurrentDownvotes(previousDownvotes);
-				setOptimisticUserVote(previousOptimisticVote);
-				toast.error(result.error);
-			} else if (result.success) {
-				// Verify server response
-				setCurrentUpvotes(result.upvotes);
-				setCurrentDownvotes(result.downvotes);
-			}
-		} finally {
-			setIsVoting(false);
-		}
+	const handleVote = (voteType: "up" | "down") => {
+		votingMutation.mutate(voteType === "up" ? "upvote" : "downvote");
 	};
 
 	return (
@@ -294,22 +176,22 @@ ${rule.content}`;
 					<Button
 						variant="outline"
 						size="sm"
-						disabled={isVoting || isLoadingStats || optimisticUserVote === "up"}
+						disabled={votingMutation.isPending || isLoadingVoteData}
 						onClick={() => handleVote("up")}
+						className={userVote === 'up' ? 'border-foreground' : ''}
 					>
 						<ArrowUp className="!size-3.5" />
-						{isLoadingStats ? <Skeleton className="h-4 w-3" /> : currentUpvotes}
+						{isLoadingVoteData ? <Skeleton className="h-4 w-3" /> : currentUpvotes}
 					</Button>
 					<Button
 						variant="outline"
 						size="sm"
-						disabled={
-							isVoting || isLoadingStats || optimisticUserVote === "down"
-						}
+						disabled={votingMutation.isPending || isLoadingVoteData}
 						onClick={() => handleVote("down")}
+						className={userVote === 'down' ? 'border-foreground' : ''}
 					>
 						<ArrowDown className="!size-3.5" />
-						{isLoadingStats ? (
+						{isLoadingVoteData ? (
 							<Skeleton className="h-4 w-3" />
 						) : (
 							currentDownvotes

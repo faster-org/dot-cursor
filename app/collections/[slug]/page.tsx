@@ -3,12 +3,73 @@ import { RuleCard } from "@/components/rule/rule-card";
 import { notFound } from "next/navigation";
 import { Package } from "lucide-react";
 import { BackButton } from "@/app/rules/[slug]/back-button";
+import {
+	SiNextdotjs,
+	SiPython,
+	SiReact,
+	SiHtml5
+} from "@icons-pack/react-simple-icons";
+import type { Metadata } from 'next'
+
+const getIconComponent = (iconName?: string) => {
+	const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+		'nextdotjs': SiNextdotjs,
+		'python': SiPython,
+		'react': SiReact,
+		'html5': SiHtml5,
+	};
+
+	const IconComponent = iconName ? iconMap[iconName] : null;
+	return IconComponent;
+};
 
 export async function generateStaticParams() {
 	const { collections } = await import("@/data/collections");
 	return collections.map((collection) => ({
 		slug: collection.slug,
 	}));
+}
+
+export async function generateMetadata({
+	params,
+}: {
+	params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+	const { slug } = await params;
+	const collection = await getCollectionBySlug(slug);
+
+	if (!collection) {
+		return {
+			title: 'Collection Not Found',
+			description: 'The requested collection could not be found.',
+		};
+	}
+
+	return {
+		title: `${collection.name} - Cursor IDE AI Rules Collection`,
+		description: `${collection.description} Discover ${collection.ruleDetails.length} AI rules and prompts for Cursor IDE to enhance your ${collection.name} development workflow.`,
+		keywords: [
+			collection.name,
+			'Cursor IDE rules',
+			'AI prompts',
+			'development tools',
+			'code automation',
+			'AI-powered coding',
+			...collection.name.toLowerCase().split(' ')
+		],
+		openGraph: {
+			title: `${collection.name} - Cursor IDE AI Rules Collection`,
+			description: collection.description,
+			url: `https://dotcursor.com/collections/${slug}`,
+		},
+		twitter: {
+			title: `${collection.name} - Cursor IDE AI Rules Collection`,
+			description: collection.description,
+		},
+		alternates: {
+			canonical: `https://dotcursor.com/collections/${slug}`,
+		},
+	};
 }
 
 export default async function CollectionDetailPage({
@@ -47,11 +108,14 @@ export default async function CollectionDetailPage({
 			{/* Collection Header */}
 			<div className="mb-8">
 				<div className="flex items-center gap-5 mb-4">
-					{collection.icon ? (
-						<span className="text-5xl">{collection.icon}</span>
-					) : (
-						<Package className="h-12 w-12 text-muted-foreground" />
-					)}
+					{(() => {
+						const IconComponent = getIconComponent(collection.icon);
+						return IconComponent ? (
+							<IconComponent className="h-14 w-14 text-foreground" />
+						) : (
+							<Package className="h-12 w-12 text-muted-foreground" />
+						);
+					})()}
 					<div>
 						<div>
 							<div className="flex items-center gap-2 mb-2">

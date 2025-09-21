@@ -2,10 +2,12 @@
 
 import { Button } from "@/components/ui/button";
 import { Copy, ArrowUp, ArrowDown, Download } from "lucide-react";
-import { useVoting } from "@/hooks/use-voting";
+import { useVoting } from "@/hooks/queries/use-voting";
+import { useCopyRule } from "@/hooks/queries/use-copy-rule";
+import { useRuleStats } from "@/hooks/queries/use-rule-stats";
+import { useUserVote } from "@/hooks/queries/use-user-vote";
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useRuleStatsContext } from "./rule-stats-provider";
 
 interface RuleActionsProps {
 	rule: {
@@ -19,8 +21,17 @@ interface RuleActionsProps {
 }
 
 export function RuleActions({ rule }: RuleActionsProps) {
-	const { userVote, vote } = useVoting(rule.slug);
-	const { stats, loading, updateStats } = useRuleStatsContext();
+	const { data: stats, isLoading: isLoadingStats, isFetching: isFetchingStats } = useRuleStats(rule.slug);
+	const { data: userVoteData, isLoading: isLoadingUserVote, isFetching: isFetchingUserVote } = useUserVote(rule.slug);
+	const votingMutation = useVoting(rule.slug);
+	const copyMutation = useCopyRule();
+
+	const userVote = userVoteData?.userVote;
+
+	// Show skeletons until we have actual data with numbers
+	const hasValidStats = stats && typeof stats.upvotes === 'number';
+	const hasValidUserVote = userVoteData && userVoteData.hasOwnProperty('userVote');
+	const isLoadingVoteData = (!hasValidStats || !hasValidUserVote) && !votingMutation.isPending;
 
 	const createMdcContent = () => {
 		let frontmatter = '';
@@ -64,8 +75,7 @@ ${rule.content}`;
 			const mdcContent = createMdcContent();
 			await navigator.clipboard.writeText(mdcContent);
 			toast.success("Rule copied to clipboard!");
-			// Still increment copy count in background for analytics
-			fetch(`/api/rules/${rule.slug}/copy`, { method: "POST" });
+			copyMutation.mutate(rule.slug);
 		} catch {
 			toast.error("Failed to copy rule");
 		}
@@ -90,24 +100,35 @@ ${rule.content}`;
 		}
 	};
 
-	const handleVote = async (voteType: "up" | "down") => {
-		const result = await vote(voteType);
-
-		if (result.error) {
-			toast.error(result.error);
-			return;
-		}
-
-		if (result.success) {
-			updateStats({
-				upvotes: result.upvotes,
-				downvotes: result.downvotes
-			});
-		}
+	const handleVote = (voteType: "up" | "down") => {
+		votingMutation.mutate(voteType === "up" ? "upvote" : "downvote");
 	};
 
 	return (
 		<div className="flex items-center justify-between w-full">
+			<div className="flex items-center gap-1.5">
+				<Button
+					variant="outline"
+					size="sm"
+					disabled={votingMutation.isPending || isLoadingVoteData}
+					onClick={() => handleVote("up")}
+					className={userVote === 'up' ? 'border-foreground' : ''}
+				>
+					<ArrowUp className="!size-3.5" />
+					{isLoadingVoteData ? <Skeleton className="h-4 w-3" /> : (stats?.upvotes ?? 0)}
+				</Button>
+				<Button
+					variant="outline"
+					size="sm"
+					disabled={votingMutation.isPending || isLoadingVoteData}
+					onClick={() => handleVote("down")}
+					className={userVote === 'down' ? 'border-foreground' : ''}
+				>
+					<ArrowDown className="!size-3.5" />
+					{isLoadingVoteData ? <Skeleton className="h-4 w-3" /> : (stats?.downvotes ?? 0)}
+				</Button>
+			</div>
+
 			<div className="flex items-center gap-1.5">
 				<Button
 					variant="ghost"
@@ -124,27 +145,6 @@ ${rule.content}`;
 					onClick={handleDownload}
 				>
 					<Download className="!size-3.5" />
-				</Button>
-			</div>
-
-			<div className="flex items-center gap-1.5">
-				<Button
-					variant="outline"
-					size="sm"
-					disabled={loading || userVote === "up"}
-					onClick={() => handleVote("up")}
-				>
-					<ArrowUp className="!size-3.5" />
-					{loading ? <Skeleton className="h-4 w-3" /> : stats.upvotes}
-				</Button>
-				<Button
-					variant="outline"
-					size="sm"
-					disabled={loading || userVote === "down"}
-					onClick={() => handleVote("down")}
-				>
-					<ArrowDown className="!size-3.5" />
-					{loading ? <Skeleton className="h-4 w-3" /> : stats.downvotes}
 				</Button>
 			</div>
 		</div>

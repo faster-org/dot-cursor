@@ -2,7 +2,29 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { getRuleBySlug } from '@/lib/data-loader'
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit'
-import { validateVote } from '@/lib/vote-protection'
+import { validateVote, getPreviousVote } from '@/lib/vote-protection'
+import { getClientIdentifier } from '@/lib/rate-limit'
+
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  try {
+    const { slug } = await params;
+    const clientId = getClientIdentifier(request);
+    const userVote = getPreviousVote(clientId, slug);
+
+    return NextResponse.json({
+      userVote
+    });
+  } catch (error) {
+    console.error('Error getting user vote:', error);
+    return NextResponse.json(
+      { error: 'Failed to get user vote' },
+      { status: 500 }
+    );
+  }
+}
 
 export async function POST(
   request: NextRequest,

@@ -1,5 +1,35 @@
 import { loadRules, getCategories } from "@/lib/data-loader";
 import { BrowseClient } from "./browse-client";
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'Browse Cursor Rules - Cursor IDE Community Prompts & Configurations',
+	description: 'Browse all rules for Cursor IDE. Filter by category to find React, Python, Next.js, and other development-specific AI prompts and automation rules.',
+	keywords: [
+		'browse Cursor IDE rules',
+		'AI prompts catalog',
+		'development AI rules',
+		'code automation prompts',
+		'Cursor IDE configurations',
+		'programming AI assistance',
+		'React AI rules',
+		'Python prompts',
+		'Next.js AI rules',
+		'development workflow automation'
+	],
+	openGraph: {
+		title: 'Browse Cursor Rules - Cursor IDE Community Prompts & Configurations',
+		description: 'Browse all rules for Cursor IDE. Filter by category to find development-specific AI prompts and automation rules.',
+		url: 'https://dotcursor.com/rules',
+	},
+	twitter: {
+		title: 'Browse Cursor Rules - Cursor IDE Community Prompts & Configurations',
+		description: 'Browse all rules for Cursor IDE. Filter by category to find development-specific AI prompts.',
+	},
+	alternates: {
+		canonical: 'https://dotcursor.com/rules',
+	},
+}
 
 async function getInitialData() {
 	// Get all rules and categories from files without stats for fast SSR

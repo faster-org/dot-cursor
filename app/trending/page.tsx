@@ -1,8 +1,38 @@
 import { RuleCard } from "@/components/rule/rule-card";
 import { loadRules, getCategories } from "@/lib/data-loader";
 import { Rule } from "@/data/types";
+import type { Metadata } from 'next'
 
-async function getTrendingRules() {
+export const metadata: Metadata = {
+	title: 'Trending Cursor Rules - Popular Cursor IDE Prompts & Configurations',
+	description: 'Discover the most popular and trending rules for Cursor IDE. Browse community-favorite prompts, configurations, and automation rules that developers are using right now.',
+	keywords: [
+		'trending Cursor IDE rules',
+		'popular AI prompts',
+		'most used AI rules',
+		'top Cursor IDE configurations',
+		'viral programming prompts',
+		'popular code automation',
+		'trending development tools',
+		'community favorite AI rules',
+		'hot AI prompts',
+		'popular Cursor IDE prompts'
+	],
+	openGraph: {
+		title: 'Trending Cursor Rules - Popular Cursor IDE Prompts & Configurations',
+		description: 'Discover the most popular and trending rules for Cursor IDE. Browse community-favorite prompts and configurations.',
+		url: 'https://dotcursor.com/trending',
+	},
+	twitter: {
+		title: 'Trending Cursor Rules - Popular Cursor IDE Prompts & Configurations',
+		description: 'Discover the most popular and trending rules for Cursor IDE. Browse community-favorite prompts.',
+	},
+	alternates: {
+		canonical: 'https://dotcursor.com/trending',
+	},
+}
+
+async function getTrendingRules(): Promise<TrendingRule[]> {
 	// Get all rules from files without stats for fast SSR
 	const allRules = await loadRules();
 	const allCategories = await getCategories();
@@ -32,17 +62,17 @@ async function getTrendingRules() {
 		.slice(0, 24);
 }
 
-interface TrendingRule extends Rule {
-	upvotes: number;
-	downvotes: number;
-	viewCount: number;
-	copyCount: number;
-	categories: Array<{
-		id: string;
-		name: string;
-		slug: string;
-	}>;
-}
+type TrendingRule = Omit<Rule, 'categories'> & {
+    upvotes: number;
+    downvotes: number;
+    viewCount: number;
+    copyCount: number;
+    categories: Array<{
+        id: string;
+        name: string;
+        slug: string;
+    }>;
+};
 
 function RuleGrid({ rules }: { rules: TrendingRule[] }) {
 	return (

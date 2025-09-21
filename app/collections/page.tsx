@@ -1,6 +1,36 @@
 import { CollectionCard } from "@/components/collection/collection-card";
 import { getCollectionsWithRules } from "@/lib/data-loader";
 import { Package } from "lucide-react";
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'Cursor Rule Collections - Best Cursor Rule Combinations',
+	description: 'Browse curated collections of rules for Cursor IDE. Find organized sets of prompts for React, Next.js, Python, and more development workflows.',
+	keywords: [
+		'Cursor IDE collections',
+		'Cursor rule combinations',
+		'curated prompts',
+		'React prompts',
+		'Next.js rules',
+		'Python cursor rules',
+		'development collections',
+		'AI workflow templates',
+		'code automation collections',
+		'programming prompt sets'
+	],
+	openGraph: {
+		title: 'Cursor Rule Collections - Best Cursor Rule Combinations',
+		description: 'Browse curated collections of rules for Cursor IDE. Find organized sets of prompts for React, Next.js, Python, and more.',
+		url: 'https://dotcursor.com/collections',
+	},
+	twitter: {
+		title: 'Cursor Rule Collections - Best Cursor Rule Combinations',
+		description: 'Browse curated collections of rules for Cursor IDE. Find organized sets of prompts for development workflows.',
+	},
+	alternates: {
+		canonical: 'https://dotcursor.com/collections',
+	},
+}
 
 export default async function CollectionsPage() {
 	const collections = await getCollectionsWithRules();

@@ -1,36 +1,19 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRuleStatsContext } from "./rule-stats-provider";
+import { useTrackView } from "@/hooks/queries/use-track-view";
 
 interface ViewTrackerProps {
 	slug: string;
 }
 
 export function ViewTracker({ slug }: ViewTrackerProps) {
-	const { updateStats } = useRuleStatsContext();
+	const trackViewMutation = useTrackView();
 
 	useEffect(() => {
 		// Track view on component mount
-		const trackView = async () => {
-			try {
-				const response = await fetch(`/api/rules/${slug}/view`, {
-					method: "POST",
-				});
-				if (response.ok) {
-					const data = await response.json();
-					if (data.viewCount) {
-						updateStats({ viewCount: data.viewCount });
-					}
-				}
-			} catch (error) {
-				// Fail silently - view tracking shouldn't affect user experience
-				console.warn("Failed to track view:", error);
-			}
-		};
-
-		trackView();
-	}, [slug, updateStats]);
+		trackViewMutation.mutate(slug);
+	}, [slug]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// This component doesn't render anything
 	return null;
