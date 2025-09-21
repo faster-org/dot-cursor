@@ -7,6 +7,11 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
+    "biome:check": "biome check .",
+    "biome:check:write": "biome check . --write",
+    "biome:format": "biome format . --write",
+    "biome:lint": "biome lint .",
+    "biome:lint:write": "biome lint . --write",
     "db:push": "prisma db push",
     "db:generate": "prisma generate",
     "db:seed": "tsx prisma/seed.ts",
@@ -49,6 +54,7 @@
     "zustand": "^5.0.8"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.2.4",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",

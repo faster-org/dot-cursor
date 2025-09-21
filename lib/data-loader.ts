@@ -2,28 +2,67 @@ import { Rule, Category, RuleWithStats, Collection } from '@/data/types';
 import { categories } from '@/data/categories';
 import { collections } from '@/data/collections';
 import { prisma } from '@/lib/prisma';
-
-// Import all rules statically
-import { rule as nextjsAppRouter } from '@/data/rules/nextjs-app-router';
-import { rule as tailwindCss } from '@/data/rules/tailwind-css';
-import { rule as pythonFastapi } from '@/data/rules/python-fastapi';
-import { rule as reactHooks } from '@/data/rules/react-hooks';
+import { readdir } from 'fs/promises';
+import { join } from 'path';
 
 // Cache for rules to avoid re-reading files
 let rulesCache: Rule[] | null = null;
 
-// Load all rules from the data/rules directory
+// Automatically discover and load all rules
 export async function loadRules(): Promise<Rule[]> {
 	if (rulesCache) return rulesCache;
 
-	// Statically import all rules
-	const rules: Rule[] = [
-		nextjsAppRouter,
-		tailwindCss,
-		pythonFastapi,
-		reactHooks,
-		// Add more rules here as they are created
-	];
+	const rules: Rule[] = [];
+
+	try {
+		// Get the rules directory path
+		const rulesDir = join(process.cwd(), 'data', 'rules');
+
+		// Read all files in the rules directory
+		const files = await readdir(rulesDir);
+
+		// Filter for TypeScript files (excluding index.ts and .d.ts)
+		const ruleFiles = files.filter(file =>
+			file.endsWith('.ts') &&
+			!file.endsWith('.d.ts') &&
+			file !== 'index.ts'
+		);
+
+		// Import each rule file dynamically
+		for (const file of ruleFiles) {
+			try {
+				const fileName = file.replace('.ts', '');
+				// Use dynamic import that works with Next.js
+				const ruleModule = await import(`../data/rules/${fileName}`);
+
+				if (ruleModule.rule && typeof ruleModule.rule === 'object') {
+					rules.push(ruleModule.rule as Rule);
+				} else {
+					console.warn(`Rule file ${file} does not export a valid 'rule' object`);
+				}
+			} catch (error) {
+				console.warn(`Failed to import rule from ${file}:`, error);
+			}
+		}
+	} catch (error) {
+		console.error('Error reading rules directory:', error);
+
+		// Fallback to known rules if filesystem access fails
+		const fallbackRules = await Promise.allSettled([
+			import('@/data/rules/nextjs-app-router').then(m => m.rule),
+			import('@/data/rules/tailwind-css').then(m => m.rule),
+			import('@/data/rules/python-fastapi').then(m => m.rule),
+			import('@/data/rules/react-hooks').then(m => m.rule),
+			import('@/data/rules/react-query').then(m => m.rule),
+		]);
+
+		rules.push(...fallbackRules
+			.filter((result): result is PromiseFulfilledResult<Rule> =>
+				result.status === 'fulfilled'
+			)
+			.map(result => result.value)
+		);
+	}
 
 	rulesCache = rules;
 	return rules;
