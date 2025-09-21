@@ -25,7 +25,7 @@ export function SearchHero({ onSearch }: SearchHeroProps) {
 	};
 
 	return (
-		<section className="w-full py-20 md:py-32">
+		<section className="w-full py-20 md:py-24">
 			<div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 				<Image
 					className="mx-auto mb-8"
@@ -33,6 +33,7 @@ export function SearchHero({ onSearch }: SearchHeroProps) {
 					alt="Cursor"
 					width={85}
 					height={85}
+					priority
 				/>
 				<h1 className="text-4xl font-medium tracking-tight">
 					Community AI Rules for Cursor IDE

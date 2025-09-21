@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { RuleCard } from "@/components/rule/rule-card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowRight, Loader2 } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 interface Rule {
 	id: string;
@@ -31,9 +31,6 @@ interface CategorizedRulesProps {
 	}>;
 	searchTerm?: string;
 	loading?: boolean;
-	hasMore?: boolean;
-	onLoadMore?: () => void;
-	loadingMore?: boolean;
 	isClientFiltering?: boolean;
 }
 
@@ -41,16 +38,13 @@ export function CategorizedRules({
 	categoriesWithRules,
 	searchTerm,
 	loading = false,
-	hasMore = false,
-	onLoadMore,
-	loadingMore = false,
 }: CategorizedRulesProps) {
 	// Categories are already filtered by the parent component
 	const displayCategories = categoriesWithRules;
 
 	if (loading && displayCategories.length === 0) {
 		return (
-			<section className="w-full py-16">
+			<section className="w-full pb-16">
 				<div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="space-y-16">
 						{[...Array(3)].map((_, i) => (
@@ -71,7 +65,7 @@ export function CategorizedRules({
 
 	if (!displayCategories.length && !loading) {
 		return (
-			<section className="w-full py-16">
+			<section className="w-full pb-16">
 				<div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="text-center py-12">
 						{searchTerm ? (
@@ -100,7 +94,7 @@ export function CategorizedRules({
 	}
 
 	return (
-		<section className="w-full py-16">
+		<section className="w-full pb-16">
 			<div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="space-y-16">
 					{displayCategories.map((category) => (
@@ -127,25 +121,6 @@ export function CategorizedRules({
 							</div>
 						</div>
 					))}
-
-					{/* Loading more indicator */}
-					{loadingMore && (
-						<div className="flex justify-center py-8">
-							<div className="text-sm font-medium flex items-center gap-2 text-foreground">
-								<Loader2 className="h-3.5 w-3.5 animate-spin" />
-								Loading more categories...
-							</div>
-						</div>
-					)}
-
-					{/* Manual load more button (fallback for users without scroll) */}
-					{hasMore && !loadingMore && !searchTerm && (
-						<div className="flex justify-center py-8">
-							<Button variant="outline" onClick={onLoadMore}>
-								Load More Categories
-							</Button>
-						</div>
-					)}
 				</div>
 			</div>
 		</section>

@@ -1,21 +1,42 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { getRuleBySlug } from '@/lib/data-loader'
+import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit'
+import { validateVote } from '@/lib/vote-protection'
 
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
+    // Check rate limit for voting
+    const rateLimit = await checkRateLimit(request, 'voting');
+    const errorResponse = rateLimitResponse(
+      rateLimit.success,
+      rateLimit.limit,
+      rateLimit.remaining,
+      rateLimit.reset
+    );
+    if (errorResponse) return errorResponse;
+
     const { slug } = await params
     const body = await request.json()
-    const { voteType, previousVote } = body
+    const { voteType } = body
 
     if (voteType !== null && voteType !== 'up' && voteType !== 'down') {
       return NextResponse.json(
         { error: 'Invalid vote type. Must be "up", "down", or null' },
         { status: 400 }
       )
+    }
+
+    // Validate vote and check patterns
+    const validation = validateVote(request, slug, voteType);
+    if (!validation.valid) {
+      return NextResponse.json(
+        { error: validation.error },
+        { status: 429 }
+      );
     }
 
     // Check if rule exists in our file system
@@ -48,7 +69,8 @@ export async function POST(
       });
     }
 
-    // Calculate vote changes based on previous vote
+    // Calculate vote changes based on tracked previous vote (from server memory)
+    const previousVote = validation.previousVote;
     let upvoteChange = 0
     let downvoteChange = 0
 
@@ -74,6 +96,15 @@ export async function POST(
       } else {
         downvoteChange = 1
       }
+    } else if (previousVote === voteType) {
+      // Removing same vote (toggle off)
+      if (voteType === 'up') {
+        upvoteChange = -1
+      } else {
+        downvoteChange = -1
+      }
+      // Actually set voteType to null for toggle
+      // This is handled by the client already, but just to be safe
     }
 
     // Update the vote count

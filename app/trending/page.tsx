@@ -5,10 +5,10 @@ import { Rule } from "@/data/types";
 async function getTrendingRules() {
 	// Get all rules from files without stats for fast SSR
 	const allRules = await loadRules();
-	const allCategories = getCategories();
+	const allCategories = await getCategories();
 
 	// Transform rules to match expected format for RuleCard
-	const transformedRules = allRules.map(rule => ({
+	const transformedRules = allRules.map((rule) => ({
 		...rule,
 		// Add default stats that will be loaded client-side
 		upvotes: 0,
@@ -17,15 +17,18 @@ async function getTrendingRules() {
 		copyCount: 0,
 		createdAt: rule.createdAt,
 		categories: rule.categories
-			.map(catSlug => allCategories.find(c => c.slug === catSlug))
+			.map((catSlug) => allCategories.find((c) => c.slug === catSlug))
 			.filter(Boolean)
-			.map(cat => ({ id: cat!.id, name: cat!.name, slug: cat!.slug }))
+			.map((cat) => ({ id: cat!.id, name: cat!.name, slug: cat!.slug })),
 	}));
 
 	// Sort by creation date since we don't have view counts at SSR time
 	// Most recent first for "trending"
 	return transformedRules
-		.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+		.sort(
+			(a, b) =>
+				new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+		)
 		.slice(0, 24);
 }
 
@@ -62,7 +65,7 @@ export default async function TrendingPage() {
 		<div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 			<div className="mb-8">
 				<div className="flex items-center gap-2 mb-2">
-					<h1 className="text-4xl font-medium tracking-tight">
+					<h1 className="text-3xl font-medium tracking-tight">
 						Trending Rules
 					</h1>
 				</div>

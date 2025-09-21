@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getCategoriesWithRules } from '@/lib/data-loader'
+import { getCategoriesWithRulesNoStats } from '@/lib/data-loader'
 
 export async function GET(request: NextRequest) {
   try {
@@ -7,8 +7,8 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get('page') || '1')
     const limit = parseInt(searchParams.get('limit') || '10')
 
-    // Get all categories with rules from files
-    const allCategoriesWithRules = await getCategoriesWithRules()
+    // Get all categories with rules from files (no stats for fast loading)
+    const allCategoriesWithRules = await getCategoriesWithRulesNoStats()
 
     // Paginate
     const skip = (page - 1) * limit

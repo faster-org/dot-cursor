@@ -18,6 +18,7 @@ export default async function RulePage({
 }: { params: Promise<{ slug: string }> }) {
 	const { slug } = await params;
 	const rule = await getRule(slug);
+	const allCategories = await getCategories();
 
 	if (!rule) {
 		notFound();
@@ -38,27 +39,24 @@ export default async function RulePage({
 					<div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
 						{rule.categories && rule.categories.length > 0 && (
 							<div className="flex gap-2">
-								{(() => {
-									const allCategories = getCategories();
-									return rule.categories
-										.map((catSlug: string) => {
-											const category = allCategories.find(
-												(c) => c.slug === catSlug,
-											);
-											if (!category) return null;
-											return (
-												<Link
-													key={category.slug}
-													href={`/rules?category=${category.slug}`}
-												>
-													<Badge variant="outline" className="text-sm">
-														{category.name}
-													</Badge>
-												</Link>
-											);
-										})
-										.filter(Boolean);
-								})()}
+								{rule.categories
+									.map((catSlug: string) => {
+										const category = allCategories.find(
+											(c) => c.slug === catSlug,
+										);
+										if (!category) return null;
+										return (
+											<Link
+												key={category.slug}
+												href={`/rules?category=${category.slug}`}
+											>
+												<Badge variant="outline" className="text-sm">
+													{category.name}
+												</Badge>
+											</Link>
+										);
+									})
+									.filter(Boolean)}
 							</div>
 						)}
 					</div>

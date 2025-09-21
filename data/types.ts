@@ -27,3 +27,15 @@ export interface RuleWithStats extends Rule {
 	viewCount: number;
 	copyCount: number;
 }
+
+export interface Collection {
+	id: string;
+	slug: string;
+	name: string;
+	description: string;
+	icon?: string;
+	color?: string;
+	rules: string[]; // Array of rule slugs
+	featured?: boolean;
+	createdAt: string;
+}

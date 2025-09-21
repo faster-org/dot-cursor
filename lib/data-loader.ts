@@ -1,5 +1,6 @@
-import { Rule, Category, RuleWithStats } from '@/data/types';
+import { Rule, Category, RuleWithStats, Collection } from '@/data/types';
 import { categories } from '@/data/categories';
+import { collections } from '@/data/collections';
 import { prisma } from '@/lib/prisma';
 
 // Import all rules statically
@@ -28,9 +29,18 @@ export async function loadRules(): Promise<Rule[]> {
 	return rules;
 }
 
-// Get all categories
-export function getCategories(): Category[] {
-	return categories;
+// Get all categories that actually have rules
+export async function getCategories(): Promise<Category[]> {
+	const allRules = await loadRules();
+
+	// Get unique category slugs from rules
+	const usedCategorySlugs = new Set<string>();
+	allRules.forEach(rule => {
+		rule.categories.forEach(catSlug => usedCategorySlugs.add(catSlug));
+	});
+
+	// Return only categories that have at least one rule
+	return categories.filter(category => usedCategorySlugs.has(category.slug));
 }
 
 // Get rules with stats from Supabase (votes, views, copies)
@@ -140,7 +150,7 @@ export async function getRulesByCategory(categorySlug: string): Promise<RuleWith
 
 // Get categories with rules
 export async function getCategoriesWithRules(): Promise<(Category & { rules: RuleWithStats[] })[]> {
-	const allCategories = getCategories();
+	const allCategories = await getCategories();
 	const allRules = await getRulesWithStats();
 
 	return allCategories.map(category => ({
@@ -151,7 +161,7 @@ export async function getCategoriesWithRules(): Promise<(Category & { rules: Rul
 
 // Get categories with rules (without stats - for fast SSR)
 export async function getCategoriesWithRulesNoStats(): Promise<(Category & { rules: (Rule & { upvotes: number; downvotes: number; viewCount: number; copyCount: number })[] })[]> {
-	const allCategories = getCategories();
+	const allCategories = await getCategories();
 	const allRules = await loadRules();
 
 	// Add default stats to rules
@@ -167,6 +177,49 @@ export async function getCategoriesWithRulesNoStats(): Promise<(Category & { rul
 		...category,
 		rules: rulesWithDefaultStats.filter(rule => rule.categories.includes(category.slug))
 	})).filter(category => category.rules.length > 0); // Only return categories with rules
+}
+
+// Get all collections
+export function getCollections(): Collection[] {
+	return collections;
+}
+
+// Get featured collections
+export function getFeaturedCollections(): Collection[] {
+	return collections.filter(c => c.featured);
+}
+
+// Get collection by slug with its rules
+export async function getCollectionBySlug(slug: string): Promise<(Collection & { ruleDetails: Rule[] }) | null> {
+	const collection = collections.find(c => c.slug === slug);
+	if (!collection) return null;
+
+	const allRules = await loadRules();
+	const ruleDetails = collection.rules
+		.map(ruleSlug => allRules.find(r => r.slug === ruleSlug))
+		.filter(Boolean) as Rule[];
+
+	return {
+		...collection,
+		ruleDetails
+	};
+}
+
+// Get collections with rule details for homepage
+export async function getCollectionsWithRules(): Promise<(Collection & { ruleDetails: Rule[]; ruleCount: number })[]> {
+	const allRules = await loadRules();
+
+	return collections.map(collection => {
+		const ruleDetails = collection.rules
+			.map(ruleSlug => allRules.find(r => r.slug === ruleSlug))
+			.filter(Boolean) as Rule[];
+
+		return {
+			...collection,
+			ruleDetails,
+			ruleCount: ruleDetails.length
+		};
+	});
 }
 
 // Search rules (client-side only now)

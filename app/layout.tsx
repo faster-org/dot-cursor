@@ -27,6 +27,11 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
+			<head>
+				{/* Preload cursor icons for instant display */}
+				<link rel="preload" href="/cursor-dark.png" as="image" type="image/png" />
+				<link rel="preload" href="/cursor.svg" as="image" type="image/svg+xml" />
+			</head>
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>

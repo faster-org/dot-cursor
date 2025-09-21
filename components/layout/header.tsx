@@ -25,6 +25,7 @@ export function Header() {
 							width={24}
 							height={24}
 							className="h-5 w-5"
+							priority
 						/>
 						<span className="hidden text-base font-mono font-semibold sm:inline-block">
 							.cursor
@@ -87,6 +88,17 @@ export function Header() {
 				</Sheet>
 
 				<div className="flex flex-1 flex-row gap-5 items-center justify-end">
+					<Link
+						href="/collections"
+						className={cn(
+							"font-medium text-sm transition-colors",
+							pathname === "/collections"
+								? "text-foreground"
+								: "text-muted-foreground",
+						)}
+					>
+						Collections
+					</Link>
 					<Link
 						href="/rules"
 						className={cn(

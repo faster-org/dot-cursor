@@ -72,7 +72,43 @@ export function RuleCard({ rule }: RuleCardProps) {
 
 	const handleCopy = async () => {
 		try {
-			await navigator.clipboard.writeText(rule.content);
+			// Create the same formatted content as download
+			let frontmatter = "";
+
+			switch (rule.applicationMode) {
+				case "always":
+					// Always Apply - no description field
+					frontmatter = `---
+alwaysApply: true
+---`;
+					break;
+				case "intelligent":
+					// Apply Intelligently - description decides when to apply
+					frontmatter = `---
+description: ${rule.description}
+alwaysApply: false
+---`;
+					break;
+				case "files":
+					// Apply to Specific Files - globs field for file patterns
+					frontmatter = `---
+globs: ${rule.globs || "*.ts,*.tsx"}
+alwaysApply: false
+---`;
+					break;
+				case "manual":
+				default:
+					// Apply Manually - just alwaysApply: false
+					frontmatter = `---
+alwaysApply: false
+---`;
+					break;
+			}
+
+			const mdcContent = `${frontmatter}
+${rule.content}`;
+
+			await navigator.clipboard.writeText(mdcContent);
 			toast.success("Rule copied to clipboard!");
 			// Increment copy count via API
 			fetch(`/api/rules/${rule.slug}/copy`, { method: "POST" });
@@ -84,30 +120,30 @@ export function RuleCard({ rule }: RuleCardProps) {
 	const handleDownload = () => {
 		try {
 			// Create the .mdc file content with frontmatter based on application mode
-			let frontmatter = '';
+			let frontmatter = "";
 
 			switch (rule.applicationMode) {
-				case 'always':
+				case "always":
 					// Always Apply - no description field
 					frontmatter = `---
 alwaysApply: true
 ---`;
 					break;
-				case 'intelligent':
+				case "intelligent":
 					// Apply Intelligently - description decides when to apply
 					frontmatter = `---
 description: ${rule.description}
 alwaysApply: false
 ---`;
 					break;
-				case 'files':
+				case "files":
 					// Apply to Specific Files - globs field for file patterns
 					frontmatter = `---
-globs: ${rule.globs || '*.ts,*.tsx'}
+globs: ${rule.globs || "*.ts,*.tsx"}
 alwaysApply: false
 ---`;
 					break;
-				case 'manual':
+				case "manual":
 				default:
 					// Apply Manually - just alwaysApply: false
 					frontmatter = `---
@@ -215,7 +251,7 @@ ${rule.content}`;
 						<CardTitle className="-mt-0.5 leading-6 line-clamp-1">
 							{rule.title}
 						</CardTitle>
-						<CardDescription className="line-clamp-4">
+						<CardDescription className="line-clamp-4 font-mono text-xs leading-4.5">
 							{rule.content}
 						</CardDescription>
 					</div>
@@ -233,7 +269,7 @@ ${rule.content}`;
 			<div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-200 flex items-end justify-between p-5">
 				<div className="flex items-center gap-1.5">
 					<Link href={`/rules/${rule.slug}`}>
-						<Button variant="default" size="sm">
+						<Button variant="outline" size="sm">
 							View
 						</Button>
 					</Link>
@@ -267,11 +303,17 @@ ${rule.content}`;
 					<Button
 						variant="outline"
 						size="sm"
-						disabled={isVoting || isLoadingStats || optimisticUserVote === "down"}
+						disabled={
+							isVoting || isLoadingStats || optimisticUserVote === "down"
+						}
 						onClick={() => handleVote("down")}
 					>
 						<ArrowDown className="!size-3.5" />
-						{isLoadingStats ? <Skeleton className="h-4 w-3" /> : currentDownvotes}
+						{isLoadingStats ? (
+							<Skeleton className="h-4 w-3" />
+						) : (
+							currentDownvotes
+						)}
 					</Button>
 				</div>
 			</div>

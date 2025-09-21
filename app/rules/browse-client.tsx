@@ -12,7 +12,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { Search, Filter } from "lucide-react";
+import { Search, Filter, ChevronDown } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 interface Rule {
@@ -50,21 +50,63 @@ interface BrowseClientProps {
 export function BrowseClient({
 	initialRules,
 	categories,
+	initialSearchParams,
 }: BrowseClientProps) {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 
-	// Get current values from URL params
-	const currentSearch = searchParams.get("search") || "";
-	const currentCategory = searchParams.get("category") || "all";
-	const currentSort = searchParams.get("sortBy") || "createdAt";
+	// Get initial values from passed props (for SSR) or URL params (for client navigation)
+	const currentSearch = initialSearchParams?.search || searchParams.get("search") || "";
+	const currentCategory = initialSearchParams?.category || searchParams.get("category") || "all";
+	const currentSort = initialSearchParams?.sortBy || searchParams.get("sortBy") || "createdAt";
 
 	const [search, setSearch] = useState(currentSearch);
 	const [selectedCategory, setSelectedCategory] = useState(currentCategory);
 	const [sortBy, setSortBy] = useState(currentSort);
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-	const [filteredRules, setFilteredRules] = useState<Rule[]>([]);
-	const [displayedRules, setDisplayedRules] = useState<Rule[]>([]);
+	const [mounted, setMounted] = useState(false);
+
+	// Ensure component is mounted before rendering Select to avoid hydration issues
+	useEffect(() => {
+		setMounted(true);
+	}, []);
+
+	// Initialize filtered rules immediately
+	const getInitialFilteredRules = () => {
+		let filtered = [...initialRules];
+
+		// Filter by category
+		if (currentCategory && currentCategory !== "all") {
+			filtered = filtered.filter(rule =>
+				rule.categories.some(cat => cat.slug === currentCategory)
+			);
+		}
+
+		// Filter by search term
+		if (currentSearch.trim()) {
+			const lowercaseSearch = currentSearch.toLowerCase();
+			filtered = filtered.filter(rule =>
+				rule.title.toLowerCase().includes(lowercaseSearch) ||
+				rule.description.toLowerCase().includes(lowercaseSearch) ||
+				rule.content.toLowerCase().includes(lowercaseSearch)
+			);
+		}
+
+		// Sort rules
+		if (currentSort === "popular") {
+			filtered.sort((a, b) => b.copyCount - a.copyCount);
+		} else if (currentSort === "votes") {
+			filtered.sort((a, b) => b.upvotes - a.upvotes);
+		} else {
+			// Sort by creation date (newest first)
+			filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+		}
+
+		return filtered;
+	};
+
+	const [filteredRules, setFilteredRules] = useState<Rule[]>(() => getInitialFilteredRules());
+	const [displayedRules, setDisplayedRules] = useState<Rule[]>(() => getInitialFilteredRules().slice(0, 12));
 	const [displayCount, setDisplayCount] = useState(12); // Start with 12 rules
 
 	// Update URL when filters change (remove page param)
@@ -85,16 +127,6 @@ export function BrowseClient({
 		router.push(`/rules?${newSearchParams.toString()}`);
 	};
 
-	// Sync state with URL changes
-	useEffect(() => {
-		const urlSearch = searchParams.get("search") || "";
-		const urlCategory = searchParams.get("category") || "all";
-		const urlSort = searchParams.get("sortBy") || "createdAt";
-
-		setSearch(urlSearch);
-		setSelectedCategory(urlCategory);
-		setSortBy(urlSort);
-	}, [searchParams]);
 
 	// Client-side filtering and sorting - instant updates
 	useEffect(() => {
@@ -247,16 +279,23 @@ export function BrowseClient({
 						</div>
 
 						{/* Sort Dropdown */}
-						<Select value={sortBy} onValueChange={handleSortChange}>
-							<SelectTrigger className="w-40">
-								<SelectValue />
-							</SelectTrigger>
-							<SelectContent>
-								<SelectItem value="createdAt">Latest</SelectItem>
-								<SelectItem value="popular">Popular</SelectItem>
-								<SelectItem value="votes">Most Voted</SelectItem>
-							</SelectContent>
-						</Select>
+						{mounted ? (
+							<Select value={sortBy || "createdAt"} onValueChange={handleSortChange}>
+								<SelectTrigger className="w-40">
+									<SelectValue />
+								</SelectTrigger>
+								<SelectContent>
+									<SelectItem value="createdAt">Latest</SelectItem>
+									<SelectItem value="popular">Popular</SelectItem>
+									<SelectItem value="votes">Most Voted</SelectItem>
+								</SelectContent>
+							</Select>
+						) : (
+							<div className="w-40 h-9 rounded-md border border-input bg-transparent px-3 py-2 text-sm flex items-center justify-between">
+								<span>{sortBy === "popular" ? "Popular" : sortBy === "votes" ? "Most Voted" : "Latest"}</span>
+								<ChevronDown className="h-4 w-4 opacity-50" />
+							</div>
+						)}
 					</div>
 				</div>
 

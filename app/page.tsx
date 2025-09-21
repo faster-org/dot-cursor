@@ -1,15 +1,12 @@
 import { HomeClient } from '@/components/home/home-client'
-import { getCategoriesWithRulesNoStats } from '@/lib/data-loader'
+import { getCategoriesWithRulesNoStats, getFeaturedCollections } from '@/lib/data-loader'
 
-async function getInitialCategoriesWithRules() {
+async function getAllCategoriesWithRules() {
   try {
     const categoriesWithRules = await getCategoriesWithRulesNoStats()
 
-    // Take first 5 categories for initial load
-    const paginatedCategories = categoriesWithRules.slice(0, 5)
-
-    // Transform to match the existing format
-    const transformedCategories = paginatedCategories.map(category => ({
+    // Transform ALL categories to match the existing format
+    const transformedCategories = categoriesWithRules.map(category => ({
       id: category.id,
       name: category.name,
       slug: category.slug,
@@ -26,24 +23,28 @@ async function getInitialCategoriesWithRules() {
       }
     }))
 
-    return {
-      categories: transformedCategories,
-      pagination: {
-        page: 1,
-        limit: 5,
-        total: categoriesWithRules.length,
-        totalPages: Math.ceil(categoriesWithRules.length / 5),
-        hasMore: categoriesWithRules.length > 5
-      }
-    }
+    return transformedCategories
   } catch (error) {
     console.error('Error fetching categories:', error)
-    throw new Error('Failed to fetch initial categories')
+    throw new Error('Failed to fetch categories')
   }
 }
 
-export default async function HomePage() {
-	const initialData = await getInitialCategoriesWithRules()
+async function getCollectionsData() {
+	const collections = getFeaturedCollections();
+	// Add rule count to collections
+	const collectionsWithCount = collections.map(collection => ({
+		...collection,
+		ruleCount: collection.rules.length
+	}));
+	return collectionsWithCount;
+}
 
-	return <HomeClient initialData={initialData} />
+export default async function HomePage() {
+	const [allCategories, collections] = await Promise.all([
+		getAllCategoriesWithRules(),
+		getCollectionsData()
+	]);
+
+	return <HomeClient allCategories={allCategories} collections={collections} />;
 }

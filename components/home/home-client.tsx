@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { SearchHero } from "./search-hero";
 import { CategorizedRules } from "./categorized-rules";
+import { CollectionsSection } from "./collections-section";
+import { Collection } from "@/data/types";
 
 interface Rule {
 	id: string;
@@ -15,10 +17,10 @@ interface Rule {
 	upvotes: number;
 	downvotes: number;
 	createdAt: string;
-	category?: {
+	categories: {
 		name: string;
 		slug: string;
-	};
+	}[];
 }
 
 interface Category {
@@ -27,56 +29,26 @@ interface Category {
 	slug: string;
 	description?: string;
 	rules: Rule[];
-}
-
-interface HomeClientProps {
-	initialData: {
-		categories: Category[];
-		pagination: {
-			page: number;
-			limit: number;
-			total: number;
-			totalPages: number;
-			hasMore: boolean;
-		};
+	_count: {
+		rules: number;
 	};
 }
 
-export function HomeClient({ initialData }: HomeClientProps) {
+interface HomeClientProps {
+	allCategories: Category[];
+	collections: (Collection & { ruleCount: number })[];
+}
+
+export function HomeClient({ allCategories, collections }: HomeClientProps) {
 	const [searchTerm, setSearchTerm] = useState("");
-	const [categories, setCategories] = useState<Category[]>(initialData.categories);
-	const [allLoadedCategories, setAllLoadedCategories] = useState<Category[]>(initialData.categories);
-	const [pagination, setPagination] = useState(initialData.pagination);
-	const [loading, setLoading] = useState(false);
+	// Initialize states with data immediately to avoid flash
+	const [displayedCategories, setDisplayedCategories] = useState<Category[]>(() =>
+		allCategories.slice(0, 5)
+	);
+	const [filteredCategories, setFilteredCategories] = useState<Category[]>(allCategories);
+	const [displayCount, setDisplayCount] = useState(5);
 	const [isClientFiltering, setIsClientFiltering] = useState(false);
-
-	const loadMoreCategories = useCallback(async () => {
-		if (loading || !pagination.hasMore || searchTerm) return;
-
-		setLoading(true);
-		try {
-			const response = await fetch(`/api/categories?page=${pagination.page + 1}&limit=5`);
-			if (!response.ok) {
-				throw new Error(`HTTP error! status: ${response.status}`);
-			}
-			const data = await response.json();
-
-			// Deduplicate categories by ID to prevent React key conflicts
-			const updatedCategories = (() => {
-				const existingIds = new Set(categories.map(cat => cat.id));
-				const newCategories = data.categories.filter((cat: Category) => !existingIds.has(cat.id));
-				return [...categories, ...newCategories];
-			})();
-
-			setCategories(updatedCategories);
-			setAllLoadedCategories(updatedCategories);
-			setPagination(data.pagination);
-		} catch (error) {
-			console.error('Failed to load more categories:', error);
-		} finally {
-			setLoading(false);
-		}
-	}, [loading, pagination.hasMore, pagination.page, searchTerm, categories]);
+	const [isLoadingMore, setIsLoadingMore] = useState(false);
 
 	// Client-side filtering for instant feedback
 	const filterCategoriesLocally = useCallback((term: string, categoriesToFilter: Category[]) => {
@@ -101,68 +73,76 @@ export function HomeClient({ initialData }: HomeClientProps) {
 	useEffect(() => {
 		if (searchTerm.trim()) {
 			setIsClientFiltering(true);
-			const filtered = filterCategoriesLocally(searchTerm, allLoadedCategories);
-			setCategories(filtered);
+			const filtered = filterCategoriesLocally(searchTerm, allCategories);
+			setFilteredCategories(filtered);
+			setDisplayedCategories(filtered);
 		} else {
 			setIsClientFiltering(false);
-			// When search is cleared, restore all loaded categories
-			setCategories(allLoadedCategories);
+			setFilteredCategories(allCategories);
+			// Show current display count when clearing search
+			const displayed = allCategories.slice(0, displayCount);
+			setDisplayedCategories(displayed);
 		}
-	}, [searchTerm, allLoadedCategories, filterCategoriesLocally]);
+	}, [searchTerm, allCategories, filterCategoriesLocally, displayCount]);
 
-	// Scroll listener for infinite scroll - predictive loading with throttling
+	// Calculate if there are more categories to load
+	const hasMore = !searchTerm && displayedCategories.length < filteredCategories.length;
+
+	// Load more categories (client-side)
+	const loadMoreCategories = useCallback(() => {
+		if (searchTerm || isLoadingMore) return; // Don't load more during search or if already loading
+
+		setIsLoadingMore(true);
+
+		// Simulate a slight delay for better UX
+		setTimeout(() => {
+			const newDisplayCount = displayCount + 5;
+			const newDisplayed = filteredCategories.slice(0, newDisplayCount);
+			setDisplayedCategories(newDisplayed);
+			setDisplayCount(newDisplayCount);
+			setIsLoadingMore(false);
+		}, 100); // Reduced delay for faster loading
+	}, [displayCount, filteredCategories, searchTerm, isLoadingMore]);
+
+	// Intersection observer for infinite scroll
+	const observerRef = useRef<HTMLDivElement>(null);
+
 	useEffect(() => {
-		let lastScrollTime = 0;
-		let hasTriggeredForCurrentPage = false;
-
-		const handleScroll = () => {
-			const now = Date.now();
-			// Throttle scroll events to every 100ms
-			if (now - lastScrollTime < 100) return;
-			lastScrollTime = now;
-
-			if (searchTerm || loading || !pagination.hasMore) {
-				return;
+		const observer = new IntersectionObserver(
+			(entries) => {
+				if (entries[0].isIntersecting && hasMore && !isLoadingMore) {
+					loadMoreCategories();
+				}
+			},
+			{
+				threshold: 0,
+				rootMargin: '400px' // Trigger 400px before the element is visible
 			}
+		);
 
-			const scrollTop = document.documentElement.scrollTop;
-			const scrollHeight = document.documentElement.scrollHeight;
-			const clientHeight = document.documentElement.clientHeight;
+		const currentObserverRef = observerRef.current;
+		if (currentObserverRef) {
+			observer.observe(currentObserverRef);
+		}
 
-			// Calculate scroll percentage (0 to 1)
-			const scrollPercentage = scrollTop / (scrollHeight - clientHeight);
-
-			// Trigger when user has scrolled 60% of the way down
-			// Only trigger once per page to prevent multiple requests
-			if (scrollPercentage >= 0.6 && !hasTriggeredForCurrentPage) {
-				hasTriggeredForCurrentPage = true;
-				loadMoreCategories();
+		return () => {
+			if (currentObserverRef) {
+				observer.unobserve(currentObserverRef);
 			}
 		};
-
-		// Reset trigger flag when pagination changes (new page loaded)
-		hasTriggeredForCurrentPage = false;
-
-		window.addEventListener('scroll', handleScroll, { passive: true });
-		return () => window.removeEventListener('scroll', handleScroll);
-	}, [searchTerm, loading, pagination.hasMore, pagination.page, loadMoreCategories]);
-
-	const handleSearch = (term: string) => {
-		setSearchTerm(term);
-	};
+	}, [hasMore, isLoadingMore, loadMoreCategories]);
 
 	return (
-		<div className="w-full">
-			<SearchHero onSearch={handleSearch} />
+		<div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+			<SearchHero onSearch={setSearchTerm} />
+			<CollectionsSection collections={collections} />
 			<CategorizedRules
-				categoriesWithRules={categories}
-				searchTerm={searchTerm}
-				loading={loading && !searchTerm}
-				hasMore={pagination.hasMore && !searchTerm}
-				onLoadMore={loadMoreCategories}
-				loadingMore={loading}
+				categoriesWithRules={displayedCategories}
+				loading={false}
 				isClientFiltering={isClientFiltering}
 			/>
+			{/* Intersection observer target for infinite scroll */}
+			{hasMore && <div ref={observerRef} className="h-10" />}
 		</div>
 	);
 }
