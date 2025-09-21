@@ -225,7 +225,7 @@ export function getCollections(): Collection[] {
 
 // Get featured collections
 export function getFeaturedCollections(): Collection[] {
-	return collections.filter(c => c.featured);
+	return collections.filter(c => c.featured).slice(0, 4);
 }
 
 // Get collection by slug with its rules

@@ -3,7 +3,7 @@
 import { Collection } from "@/data/types";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { CollectionCard } from "@/components/collection/collection-card";
+import { CollectionPill } from "@/components/collection/collection-pill";
 
 interface CollectionsSectionProps {
 	collections: (Collection & { ruleCount: number })[];
@@ -31,9 +31,9 @@ export function CollectionsSection({ collections }: CollectionsSectionProps) {
 					</Link>
 				</div>
 
-				<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+				<div className="flex flex-wrap gap-3">
 					{collections.map((collection) => (
-						<CollectionCard key={collection.id} collection={collection} />
+						<CollectionPill key={collection.id} collection={collection} />
 					))}
 				</div>
 			</div>

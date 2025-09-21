@@ -31,7 +31,7 @@ export const collections: Collection[] = [
 		icon: 'react',
 		color: 'cyan',
 		rules: ['react-hooks'],
-		featured: false,
+		featured: true,
 		createdAt: '2024-01-03'
 	},
 	{
