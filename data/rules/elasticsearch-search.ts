@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'elasticsearch-search',
-	slug: 'elasticsearch-search',
-	title: 'Elasticsearch Search Engine',
-	description: 'Implement powerful search functionality with Elasticsearch and the ELK stack',
+	id: "elasticsearch-search",
+	slug: "elasticsearch-search",
+	title: "Elasticsearch Search Engine",
+	description: "Implement powerful search functionality with Elasticsearch and the ELK stack",
 	content: `You are an expert in Elasticsearch implementation for search, analytics, and the ELK stack.
 
 Elasticsearch Fundamentals:
@@ -104,10 +104,10 @@ Development Best Practices:
 - Query optimization techniques
 - Testing strategies
 - Documentation and monitoring`,
-	categories: ['elasticsearch', 'search', 'analytics', 'elk-stack'],
-	tags: ['elasticsearch', 'search-engine', 'full-text-search', 'elk-stack', 'analytics'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.json,*.yml,*.yaml,elasticsearch.yml,logstash.conf'
+	categories: ["elasticsearch", "search", "analytics", "elk-stack"],
+	tags: ["elasticsearch", "search-engine", "full-text-search", "elk-stack", "analytics"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.json,*.yml,*.yaml,elasticsearch.yml,logstash.conf",
 };

@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'svelte-sveltekit',
-	slug: 'svelte-sveltekit',
-	title: 'Svelte & SvelteKit Development',
-	description: 'Build fast, reactive web applications with Svelte and full-stack SvelteKit',
+	id: "svelte-sveltekit",
+	slug: "svelte-sveltekit",
+	title: "Svelte & SvelteKit Development",
+	description: "Build fast, reactive web applications with Svelte and full-stack SvelteKit",
 	content: `You are an expert in Svelte and SvelteKit development for modern web applications.
 
 Svelte Core Concepts:
@@ -90,10 +90,10 @@ TypeScript Integration:
 - Component prop types
 - API route typing
 - Generic components`,
-	categories: ['svelte', 'sveltekit', 'frontend', 'fullstack'],
-	tags: ['svelte', 'sveltekit', 'reactive', 'ssr', 'file-routing'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.svelte,*.ts,*.js,svelte.config.js,vite.config.js'
+	categories: ["svelte", "sveltekit", "frontend", "fullstack"],
+	tags: ["svelte", "sveltekit", "reactive", "ssr", "file-routing"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.svelte,*.ts,*.js,svelte.config.js,vite.config.js",
 };

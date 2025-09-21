@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'cpp-modern',
-	slug: 'cpp-modern',
-	title: 'Modern C++ Development',
-	description: 'Build high-performance applications with modern C++ features and best practices',
+	id: "cpp-modern",
+	slug: "cpp-modern",
+	title: "Modern C++ Development",
+	description: "Build high-performance applications with modern C++ features and best practices",
 	content: `You are an expert in modern C++ development using C++14, C++17, C++20, and C++23 features.
 
 Modern C++ Features:
@@ -104,10 +104,10 @@ Testing and Debugging:
 - Debugging techniques
 - Profiling and performance analysis
 - Static analysis tools`,
-	categories: ['cpp', 'modern-cpp', 'systems', 'performance'],
-	tags: ['cpp', 'modern-cpp', 'templates', 'smart-pointers', 'concurrency'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.cpp,*.hpp,*.cc,*.h,CMakeLists.txt,*.cmake'
+	categories: ["cpp", "modern-cpp", "systems", "performance"],
+	tags: ["cpp", "modern-cpp", "templates", "smart-pointers", "concurrency"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.cpp,*.hpp,*.cc,*.h,CMakeLists.txt,*.cmake",
 };

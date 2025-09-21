@@ -1,10 +1,11 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'ruby-rails',
-	slug: 'ruby-rails',
-	title: 'Ruby on Rails Development',
-	description: 'Build web applications with Ruby on Rails framework following convention over configuration',
+	id: "ruby-rails",
+	slug: "ruby-rails",
+	title: "Ruby on Rails Development",
+	description:
+		"Build web applications with Ruby on Rails framework following convention over configuration",
 	content: `You are an expert in Ruby on Rails development and the Ruby programming language.
 
 Rails Fundamentals:
@@ -97,10 +98,10 @@ Modern Rails Features:
 - Action Mailbox for incoming email
 - Stimulus for JavaScript behavior
 - Turbo for SPA-like experience`,
-	categories: ['ruby', 'rails', 'backend', 'web'],
-	tags: ['ruby', 'rails', 'active-record', 'mvc', 'restful'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.rb,Gemfile,config.ru,Rakefile'
+	categories: ["ruby", "rails", "backend", "web"],
+	tags: ["ruby", "rails", "active-record", "mvc", "restful"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.rb,Gemfile,config.ru,Rakefile",
 };

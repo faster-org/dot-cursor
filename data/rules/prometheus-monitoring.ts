@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'prometheus-monitoring',
-	slug: 'prometheus-monitoring',
-	title: 'Prometheus Monitoring & Alerting',
-	description: 'Implement comprehensive monitoring and alerting with Prometheus and Grafana',
+	id: "prometheus-monitoring",
+	slug: "prometheus-monitoring",
+	title: "Prometheus Monitoring & Alerting",
+	description: "Implement comprehensive monitoring and alerting with Prometheus and Grafana",
 	content: `You are an expert in Prometheus monitoring, metrics collection, and alerting for modern applications.
 
 Prometheus Fundamentals:
@@ -118,10 +118,10 @@ Scaling Considerations:
 - Resource allocation planning
 - Cost optimization
 - Multi-tenant considerations`,
-	categories: ['prometheus', 'monitoring', 'observability', 'devops'],
-	tags: ['prometheus', 'monitoring', 'metrics', 'alerting', 'grafana'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: 'prometheus.yml,*.yml,*.yaml,alert.rules,*.go,*.py,*.java'
+	categories: ["prometheus", "monitoring", "observability", "devops"],
+	tags: ["prometheus", "monitoring", "metrics", "alerting", "grafana"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "prometheus.yml,*.yml,*.yaml,alert.rules,*.go,*.py,*.java",
 };

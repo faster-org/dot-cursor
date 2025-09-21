@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'python-data-science',
-	slug: 'python-data-science',
-	title: 'Python Data Science Stack',
-	description: 'Comprehensive data analysis and visualization with pandas, numpy, and matplotlib',
+	id: "python-data-science",
+	slug: "python-data-science",
+	title: "Python Data Science Stack",
+	description: "Comprehensive data analysis and visualization with pandas, numpy, and matplotlib",
 	content: `You are an expert in Python data science using pandas, numpy, matplotlib, and the scientific Python ecosystem.
 
 NumPy Fundamentals:
@@ -104,10 +104,10 @@ Deployment & Production:
 - Cloud deployment strategies
 - Monitoring data pipelines
 - A/B testing frameworks`,
-	categories: ['python', 'data-science', 'pandas', 'analytics'],
-	tags: ['pandas', 'numpy', 'data-analysis', 'visualization', 'statistics'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.py,*.ipynb,*.csv,*.json,requirements.txt'
+	categories: ["python", "data-science", "pandas", "analytics"],
+	tags: ["pandas", "numpy", "data-analysis", "visualization", "statistics"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.py,*.ipynb,*.csv,*.json,requirements.txt",
 };

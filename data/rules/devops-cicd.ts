@@ -1,10 +1,11 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'devops-cicd',
-	slug: 'devops-cicd',
-	title: 'DevOps CI/CD Pipelines',
-	description: 'Implement continuous integration and deployment pipelines for automated software delivery',
+	id: "devops-cicd",
+	slug: "devops-cicd",
+	title: "DevOps CI/CD Pipelines",
+	description:
+		"Implement continuous integration and deployment pipelines for automated software delivery",
 	content: `You are an expert in DevOps practices, CI/CD pipeline design, and automation for software delivery.
 
 CI/CD Fundamentals:
@@ -111,10 +112,10 @@ Troubleshooting:
 - Failure investigation procedures
 - Performance bottleneck identification
 - Recovery and restoration processes`,
-	categories: ['devops', 'cicd', 'automation', 'deployment'],
-	tags: ['devops', 'ci-cd', 'automation', 'deployment', 'pipelines'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '.github/workflows/*.yml,*.jenkinsfile,azure-pipelines.yml,.gitlab-ci.yml'
+	categories: ["devops", "cicd", "automation", "deployment"],
+	tags: ["devops", "ci-cd", "automation", "deployment", "pipelines"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: ".github/workflows/*.yml,*.jenkinsfile,azure-pipelines.yml,.gitlab-ci.yml",
 };

@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'graphql-apollo',
-	slug: 'graphql-apollo',
-	title: 'GraphQL with Apollo',
-	description: 'Build flexible APIs with GraphQL and Apollo Server/Client ecosystem',
+	id: "graphql-apollo",
+	slug: "graphql-apollo",
+	title: "GraphQL with Apollo",
+	description: "Build flexible APIs with GraphQL and Apollo Server/Client ecosystem",
 	content: `You are an expert in GraphQL development using Apollo Server and Apollo Client.
 
 GraphQL Fundamentals:
@@ -97,10 +97,10 @@ Development Tools:
 - Schema registry and versioning
 - Performance monitoring
 - Error tracking and analytics`,
-	categories: ['graphql', 'apollo', 'api', 'backend'],
-	tags: ['graphql', 'apollo', 'api-design', 'real-time', 'schema'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.graphql,*.gql,*.ts,*.js,schema.graphql'
+	categories: ["graphql", "apollo", "api", "backend"],
+	tags: ["graphql", "apollo", "api-design", "real-time", "schema"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.graphql,*.gql,*.ts,*.js,schema.graphql",
 };

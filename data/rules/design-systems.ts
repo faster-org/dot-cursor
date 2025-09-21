@@ -1,10 +1,11 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'design-systems',
-	slug: 'design-systems',
-	title: 'Design Systems & Component Libraries',
-	description: 'Build scalable design systems and component libraries for consistent user experiences',
+	id: "design-systems",
+	slug: "design-systems",
+	title: "Design Systems & Component Libraries",
+	description:
+		"Build scalable design systems and component libraries for consistent user experiences",
 	content: `You are an expert in design systems, component libraries, and design-development collaboration.
 
 Design System Fundamentals:
@@ -111,10 +112,10 @@ Team Collaboration:
 - Component proposal processes
 - Design system team structure
 - Stakeholder communication strategies`,
-	categories: ['design-systems', 'ui-ux', 'components', 'accessibility'],
-	tags: ['design-systems', 'component-library', 'design-tokens', 'storybook', 'accessibility'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.stories.js,*.stories.ts,design-tokens.json,*.css,*.scss'
+	categories: ["design-systems", "ui-ux", "components", "accessibility"],
+	tags: ["design-systems", "component-library", "design-tokens", "storybook", "accessibility"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.stories.js,*.stories.ts,design-tokens.json,*.css,*.scss",
 };

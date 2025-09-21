@@ -43,7 +43,7 @@ export function HomeClient({ allCategories, collections }: HomeClientProps) {
 	const [searchTerm, setSearchTerm] = useState("");
 	// Initialize states with data immediately to avoid flash
 	const [displayedCategories, setDisplayedCategories] = useState<Category[]>(() =>
-		allCategories.slice(0, 5)
+		allCategories.slice(0, 5),
 	);
 	const [filteredCategories, setFilteredCategories] = useState<Category[]>(allCategories);
 	const [filteredCollections, setFilteredCollections] = useState(collections);
@@ -61,27 +61,32 @@ export function HomeClient({ allCategories, collections }: HomeClientProps) {
 		return categoriesToFilter
 			.map((category) => ({
 				...category,
-				rules: category.rules.filter((rule) =>
-					rule.title.toLowerCase().includes(lowercaseSearch) ||
-					rule.description.toLowerCase().includes(lowercaseSearch) ||
-					rule.content.toLowerCase().includes(lowercaseSearch)
+				rules: category.rules.filter(
+					(rule) =>
+						rule.title.toLowerCase().includes(lowercaseSearch) ||
+						rule.description.toLowerCase().includes(lowercaseSearch) ||
+						rule.content.toLowerCase().includes(lowercaseSearch),
 				),
 			}))
 			.filter((category) => category.rules.length > 0);
 	}, []);
 
 	// Client-side filtering for collections
-	const filterCollectionsLocally = useCallback((term: string, collectionsToFilter: (Collection & { ruleCount: number })[]) => {
-		if (!term.trim()) {
-			return collectionsToFilter;
-		}
+	const filterCollectionsLocally = useCallback(
+		(term: string, collectionsToFilter: (Collection & { ruleCount: number })[]) => {
+			if (!term.trim()) {
+				return collectionsToFilter;
+			}
 
-		const lowercaseSearch = term.toLowerCase();
-		return collectionsToFilter.filter((collection) =>
-			collection.name.toLowerCase().includes(lowercaseSearch) ||
-			collection.description.toLowerCase().includes(lowercaseSearch)
-		);
-	}, []);
+			const lowercaseSearch = term.toLowerCase();
+			return collectionsToFilter.filter(
+				(collection) =>
+					collection.name.toLowerCase().includes(lowercaseSearch) ||
+					collection.description.toLowerCase().includes(lowercaseSearch),
+			);
+		},
+		[],
+	);
 
 	// Client-side filtering effect - instant feedback
 	useEffect(() => {
@@ -100,7 +105,14 @@ export function HomeClient({ allCategories, collections }: HomeClientProps) {
 			const displayed = allCategories.slice(0, displayCount);
 			setDisplayedCategories(displayed);
 		}
-	}, [searchTerm, allCategories, collections, filterCategoriesLocally, filterCollectionsLocally, displayCount]);
+	}, [
+		searchTerm,
+		allCategories,
+		collections,
+		filterCategoriesLocally,
+		filterCollectionsLocally,
+		displayCount,
+	]);
 
 	// Calculate if there are more categories to load
 	const hasMore = !searchTerm && displayedCategories.length < filteredCategories.length;
@@ -133,8 +145,8 @@ export function HomeClient({ allCategories, collections }: HomeClientProps) {
 			},
 			{
 				threshold: 0,
-				rootMargin: '400px' // Trigger 400px before the element is visible
-			}
+				rootMargin: "400px", // Trigger 400px before the element is visible
+			},
 		);
 
 		const currentObserverRef = observerRef.current;

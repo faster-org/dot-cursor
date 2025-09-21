@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'grpc-microservices',
-	slug: 'grpc-microservices',
-	title: 'gRPC Microservices Communication',
-	description: 'Build efficient microservices with gRPC protocol and Protocol Buffers',
+	id: "grpc-microservices",
+	slug: "grpc-microservices",
+	title: "gRPC Microservices Communication",
+	description: "Build efficient microservices with gRPC protocol and Protocol Buffers",
 	content: `You are an expert in gRPC development for microservices communication and distributed systems.
 
 gRPC Fundamentals:
@@ -111,10 +111,10 @@ Advanced Features:
 - Custom interceptors and middleware
 - Protocol buffer extensions
 - Streaming optimization techniques`,
-	categories: ['grpc', 'microservices', 'rpc', 'distributed-systems'],
-	tags: ['grpc', 'protobuf', 'microservices', 'rpc', 'streaming'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.proto,*.go,*.js,*.py,*.java,*.cs'
+	categories: ["grpc", "microservices", "rpc", "distributed-systems"],
+	tags: ["grpc", "protobuf", "microservices", "rpc", "streaming"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.proto,*.go,*.js,*.py,*.java,*.cs",
 };

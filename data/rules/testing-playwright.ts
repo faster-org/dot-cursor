@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'testing-playwright',
-	slug: 'testing-playwright',
-	title: 'Playwright Testing Framework',
-	description: 'Modern end-to-end testing with Playwright for cross-browser automation',
+	id: "testing-playwright",
+	slug: "testing-playwright",
+	title: "Playwright Testing Framework",
+	description: "Modern end-to-end testing with Playwright for cross-browser automation",
 	content: `You are an expert in Playwright testing framework for modern web application testing.
 
 Playwright Fundamentals:
@@ -97,10 +97,10 @@ Best Practices:
 - Proper error handling
 - Test maintainability
 - Code reusability patterns`,
-	categories: ['testing', 'playwright', 'e2e', 'automation'],
-	tags: ['playwright', 'e2e-testing', 'cross-browser', 'automation', 'web-testing'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.spec.ts,*.test.ts,playwright.config.ts'
+	categories: ["testing", "playwright", "e2e", "automation"],
+	tags: ["playwright", "e2e-testing", "cross-browser", "automation", "web-testing"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.spec.ts,*.test.ts,playwright.config.ts",
 };

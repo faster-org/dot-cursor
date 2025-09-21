@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'redis-caching',
-	slug: 'redis-caching',
-	title: 'Redis Caching & Data Store',
-	description: 'Implement high-performance caching and data storage solutions with Redis',
+	id: "redis-caching",
+	slug: "redis-caching",
+	title: "Redis Caching & Data Store",
+	description: "Implement high-performance caching and data storage solutions with Redis",
 	content: `You are an expert in Redis implementation for caching, session storage, and real-time applications.
 
 Redis Fundamentals:
@@ -97,10 +97,10 @@ Use Cases:
 - Database query result caching
 - Distributed locking mechanisms
 - Message queue implementations`,
-	categories: ['redis', 'caching', 'database', 'performance'],
-	tags: ['redis', 'caching', 'in-memory', 'nosql', 'performance'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.conf,redis.conf,*.js,*.py,*.java,docker-compose.yml'
+	categories: ["redis", "caching", "database", "performance"],
+	tags: ["redis", "caching", "in-memory", "nosql", "performance"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.conf,redis.conf,*.js,*.py,*.java,docker-compose.yml",
 };

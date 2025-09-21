@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'golang-microservices',
-	slug: 'golang-microservices',
-	title: 'Go Microservices Architecture',
-	description: 'Build scalable microservices with Go, gRPC, and cloud-native patterns',
+	id: "golang-microservices",
+	slug: "golang-microservices",
+	title: "Go Microservices Architecture",
+	description: "Build scalable microservices with Go, gRPC, and cloud-native patterns",
 	content: `You are an expert in Go microservices development and distributed systems.
 
 Microservice Design Patterns:
@@ -76,10 +76,10 @@ Deployment:
 - Helm charts for configuration
 - CI/CD pipelines
 - Blue-green and canary deployments`,
-	categories: ['golang', 'microservices', 'backend', 'distributed-systems'],
-	tags: ['go', 'microservices', 'grpc', 'kubernetes', 'cloud-native'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.go,go.mod,go.sum,*.proto,Dockerfile'
+	categories: ["golang", "microservices", "backend", "distributed-systems"],
+	tags: ["go", "microservices", "grpc", "kubernetes", "cloud-native"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.go,go.mod,go.sum,*.proto,Dockerfile",
 };

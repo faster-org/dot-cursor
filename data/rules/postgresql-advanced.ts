@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'postgresql-advanced',
-	slug: 'postgresql-advanced',
-	title: 'PostgreSQL Database Development',
-	description: 'Advanced PostgreSQL database design, optimization, and administration',
+	id: "postgresql-advanced",
+	slug: "postgresql-advanced",
+	title: "PostgreSQL Database Development",
+	description: "Advanced PostgreSQL database design, optimization, and administration",
 	content: `You are an expert in PostgreSQL database development, optimization, and administration.
 
 Database Design:
@@ -90,10 +90,10 @@ Advanced Features:
 - Table inheritance
 - Exclusion constraints
 - Extensions and custom types`,
-	categories: ['postgresql', 'database', 'sql', 'backend'],
-	tags: ['postgresql', 'sql', 'database-design', 'performance', 'administration'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.sql,*.pgsql,postgresql.conf'
+	categories: ["postgresql", "database", "sql", "backend"],
+	tags: ["postgresql", "sql", "database-design", "performance", "administration"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.sql,*.pgsql,postgresql.conf",
 };

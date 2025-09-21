@@ -1,10 +1,11 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'solr-search',
-	slug: 'solr-search',
-	title: 'Apache Solr Search Platform',
-	description: 'Implement enterprise search solutions with Apache Solr for full-text search and faceting',
+	id: "solr-search",
+	slug: "solr-search",
+	title: "Apache Solr Search Platform",
+	description:
+		"Implement enterprise search solutions with Apache Solr for full-text search and faceting",
 	content: `You are an expert in Apache Solr search platform for building enterprise search solutions.
 
 Solr Fundamentals:
@@ -118,10 +119,10 @@ Troubleshooting:
 - Index corruption recovery
 - Query debugging techniques
 - Memory and resource issues`,
-	categories: ['solr', 'search', 'full-text-search', 'lucene'],
-	tags: ['solr', 'search-engine', 'full-text-search', 'faceting', 'enterprise-search'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.xml,solrconfig.xml,schema.xml,*.json,*.properties'
+	categories: ["solr", "search", "full-text-search", "lucene"],
+	tags: ["solr", "search-engine", "full-text-search", "faceting", "enterprise-search"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.xml,solrconfig.xml,schema.xml,*.json,*.properties",
 };

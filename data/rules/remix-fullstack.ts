@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'remix-fullstack',
-	slug: 'remix-fullstack',
-	title: 'Remix Full-Stack Framework',
-	description: 'Build full-stack web applications with Remix using modern web standards',
+	id: "remix-fullstack",
+	slug: "remix-fullstack",
+	title: "Remix Full-Stack Framework",
+	description: "Build full-stack web applications with Remix using modern web standards",
 	content: `You are an expert in Remix full-stack web development focusing on web standards and performance.
 
 Remix Fundamentals:
@@ -125,10 +125,10 @@ Production Considerations:
 - Analytics integration
 - Security best practices
 - Scalability planning`,
-	categories: ['remix', 'fullstack', 'react', 'web-standards'],
-	tags: ['remix', 'fullstack', 'ssr', 'progressive-enhancement', 'web-standards'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.tsx,*.ts,*.jsx,*.js,remix.config.js,package.json'
+	categories: ["remix", "fullstack", "react", "web-standards"],
+	tags: ["remix", "fullstack", "ssr", "progressive-enhancement", "web-standards"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.tsx,*.ts,*.jsx,*.js,remix.config.js,package.json",
 };

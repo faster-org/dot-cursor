@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'rabbitmq-messaging',
-	slug: 'rabbitmq-messaging',
-	title: 'RabbitMQ Message Broker',
-	description: 'Implement message queuing and event-driven architecture with RabbitMQ',
+	id: "rabbitmq-messaging",
+	slug: "rabbitmq-messaging",
+	title: "RabbitMQ Message Broker",
+	description: "Implement message queuing and event-driven architecture with RabbitMQ",
 	content: `You are an expert in RabbitMQ message broker for building reliable messaging and event-driven systems.
 
 RabbitMQ Fundamentals:
@@ -118,10 +118,10 @@ Production Deployment:
 - Configuration management
 - Backup strategies
 - Disaster recovery planning`,
-	categories: ['rabbitmq', 'messaging', 'event-driven', 'amqp'],
-	tags: ['rabbitmq', 'message-queue', 'amqp', 'event-driven', 'messaging'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.conf,rabbitmq.conf,*.js,*.py,*.java,*.go,*.cs'
+	categories: ["rabbitmq", "messaging", "event-driven", "amqp"],
+	tags: ["rabbitmq", "message-queue", "amqp", "event-driven", "messaging"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.conf,rabbitmq.conf,*.js,*.py,*.java,*.go,*.cs",
 };

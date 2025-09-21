@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'unity-game-development',
-	slug: 'unity-game-development',
-	title: 'Unity Game Development',
-	description: 'Create 2D and 3D games using Unity engine with C# scripting',
+	id: "unity-game-development",
+	slug: "unity-game-development",
+	title: "Unity Game Development",
+	description: "Create 2D and 3D games using Unity engine with C# scripting",
 	content: `You are an expert in Unity game development using C# scripting and Unity's component system.
 
 Unity Fundamentals:
@@ -104,10 +104,10 @@ Deployment:
 - Asset bundles for content delivery
 - Version control with Git
 - Continuous integration setup`,
-	categories: ['unity', 'game-development', 'csharp', 'gamedev'],
-	tags: ['unity', 'game-development', 'csharp', '3d', '2d-games'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.cs,*.unity,*.prefab,*.mat,*.shader'
+	categories: ["unity", "game-development", "csharp", "gamedev"],
+	tags: ["unity", "game-development", "csharp", "3d", "2d-games"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.cs,*.unity,*.prefab,*.mat,*.shader",
 };

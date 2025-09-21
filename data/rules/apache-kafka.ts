@@ -1,10 +1,11 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'apache-kafka',
-	slug: 'apache-kafka',
-	title: 'Apache Kafka Streaming Platform',
-	description: 'Build real-time streaming applications with Apache Kafka for event-driven architectures',
+	id: "apache-kafka",
+	slug: "apache-kafka",
+	title: "Apache Kafka Streaming Platform",
+	description:
+		"Build real-time streaming applications with Apache Kafka for event-driven architectures",
 	content: `You are an expert in Apache Kafka for building real-time streaming applications and event-driven systems.
 
 Kafka Fundamentals:
@@ -111,10 +112,10 @@ Use Cases:
 - Event-driven microservices
 - Data integration platforms
 - IoT data processing`,
-	categories: ['kafka', 'streaming', 'event-driven', 'big-data'],
-	tags: ['kafka', 'streaming', 'event-driven', 'real-time', 'messaging'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.properties,*.yml,*.yaml,*.java,*.scala,*.py'
+	categories: ["kafka", "streaming", "event-driven", "big-data"],
+	tags: ["kafka", "streaming", "event-driven", "real-time", "messaging"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.properties,*.yml,*.yaml,*.java,*.scala,*.py",
 };

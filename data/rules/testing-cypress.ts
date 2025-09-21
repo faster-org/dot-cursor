@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'testing-cypress',
-	slug: 'testing-cypress',
-	title: 'Cypress E2E Testing',
-	description: 'End-to-end testing with Cypress for web applications and user journey validation',
+	id: "testing-cypress",
+	slug: "testing-cypress",
+	title: "Cypress E2E Testing",
+	description: "End-to-end testing with Cypress for web applications and user journey validation",
 	content: `You are an expert in Cypress end-to-end testing for web applications and user workflows.
 
 Cypress Fundamentals:
@@ -97,10 +97,10 @@ Real-world Testing:
 - Cross-browser compatibility
 - Responsive design testing
 - Integration with external services`,
-	categories: ['testing', 'cypress', 'e2e', 'automation'],
-	tags: ['cypress', 'e2e-testing', 'automation', 'web-testing', 'ui-testing'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.cy.js,*.cy.ts,cypress.config.js,cypress.json'
+	categories: ["testing", "cypress", "e2e", "automation"],
+	tags: ["cypress", "e2e-testing", "automation", "web-testing", "ui-testing"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.cy.js,*.cy.ts,cypress.config.js,cypress.json",
 };

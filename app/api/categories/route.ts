@@ -1,52 +1,49 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { getCategoriesWithRulesNoStats } from '@/lib/data-loader'
+import { NextRequest, NextResponse } from "next/server";
+import { getCategoriesWithRulesNoStats } from "@/lib/data-loader";
 
 export async function GET(request: NextRequest) {
-  try {
-    const searchParams = request.nextUrl.searchParams
-    const page = parseInt(searchParams.get('page') || '1')
-    const limit = parseInt(searchParams.get('limit') || '10')
+	try {
+		const searchParams = request.nextUrl.searchParams;
+		const page = parseInt(searchParams.get("page") || "1", 10);
+		const limit = parseInt(searchParams.get("limit") || "10", 10);
 
-    // Get all categories with rules from files (no stats for fast loading)
-    const allCategoriesWithRules = await getCategoriesWithRulesNoStats()
+		// Get all categories with rules from files (no stats for fast loading)
+		const allCategoriesWithRules = await getCategoriesWithRulesNoStats();
 
-    // Paginate
-    const skip = (page - 1) * limit
-    const paginatedCategories = allCategoriesWithRules.slice(skip, skip + limit)
+		// Paginate
+		const skip = (page - 1) * limit;
+		const paginatedCategories = allCategoriesWithRules.slice(skip, skip + limit);
 
-    // Transform to match the existing format
-    const transformedCategories = paginatedCategories.map(category => ({
-      id: category.id,
-      name: category.name,
-      slug: category.slug,
-      description: category.description,
-      rules: category.rules.map(rule => ({
-        ...rule,
-        categories: rule.categories
-          .map(catSlug => allCategoriesWithRules.find(c => c.slug === catSlug))
-          .filter(Boolean)
-          .map(cat => ({ name: cat!.name, slug: cat!.slug }))
-      })),
-      _count: {
-        rules: category.rules.length
-      }
-    }))
+		// Transform to match the existing format
+		const transformedCategories = paginatedCategories.map((category) => ({
+			id: category.id,
+			name: category.name,
+			slug: category.slug,
+			description: category.description,
+			rules: category.rules.map((rule) => ({
+				...rule,
+				categories: rule.categories
+					.map((catSlug) => allCategoriesWithRules.find((c) => c.slug === catSlug))
+					.filter(Boolean)
+					.map((cat) => ({ name: cat?.name, slug: cat?.slug })),
+			})),
+			_count: {
+				rules: category.rules.length,
+			},
+		}));
 
-    return NextResponse.json({
-      categories: transformedCategories,
-      pagination: {
-        page,
-        limit,
-        total: allCategoriesWithRules.length,
-        totalPages: Math.ceil(allCategoriesWithRules.length / limit),
-        hasMore: page < Math.ceil(allCategoriesWithRules.length / limit)
-      }
-    })
-  } catch (error) {
-    console.error('Error fetching categories:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch categories' },
-      { status: 500 }
-    )
-  }
+		return NextResponse.json({
+			categories: transformedCategories,
+			pagination: {
+				page,
+				limit,
+				total: allCategoriesWithRules.length,
+				totalPages: Math.ceil(allCategoriesWithRules.length / limit),
+				hasMore: page < Math.ceil(allCategoriesWithRules.length / limit),
+			},
+		});
+	} catch (error) {
+		console.error("Error fetching categories:", error);
+		return NextResponse.json({ error: "Failed to fetch categories" }, { status: 500 });
+	}
 }

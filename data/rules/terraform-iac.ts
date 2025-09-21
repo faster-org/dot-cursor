@@ -1,10 +1,11 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'terraform-iac',
-	slug: 'terraform-iac',
-	title: 'Terraform Infrastructure as Code',
-	description: 'Manage cloud infrastructure with Terraform for consistent and reproducible deployments',
+	id: "terraform-iac",
+	slug: "terraform-iac",
+	title: "Terraform Infrastructure as Code",
+	description:
+		"Manage cloud infrastructure with Terraform for consistent and reproducible deployments",
 	content: `You are an expert in Terraform and Infrastructure as Code (IaC) practices for cloud resource management.
 
 Terraform Fundamentals:
@@ -111,10 +112,10 @@ Troubleshooting:
 - Log analysis and interpretation
 - State corruption recovery
 - Performance optimization`,
-	categories: ['terraform', 'infrastructure', 'devops', 'cloud'],
-	tags: ['terraform', 'iac', 'infrastructure', 'cloud', 'automation'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.tf,*.tfvars,*.hcl,terraform.tfstate'
+	categories: ["terraform", "infrastructure", "devops", "cloud"],
+	tags: ["terraform", "iac", "infrastructure", "cloud", "automation"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.tf,*.tfvars,*.hcl,terraform.tfstate",
 };

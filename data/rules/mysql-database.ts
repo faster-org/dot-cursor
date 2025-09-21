@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'mysql-database',
-	slug: 'mysql-database',
-	title: 'MySQL Database Development',
-	description: 'Design, optimize, and manage MySQL databases for high-performance applications',
+	id: "mysql-database",
+	slug: "mysql-database",
+	title: "MySQL Database Development",
+	description: "Design, optimize, and manage MySQL databases for high-performance applications",
 	content: `You are an expert in MySQL database development, optimization, and administration.
 
 MySQL Fundamentals:
@@ -118,10 +118,10 @@ Cloud Deployment:
 - Azure Database for MySQL
 - Multi-cloud strategies
 - Cost optimization techniques`,
-	categories: ['mysql', 'database', 'sql', 'relational-database'],
-	tags: ['mysql', 'database', 'sql', 'performance', 'optimization'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.sql,*.cnf,my.cnf,*.dump,migrations/*.sql'
+	categories: ["mysql", "database", "sql", "relational-database"],
+	tags: ["mysql", "database", "sql", "performance", "optimization"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.sql,*.cnf,my.cnf,*.dump,migrations/*.sql",
 };

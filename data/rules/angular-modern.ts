@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'angular-modern',
-	slug: 'angular-modern',
-	title: 'Modern Angular Development',
-	description: 'Build scalable web applications with latest Angular features and best practices',
+	id: "angular-modern",
+	slug: "angular-modern",
+	title: "Modern Angular Development",
+	description: "Build scalable web applications with latest Angular features and best practices",
 	content: `You are an expert in modern Angular development using the latest features and best practices.
 
 Angular Architecture:
@@ -83,10 +83,10 @@ Modern Angular Features:
 - New control flow syntax
 - inject() function for DI
 - Required inputs and optional inputs`,
-	categories: ['angular', 'typescript', 'frontend', 'spa'],
-	tags: ['angular', 'typescript', 'reactive-programming', 'ngrx', 'signals'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.ts,*.html,*.scss,*.css,angular.json,package.json'
+	categories: ["angular", "typescript", "frontend", "spa"],
+	tags: ["angular", "typescript", "reactive-programming", "ngrx", "signals"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.ts,*.html,*.scss,*.css,angular.json,package.json",
 };

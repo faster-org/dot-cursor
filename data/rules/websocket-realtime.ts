@@ -1,10 +1,11 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'websocket-realtime',
-	slug: 'websocket-realtime',
-	title: 'WebSocket Real-time Applications',
-	description: 'Build real-time applications with WebSockets, Socket.IO, and live data synchronization',
+	id: "websocket-realtime",
+	slug: "websocket-realtime",
+	title: "WebSocket Real-time Applications",
+	description:
+		"Build real-time applications with WebSockets, Socket.IO, and live data synchronization",
 	content: `You are an expert in real-time web application development using WebSockets and related technologies.
 
 WebSocket Fundamentals:
@@ -118,10 +119,10 @@ Use Cases:
 - Collaborative documents
 - Live streaming chat
 - IoT device monitoring`,
-	categories: ['websocket', 'real-time', 'socket-io', 'communication'],
-	tags: ['websocket', 'real-time', 'socket-io', 'live-data', 'communication'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.js,*.ts,*.html,package.json'
+	categories: ["websocket", "real-time", "socket-io", "communication"],
+	tags: ["websocket", "real-time", "socket-io", "live-data", "communication"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.js,*.ts,*.html,package.json",
 };

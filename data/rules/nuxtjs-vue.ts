@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'nuxtjs-vue',
-	slug: 'nuxtjs-vue',
-	title: 'Nuxt.js Vue Framework',
-	description: 'Build universal Vue.js applications with Nuxt.js for SSR, SSG, and SPA modes',
+	id: "nuxtjs-vue",
+	slug: "nuxtjs-vue",
+	title: "Nuxt.js Vue Framework",
+	description: "Build universal Vue.js applications with Nuxt.js for SSR, SSG, and SPA modes",
 	content: `You are an expert in Nuxt.js development for building universal Vue.js applications.
 
 Nuxt.js Fundamentals:
@@ -118,10 +118,10 @@ Production Considerations:
 - Analytics integration
 - Security best practices
 - Scalability planning`,
-	categories: ['nuxtjs', 'vue', 'ssr', 'fullstack'],
-	tags: ['nuxtjs', 'vue', 'ssr', 'universal', 'static-generation'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.vue,*.ts,*.js,nuxt.config.ts,package.json'
+	categories: ["nuxtjs", "vue", "ssr", "fullstack"],
+	tags: ["nuxtjs", "vue", "ssr", "universal", "static-generation"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.vue,*.ts,*.js,nuxt.config.ts,package.json",
 };

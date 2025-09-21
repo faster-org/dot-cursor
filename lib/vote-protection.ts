@@ -20,7 +20,7 @@ interface VoteRecord {
 export function checkVotePattern(
 	clientId: string,
 	ruleSlug: string,
-	newVote: "up" | "down" | null
+	newVote: "up" | "down" | null,
 ): { allowed: boolean; reason?: string } {
 	const key = `${clientId}:${ruleSlug}`;
 	const now = Date.now();
@@ -44,7 +44,7 @@ export function checkVotePattern(
 		// Less than 1 second between votes
 		return {
 			allowed: false,
-			reason: "Please wait a moment before voting again"
+			reason: "Please wait a moment before voting again",
 		};
 	}
 
@@ -56,7 +56,7 @@ export function checkVotePattern(
 			if (record.rapidChanges > 3) {
 				return {
 					allowed: false,
-					reason: "Too many vote changes. Please try again later"
+					reason: "Too many vote changes. Please try again later",
 				};
 			}
 		}
@@ -75,10 +75,7 @@ export function checkVotePattern(
 }
 
 // Get previous vote for a client
-export function getPreviousVote(
-	clientId: string,
-	ruleSlug: string
-): "up" | "down" | null {
+export function getPreviousVote(clientId: string, ruleSlug: string): "up" | "down" | null {
 	const key = `${clientId}:${ruleSlug}`;
 	const record = voteCache.get(key);
 	return record?.lastVote || null;
@@ -88,7 +85,7 @@ export function getPreviousVote(
 export function validateVote(
 	req: NextRequest,
 	ruleSlug: string,
-	voteType: "up" | "down" | null
+	voteType: "up" | "down" | null,
 ): { valid: boolean; error?: string; previousVote?: "up" | "down" | null } {
 	const clientId = getClientIdentifier(req);
 
@@ -101,12 +98,12 @@ export function validateVote(
 	if (!patternCheck.allowed) {
 		return {
 			valid: false,
-			error: patternCheck.reason
+			error: patternCheck.reason,
 		};
 	}
 
 	return {
 		valid: true,
-		previousVote
+		previousVote,
 	};
 }

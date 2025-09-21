@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'express-nodejs',
-	slug: 'express-nodejs',
-	title: 'Express.js Web Framework',
-	description: 'Build robust web applications and APIs with Express.js and Node.js ecosystem',
+	id: "express-nodejs",
+	slug: "express-nodejs",
+	title: "Express.js Web Framework",
+	description: "Build robust web applications and APIs with Express.js and Node.js ecosystem",
 	content: `You are an expert in Express.js web framework development for building APIs and web applications.
 
 Express.js Fundamentals:
@@ -118,10 +118,10 @@ Development Tools:
 - ESLint and Prettier setup
 - Hot reload configuration
 - API testing with Postman`,
-	categories: ['express', 'nodejs', 'web-framework', 'backend'],
-	tags: ['express', 'nodejs', 'web-framework', 'api', 'middleware'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.js,*.ts,package.json,app.js,server.js,routes/*.js'
+	categories: ["express", "nodejs", "web-framework", "backend"],
+	tags: ["express", "nodejs", "web-framework", "api", "middleware"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.js,*.ts,package.json,app.js,server.js,routes/*.js",
 };

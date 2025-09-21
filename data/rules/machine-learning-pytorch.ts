@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'machine-learning-pytorch',
-	slug: 'machine-learning-pytorch',
-	title: 'Machine Learning with PyTorch',
-	description: 'Build deep learning models and neural networks using PyTorch framework',
+	id: "machine-learning-pytorch",
+	slug: "machine-learning-pytorch",
+	title: "Machine Learning with PyTorch",
+	description: "Build deep learning models and neural networks using PyTorch framework",
 	content: `You are an expert in machine learning and deep learning using PyTorch framework.
 
 PyTorch Fundamentals:
@@ -111,10 +111,10 @@ Production Considerations:
 - Pipeline orchestration
 - Scalability and reliability
 - MLOps best practices`,
-	categories: ['pytorch', 'machine-learning', 'deep-learning', 'python'],
-	tags: ['pytorch', 'deep-learning', 'neural-networks', 'computer-vision', 'nlp'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.py,*.ipynb,*.pth,*.pt,requirements.txt'
+	categories: ["pytorch", "machine-learning", "deep-learning", "python"],
+	tags: ["pytorch", "deep-learning", "neural-networks", "computer-vision", "nlp"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.py,*.ipynb,*.pth,*.pt,requirements.txt",
 };

@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'ios-swift',
-	slug: 'ios-swift',
-	title: 'iOS Development with Swift',
-	description: 'Build native iOS applications using Swift and UIKit/SwiftUI frameworks',
+	id: "ios-swift",
+	slug: "ios-swift",
+	title: "iOS Development with Swift",
+	description: "Build native iOS applications using Swift and UIKit/SwiftUI frameworks",
 	content: `You are an expert in iOS development using Swift programming language and Apple's development frameworks.
 
 Swift Language Features:
@@ -97,10 +97,10 @@ Distribution:
 - Enterprise distribution
 - Ad-hoc distribution
 - Code signing and provisioning`,
-	categories: ['ios', 'swift', 'mobile', 'apple'],
-	tags: ['ios', 'swift', 'uikit', 'swiftui', 'mobile-development'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.swift,*.plist,*.storyboard,*.xib,Podfile'
+	categories: ["ios", "swift", "mobile", "apple"],
+	tags: ["ios", "swift", "uikit", "swiftui", "mobile-development"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.swift,*.plist,*.storyboard,*.xib,Podfile",
 };

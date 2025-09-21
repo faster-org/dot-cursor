@@ -3,20 +3,15 @@ import { RuleCard } from "@/components/rule/rule-card";
 import { notFound } from "next/navigation";
 import { Package } from "lucide-react";
 import { BackButton } from "@/app/rules/[slug]/back-button";
-import {
-	SiNextdotjs,
-	SiPython,
-	SiReact,
-	SiHtml5
-} from "@icons-pack/react-simple-icons";
-import type { Metadata } from 'next'
+import { SiNextdotjs, SiPython, SiReact, SiHtml5 } from "@icons-pack/react-simple-icons";
+import type { Metadata } from "next";
 
 const getIconComponent = (iconName?: string) => {
 	const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-		'nextdotjs': SiNextdotjs,
-		'python': SiPython,
-		'react': SiReact,
-		'html5': SiHtml5,
+		nextdotjs: SiNextdotjs,
+		python: SiPython,
+		react: SiReact,
+		html5: SiHtml5,
 	};
 
 	const IconComponent = iconName ? iconMap[iconName] : null;
@@ -40,8 +35,8 @@ export async function generateMetadata({
 
 	if (!collection) {
 		return {
-			title: 'Collection Not Found',
-			description: 'The requested collection could not be found.',
+			title: "Collection Not Found",
+			description: "The requested collection could not be found.",
 		};
 	}
 
@@ -50,12 +45,12 @@ export async function generateMetadata({
 		description: `${collection.description} Discover ${collection.ruleDetails.length} AI rules and prompts for Cursor IDE to enhance your ${collection.name} development workflow.`,
 		keywords: [
 			collection.name,
-			'Cursor IDE rules',
-			'AI prompts',
-			'development tools',
-			'code automation',
-			'AI-powered coding',
-			...collection.name.toLowerCase().split(' ')
+			"Cursor IDE rules",
+			"AI prompts",
+			"development tools",
+			"code automation",
+			"AI-powered coding",
+			...collection.name.toLowerCase().split(" "),
 		],
 		openGraph: {
 			title: `${collection.name} - Cursor IDE AI Rules Collection`,
@@ -97,7 +92,7 @@ export default async function CollectionDetailPage({
 				return allCategories.find((c) => c.slug === catSlug);
 			})
 			.filter(Boolean)
-			.map((cat) => ({ id: cat!.id, name: cat!.name, slug: cat!.slug })),
+			.map((cat) => ({ id: cat?.id, name: cat?.name, slug: cat?.slug })),
 	}));
 
 	return (
@@ -119,9 +114,7 @@ export default async function CollectionDetailPage({
 					<div>
 						<div>
 							<div className="flex items-center gap-2 mb-2">
-								<h1 className="text-3xl font-medium tracking-tight">
-									{collection.name}
-								</h1>
+								<h1 className="text-3xl font-medium tracking-tight">{collection.name}</h1>
 							</div>
 							<p className="text-muted-foreground">{collection.description}</p>
 						</div>
@@ -138,9 +131,7 @@ export default async function CollectionDetailPage({
 
 			{transformedRules.length === 0 && (
 				<div className="text-center py-12">
-					<p className="text-muted-foreground text-lg">
-						No rules in this collection yet
-					</p>
+					<p className="text-muted-foreground text-lg">No rules in this collection yet</p>
 				</div>
 			)}
 		</div>

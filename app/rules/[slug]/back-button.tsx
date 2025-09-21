@@ -11,16 +11,13 @@ export function BackButton() {
 
 	useEffect(() => {
 		// Check if we have a referrer and if it's from the /rules page
-		if (typeof document !== "undefined" && document.referrer) {
+		if (document?.referrer) {
 			const referrerUrl = new URL(document.referrer);
 			const currentUrl = new URL(window.location.href);
 
 			// Only use referrer if it's from the same origin
 			if (referrerUrl.origin === currentUrl.origin) {
-				if (
-					referrerUrl.pathname === "/rules" ||
-					referrerUrl.pathname.startsWith("/rules?")
-				) {
+				if (referrerUrl.pathname === "/rules" || referrerUrl.pathname.startsWith("/rules?")) {
 					setBackUrl("/rules");
 				} else {
 					setBackUrl("/");

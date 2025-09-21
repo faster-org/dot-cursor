@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'electron-desktop',
-	slug: 'electron-desktop',
-	title: 'Electron Desktop Applications',
-	description: 'Build cross-platform desktop applications using Electron with web technologies',
+	id: "electron-desktop",
+	slug: "electron-desktop",
+	title: "Electron Desktop Applications",
+	description: "Build cross-platform desktop applications using Electron with web technologies",
 	content: `You are an expert in Electron development for creating cross-platform desktop applications.
 
 Electron Fundamentals:
@@ -118,10 +118,10 @@ Production Readiness:
 - Performance monitoring
 - User analytics
 - Support and maintenance`,
-	categories: ['electron', 'desktop', 'cross-platform', 'javascript'],
-	tags: ['electron', 'desktop-app', 'cross-platform', 'nodejs', 'web-technologies'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.js,*.ts,package.json,electron.js,main.js,preload.js'
+	categories: ["electron", "desktop", "cross-platform", "javascript"],
+	tags: ["electron", "desktop-app", "cross-platform", "nodejs", "web-technologies"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.js,*.ts,package.json,electron.js,main.js,preload.js",
 };

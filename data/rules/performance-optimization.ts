@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'performance-optimization',
-	slug: 'performance-optimization',
-	title: 'Application Performance Optimization',
-	description: 'Optimize application performance across frontend, backend, and database layers',
+	id: "performance-optimization",
+	slug: "performance-optimization",
+	title: "Application Performance Optimization",
+	description: "Optimize application performance across frontend, backend, and database layers",
 	content: `You are an expert in application performance optimization, focusing on speed, scalability, and resource efficiency.
 
 Frontend Performance:
@@ -104,9 +104,9 @@ Performance Budgets:
 - Continuous performance monitoring
 - Performance regression prevention
 - Team performance culture`,
-	categories: ['performance', 'optimization', 'scalability', 'monitoring'],
-	tags: ['performance', 'optimization', 'caching', 'profiling', 'web-vitals'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'always'
+	categories: ["performance", "optimization", "scalability", "monitoring"],
+	tags: ["performance", "optimization", "caching", "profiling", "web-vitals"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "always",
 };

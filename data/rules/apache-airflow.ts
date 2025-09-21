@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'apache-airflow',
-	slug: 'apache-airflow',
-	title: 'Apache Airflow Workflow Orchestration',
-	description: 'Build and manage data pipelines and workflow orchestration with Apache Airflow',
+	id: "apache-airflow",
+	slug: "apache-airflow",
+	title: "Apache Airflow Workflow Orchestration",
+	description: "Build and manage data pipelines and workflow orchestration with Apache Airflow",
 	content: `You are an expert in Apache Airflow for workflow orchestration, data pipeline management, and task automation.
 
 Airflow Fundamentals:
@@ -118,10 +118,10 @@ Best Practices:
 - Resource optimization
 - Code organization
 - Documentation standards`,
-	categories: ['airflow', 'data-engineering', 'workflow', 'orchestration'],
-	tags: ['airflow', 'data-pipeline', 'workflow', 'orchestration', 'etl'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.py,airflow.cfg,dags/*.py'
+	categories: ["airflow", "data-engineering", "workflow", "orchestration"],
+	tags: ["airflow", "data-pipeline", "workflow", "orchestration", "etl"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.py,airflow.cfg,dags/*.py",
 };

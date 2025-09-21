@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'python-ml-tensorflow',
-	slug: 'python-ml-tensorflow',
-	title: 'Machine Learning with TensorFlow',
-	description: 'Build and deploy machine learning models using TensorFlow and Keras',
+	id: "python-ml-tensorflow",
+	slug: "python-ml-tensorflow",
+	title: "Machine Learning with TensorFlow",
+	description: "Build and deploy machine learning models using TensorFlow and Keras",
 	content: `You are an expert in machine learning development using TensorFlow, Keras, and Python.
 
 TensorFlow Fundamentals:
@@ -90,10 +90,10 @@ Integration & Deployment:
 - Cloud deployment (AWS, GCP, Azure)
 - Edge deployment considerations
 - Real-time inference optimization`,
-	categories: ['python', 'machine-learning', 'tensorflow', 'data-science'],
-	tags: ['tensorflow', 'keras', 'deep-learning', 'neural-networks', 'python'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.py,*.ipynb,requirements.txt,*.h5,*.pb'
+	categories: ["python", "machine-learning", "tensorflow", "data-science"],
+	tags: ["tensorflow", "keras", "deep-learning", "neural-networks", "python"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.py,*.ipynb,requirements.txt,*.h5,*.pb",
 };

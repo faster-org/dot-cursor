@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'rust-web-actix',
-	slug: 'rust-web-actix',
-	title: 'Rust Web Development with Actix',
-	description: 'Build high-performance web applications and APIs using Actix-web framework',
+	id: "rust-web-actix",
+	slug: "rust-web-actix",
+	title: "Rust Web Development with Actix",
+	description: "Build high-performance web applications and APIs using Actix-web framework",
 	content: `You are an expert in Rust web development using the Actix-web framework.
 
 Actix-Web Core Concepts:
@@ -90,10 +90,10 @@ API Development:
 - API versioning
 - Content negotiation
 - Rate limiting and throttling`,
-	categories: ['rust', 'web', 'actix', 'backend'],
-	tags: ['rust', 'actix-web', 'web-framework', 'async', 'api'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.rs,Cargo.toml'
+	categories: ["rust", "web", "actix", "backend"],
+	tags: ["rust", "actix-web", "web-framework", "async", "api"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.rs,Cargo.toml",
 };

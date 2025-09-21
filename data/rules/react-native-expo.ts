@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'react-native-expo',
-	slug: 'react-native-expo',
-	title: 'React Native with Expo',
-	description: 'Build cross-platform mobile apps with React Native and Expo framework',
+	id: "react-native-expo",
+	slug: "react-native-expo",
+	title: "React Native with Expo",
+	description: "Build cross-platform mobile apps with React Native and Expo framework",
 	content: `You are an expert in React Native development using Expo framework.
 
 Expo Core Features:
@@ -55,10 +55,10 @@ Testing:
 - E2E testing with Detox
 - Manual testing on devices
 - Automated testing in CI/CD`,
-	categories: ['react-native', 'mobile', 'expo', 'javascript'],
-	tags: ['expo', 'mobile-development', 'cross-platform', 'navigation'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.tsx,*.ts,*.js,*.jsx,app.json,expo.json'
+	categories: ["react-native", "mobile", "expo", "javascript"],
+	tags: ["expo", "mobile-development", "cross-platform", "navigation"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.tsx,*.ts,*.js,*.jsx,app.json,expo.json",
 };

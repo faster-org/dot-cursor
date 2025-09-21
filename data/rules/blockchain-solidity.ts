@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'blockchain-solidity',
-	slug: 'blockchain-solidity',
-	title: 'Blockchain Development with Solidity',
-	description: 'Build smart contracts and DApps using Solidity and Ethereum ecosystem',
+	id: "blockchain-solidity",
+	slug: "blockchain-solidity",
+	title: "Blockchain Development with Solidity",
+	description: "Build smart contracts and DApps using Solidity and Ethereum ecosystem",
 	content: `You are an expert in blockchain development using Solidity for smart contracts and decentralized applications.
 
 Solidity Fundamentals:
@@ -104,10 +104,10 @@ Ecosystem Integration:
 - Chainlink for price feeds
 - Uniswap for token swaps
 - Polygon for scaling`,
-	categories: ['blockchain', 'solidity', 'ethereum', 'web3'],
-	tags: ['solidity', 'smart-contracts', 'ethereum', 'defi', 'web3'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.sol,*.js,*.ts,hardhat.config.js,package.json'
+	categories: ["blockchain", "solidity", "ethereum", "web3"],
+	tags: ["solidity", "smart-contracts", "ethereum", "defi", "web3"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.sol,*.js,*.ts,hardhat.config.js,package.json",
 };

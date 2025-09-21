@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'mongodb-advanced',
-	slug: 'mongodb-advanced',
-	title: 'MongoDB NoSQL Development',
-	description: 'Advanced MongoDB development, aggregation pipelines, and performance optimization',
+	id: "mongodb-advanced",
+	slug: "mongodb-advanced",
+	title: "MongoDB NoSQL Development",
+	description: "Advanced MongoDB development, aggregation pipelines, and performance optimization",
 	content: `You are an expert in MongoDB development, document modeling, and NoSQL database optimization.
 
 Document Modeling:
@@ -97,10 +97,10 @@ MongoDB Drivers:
 - Java driver optimization
 - Connection string configuration
 - Driver-specific features`,
-	categories: ['mongodb', 'nosql', 'database', 'backend'],
-	tags: ['mongodb', 'nosql', 'aggregation', 'document-database', 'performance'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.js,*.ts,*.py,*.java,*.json'
+	categories: ["mongodb", "nosql", "database", "backend"],
+	tags: ["mongodb", "nosql", "aggregation", "document-database", "performance"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.js,*.ts,*.py,*.java,*.json",
 };

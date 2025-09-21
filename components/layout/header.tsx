@@ -1,12 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-	Sheet,
-	SheetContent,
-	SheetTitle,
-	SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { SiGithub } from "@icons-pack/react-simple-icons";
 import { ArrowUpRight, Menu } from "lucide-react";
@@ -58,18 +53,14 @@ export function Header() {
 									className="h-5 w-5"
 									priority
 								/>
-								<span className="text-base font-mono font-semibold">
-									.cursor
-								</span>
+								<span className="text-base font-mono font-semibold">.cursor</span>
 							</Link>
 							<nav className="flex flex-col space-y-3">
 								<Link
 									href="/collections"
 									className={cn(
 										"transition-colors",
-										pathname === "/collections"
-											? "text-foreground"
-											: "text-foreground/60",
+										pathname === "/collections" ? "text-foreground" : "text-foreground/60",
 									)}
 									onClick={() => setIsOpen(false)}
 								>
@@ -79,9 +70,7 @@ export function Header() {
 									href="/rules"
 									className={cn(
 										"transition-colors",
-										pathname === "/rules"
-											? "text-foreground"
-											: "text-foreground/60",
+										pathname === "/rules" ? "text-foreground" : "text-foreground/60",
 									)}
 									onClick={() => setIsOpen(false)}
 								>
@@ -91,9 +80,7 @@ export function Header() {
 									href="/trending"
 									className={cn(
 										"transition-colors",
-										pathname === "/trending"
-											? "text-foreground"
-											: "text-foreground/60",
+										pathname === "/trending" ? "text-foreground" : "text-foreground/60",
 									)}
 									onClick={() => setIsOpen(false)}
 								>
@@ -132,9 +119,7 @@ export function Header() {
 						href="/collections"
 						className={cn(
 							"font-medium text-sm transition-colors",
-							pathname === "/collections"
-								? "text-foreground"
-								: "text-muted-foreground",
+							pathname === "/collections" ? "text-foreground" : "text-muted-foreground",
 						)}
 					>
 						Collections
@@ -143,9 +128,7 @@ export function Header() {
 						href="/rules"
 						className={cn(
 							"font-medium text-sm transition-colors",
-							pathname === "/rules"
-								? "text-foreground"
-								: "text-muted-foreground",
+							pathname === "/rules" ? "text-foreground" : "text-muted-foreground",
 						)}
 					>
 						Rules
@@ -154,9 +137,7 @@ export function Header() {
 						href="/trending"
 						className={cn(
 							"font-medium text-sm transition-colors",
-							pathname === "/trending"
-								? "text-foreground"
-								: "text-muted-foreground",
+							pathname === "/trending" ? "text-foreground" : "text-muted-foreground",
 						)}
 					>
 						Trending

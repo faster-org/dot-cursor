@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'qr-code-generation',
-	slug: 'qr-code-generation',
-	title: 'QR Code Generation & Processing',
-	description: 'Generate, customize, and process QR codes for various applications and use cases',
+	id: "qr-code-generation",
+	slug: "qr-code-generation",
+	title: "QR Code Generation & Processing",
+	description: "Generate, customize, and process QR codes for various applications and use cases",
 	content: `You are an expert in QR code generation, customization, and processing across different platforms.
 
 QR Code Fundamentals:
@@ -111,10 +111,10 @@ Troubleshooting:
 - Encoding error resolution
 - Performance debugging
 - Compatibility fixes`,
-	categories: ['qr-code', 'image-processing', 'mobile', 'web'],
-	tags: ['qr-code', 'barcode', 'image-generation', 'mobile', 'scanning'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.js,*.ts,*.py,*.java,*.swift,*.kt'
+	categories: ["qr-code", "image-processing", "mobile", "web"],
+	tags: ["qr-code", "barcode", "image-generation", "mobile", "scanning"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.js,*.ts,*.py,*.java,*.swift,*.kt",
 };

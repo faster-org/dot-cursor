@@ -1,7 +1,7 @@
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { NextRequest } from "next/server";
-import crypto from "crypto";
+import crypto from "node:crypto";
 
 // Initialize Redis client
 const redis = new Redis({
@@ -62,7 +62,7 @@ export function getClientIdentifier(req: NextRequest): string {
 // Check rate limit
 export async function checkRateLimit(
 	req: NextRequest,
-	limiter: keyof typeof rateLimiters = "general"
+	limiter: keyof typeof rateLimiters = "general",
 ) {
 	// Skip rate limiting in development if Redis is not configured
 	if (
@@ -73,9 +73,7 @@ export async function checkRateLimit(
 	}
 
 	const identifier = getClientIdentifier(req);
-	const { success, limit, remaining, reset } = await rateLimiters[limiter].limit(
-		identifier
-	);
+	const { success, limit, remaining, reset } = await rateLimiters[limiter].limit(identifier);
 
 	return { success, limit, remaining, reset };
 }
@@ -85,7 +83,7 @@ export function rateLimitResponse(
 	success: boolean,
 	limit: number,
 	remaining: number,
-	reset: number
+	reset: number,
 ) {
 	const headers = {
 		"X-RateLimit-Limit": limit.toString(),

@@ -1,12 +1,6 @@
 "use client";
 
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Copy, ArrowUp, ArrowDown, Download } from "lucide-react";
 import { useVoting } from "@/hooks/queries/use-voting";
@@ -63,7 +57,6 @@ globs: ${rule.globs || "*.ts,*.tsx"}
 alwaysApply: false
 ---`;
 			break;
-		case "manual":
 		default:
 			frontmatter = `---
 alwaysApply: false
@@ -76,8 +69,12 @@ ${rule.content}`;
 }
 
 export function RuleCard({ rule }: RuleCardProps) {
-	const { data: stats, isLoading: isLoadingStats, isFetching: isFetchingStats } = useRuleStats(rule.slug);
-	const { data: userVoteData, isLoading: isLoadingUserVote, isFetching: isFetchingUserVote } = useUserVote(rule.slug);
+	const {
+		data: stats,
+	} = useRuleStats(rule.slug);
+	const {
+		data: userVoteData,
+	} = useUserVote(rule.slug);
 	const votingMutation = useVoting(rule.slug);
 	const copyMutation = useCopyRule();
 
@@ -87,8 +84,8 @@ export function RuleCard({ rule }: RuleCardProps) {
 	const userVote = userVoteData?.userVote;
 
 	// Show skeletons until we have actual data with numbers
-	const hasValidStats = stats && typeof stats.upvotes === 'number';
-	const hasValidUserVote = userVoteData && userVoteData.hasOwnProperty('userVote');
+	const hasValidStats = stats && typeof stats.upvotes === "number";
+	const hasValidUserVote = userVoteData && Object.hasOwn(userVoteData, "userVote");
 	const isLoadingVoteData = (!hasValidStats || !hasValidUserVote) && !votingMutation.isPending;
 
 	const handleCopy = async () => {
@@ -130,9 +127,7 @@ export function RuleCard({ rule }: RuleCardProps) {
 			<CardHeader className="pb-0 mb-0 h-auto">
 				<div className="flex items-start justify-between">
 					<div className="flex flex-col gap-2 flex-1">
-						<CardTitle className="-mt-0.5 leading-6 line-clamp-1">
-							{rule.title}
-						</CardTitle>
+						<CardTitle className="-mt-0.5 leading-6 line-clamp-1">{rule.title}</CardTitle>
 						<CardDescription className="line-clamp-4 font-mono text-xs leading-4.5">
 							{rule.content}
 						</CardDescription>
@@ -155,20 +150,10 @@ export function RuleCard({ rule }: RuleCardProps) {
 							View
 						</Button>
 					</Link>
-					<Button
-						variant="ghost"
-						className="size-8"
-						size="sm"
-						onClick={handleCopy}
-					>
+					<Button variant="ghost" className="size-8" size="sm" onClick={handleCopy}>
 						<Copy className="!size-3.5" />
 					</Button>
-					<Button
-						variant="ghost"
-						className="size-8"
-						size="sm"
-						onClick={handleDownload}
-					>
+					<Button variant="ghost" className="size-8" size="sm" onClick={handleDownload}>
 						<Download className="!size-3.5" />
 					</Button>
 				</div>
@@ -178,7 +163,7 @@ export function RuleCard({ rule }: RuleCardProps) {
 						size="sm"
 						disabled={votingMutation.isPending || isLoadingVoteData}
 						onClick={() => handleVote("up")}
-						className={userVote === 'up' ? 'border-foreground' : ''}
+						className={userVote === "up" ? "border-foreground" : ""}
 					>
 						<ArrowUp className="!size-3.5" />
 						{isLoadingVoteData ? <Skeleton className="h-4 w-3" /> : currentUpvotes}
@@ -188,14 +173,10 @@ export function RuleCard({ rule }: RuleCardProps) {
 						size="sm"
 						disabled={votingMutation.isPending || isLoadingVoteData}
 						onClick={() => handleVote("down")}
-						className={userVote === 'down' ? 'border-foreground' : ''}
+						className={userVote === "down" ? "border-foreground" : ""}
 					>
 						<ArrowDown className="!size-3.5" />
-						{isLoadingVoteData ? (
-							<Skeleton className="h-4 w-3" />
-						) : (
-							currentDownvotes
-						)}
+						{isLoadingVoteData ? <Skeleton className="h-4 w-3" /> : currentDownvotes}
 					</Button>
 				</div>
 			</div>

@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'webgl-threejs',
-	slug: 'webgl-threejs',
-	title: 'WebGL & Three.js Development',
-	description: 'Create immersive 3D web experiences using WebGL and Three.js library',
+	id: "webgl-threejs",
+	slug: "webgl-threejs",
+	title: "WebGL & Three.js Development",
+	description: "Create immersive 3D web experiences using WebGL and Three.js library",
 	content: `You are an expert in WebGL and Three.js development for creating 3D graphics and interactive web experiences.
 
 Three.js Fundamentals:
@@ -90,10 +90,10 @@ Deployment:
 - Mobile device optimization
 - WebGL compatibility checking
 - Cross-browser testing`,
-	categories: ['webgl', 'threejs', '3d-graphics', 'frontend'],
-	tags: ['webgl', 'threejs', '3d-graphics', 'shaders', 'animation'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.js,*.ts,*.glsl,*.vert,*.frag,*.gltf,*.obj'
+	categories: ["webgl", "threejs", "3d-graphics", "frontend"],
+	tags: ["webgl", "threejs", "3d-graphics", "shaders", "animation"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.js,*.ts,*.glsl,*.vert,*.frag,*.gltf,*.obj",
 };

@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'rust-systems',
-	slug: 'rust-systems',
-	title: 'Rust Systems Programming',
-	description: 'Build safe, fast, and concurrent systems with Rust programming language',
+	id: "rust-systems",
+	slug: "rust-systems",
+	title: "Rust Systems Programming",
+	description: "Build safe, fast, and concurrent systems with Rust programming language",
 	content: `You are an expert in Rust systems programming, focusing on safety, performance, and concurrency.
 
 Rust Core Concepts:
@@ -83,10 +83,10 @@ Safety Patterns:
 - Builder pattern for configuration
 - RAII for resource management
 - Compile-time guarantees`,
-	categories: ['rust', 'systems', 'performance', 'concurrency'],
-	tags: ['rust', 'systems-programming', 'memory-safety', 'concurrency', 'performance'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.rs,Cargo.toml,Cargo.lock'
+	categories: ["rust", "systems", "performance", "concurrency"],
+	tags: ["rust", "systems-programming", "memory-safety", "concurrency", "performance"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.rs,Cargo.toml,Cargo.lock",
 };

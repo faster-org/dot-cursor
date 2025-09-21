@@ -1,10 +1,11 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'nodejs-microservices',
-	slug: 'nodejs-microservices',
-	title: 'Node.js Microservices Architecture',
-	description: 'Build scalable microservices with Node.js, Express, and distributed system patterns',
+	id: "nodejs-microservices",
+	slug: "nodejs-microservices",
+	title: "Node.js Microservices Architecture",
+	description:
+		"Build scalable microservices with Node.js, Express, and distributed system patterns",
 	content: `You are an expert in Node.js microservices development and distributed system architecture.
 
 Microservices Fundamentals:
@@ -118,10 +119,10 @@ Production Readiness:
 - Memory and CPU monitoring
 - Log aggregation
 - Incident response procedures`,
-	categories: ['nodejs', 'microservices', 'backend', 'distributed-systems'],
-	tags: ['nodejs', 'microservices', 'express', 'distributed-systems', 'scalability'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.js,*.ts,package.json,*.yml,*.yaml,Dockerfile'
+	categories: ["nodejs", "microservices", "backend", "distributed-systems"],
+	tags: ["nodejs", "microservices", "express", "distributed-systems", "scalability"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.js,*.ts,package.json,*.yml,*.yaml,Dockerfile",
 };

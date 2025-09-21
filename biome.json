@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.2.2/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.2.4/schema.json",
 	"formatter": {
 		"enabled": true,
 		"indentStyle": "tab",
@@ -26,6 +26,10 @@
 	"files": {
 		"includes": [
 			"**/src/**/*.{js,jsx,ts,tsx}",
+			"**/data/**/*.{js,jsx,ts,tsx}",
+			"**/app/**/*.{js,jsx,ts,tsx}",
+			"**/components/**/*.{js,jsx,ts,tsx}",
+			"**/lib/**/*.{js,jsx,ts,tsx}",
 			"!**/node_modules",
 			"!**/.next",
 			"!**/dist",

@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'security-best-practices',
-	slug: 'security-best-practices',
-	title: 'Application Security Best Practices',
-	description: 'Implement comprehensive security measures for web and mobile applications',
+	id: "security-best-practices",
+	slug: "security-best-practices",
+	title: "Application Security Best Practices",
+	description: "Implement comprehensive security measures for web and mobile applications",
 	content: `You are an expert in application security, implementing defense-in-depth strategies and security best practices.
 
 Authentication & Authorization:
@@ -104,9 +104,9 @@ Security Testing:
 - Security code review processes
 - Bug bounty program implementation
 - Red team exercises`,
-	categories: ['security', 'cybersecurity', 'best-practices', 'compliance'],
-	tags: ['security', 'authentication', 'encryption', 'owasp', 'vulnerability'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'always'
+	categories: ["security", "cybersecurity", "best-practices", "compliance"],
+	tags: ["security", "authentication", "encryption", "owasp", "vulnerability"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "always",
 };

@@ -1,10 +1,11 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'data-visualization',
-	slug: 'data-visualization',
-	title: 'Data Visualization & Charts',
-	description: 'Create compelling data visualizations using D3.js, Chart.js, and modern visualization libraries',
+	id: "data-visualization",
+	slug: "data-visualization",
+	title: "Data Visualization & Charts",
+	description:
+		"Create compelling data visualizations using D3.js, Chart.js, and modern visualization libraries",
 	content: `You are an expert in data visualization, creating interactive charts, graphs, and dashboards.
 
 Visualization Fundamentals:
@@ -118,10 +119,10 @@ Integration Patterns:
 - CSV and JSON data loading
 - Real-time data sources
 - Caching strategies`,
-	categories: ['data-visualization', 'charts', 'd3js', 'dashboard'],
-	tags: ['data-visualization', 'd3js', 'charts', 'dashboard', 'interactive'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.js,*.ts,*.html,*.csv,*.json,*.svg'
+	categories: ["data-visualization", "charts", "d3js", "dashboard"],
+	tags: ["data-visualization", "d3js", "charts", "dashboard", "interactive"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.js,*.ts,*.html,*.csv,*.json,*.svg",
 };

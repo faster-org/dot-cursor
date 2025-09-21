@@ -1,10 +1,11 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'aws-cloud-architecture',
-	slug: 'aws-cloud-architecture',
-	title: 'AWS Cloud Architecture',
-	description: 'Design and deploy scalable applications using AWS cloud services and best practices',
+	id: "aws-cloud-architecture",
+	slug: "aws-cloud-architecture",
+	title: "AWS Cloud Architecture",
+	description:
+		"Design and deploy scalable applications using AWS cloud services and best practices",
 	content: `You are an expert in AWS cloud architecture, service design, and cloud-native application development.
 
 Core AWS Services:
@@ -97,10 +98,10 @@ Best Practices:
 - Cost-effective architecture
 - Operational excellence
 - Reliability and resilience`,
-	categories: ['aws', 'cloud', 'architecture', 'devops'],
-	tags: ['aws', 'cloud-computing', 'serverless', 'infrastructure', 'scalability'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.yml,*.yaml,*.json,*.tf,cloudformation.template'
+	categories: ["aws", "cloud", "architecture", "devops"],
+	tags: ["aws", "cloud-computing", "serverless", "infrastructure", "scalability"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.yml,*.yaml,*.json,*.tf,cloudformation.template",
 };

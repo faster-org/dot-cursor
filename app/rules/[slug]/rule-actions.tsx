@@ -21,43 +21,46 @@ interface RuleActionsProps {
 }
 
 export function RuleActions({ rule }: RuleActionsProps) {
-	const { data: stats, isLoading: isLoadingStats, isFetching: isFetchingStats } = useRuleStats(rule.slug);
-	const { data: userVoteData, isLoading: isLoadingUserVote, isFetching: isFetchingUserVote } = useUserVote(rule.slug);
+	const {
+		data: stats,
+	} = useRuleStats(rule.slug);
+	const {
+		data: userVoteData,
+	} = useUserVote(rule.slug);
 	const votingMutation = useVoting(rule.slug);
 	const copyMutation = useCopyRule();
 
 	const userVote = userVoteData?.userVote;
 
 	// Show skeletons until we have actual data with numbers
-	const hasValidStats = stats && typeof stats.upvotes === 'number';
-	const hasValidUserVote = userVoteData && userVoteData.hasOwnProperty('userVote');
+	const hasValidStats = stats && typeof stats.upvotes === "number";
+	const hasValidUserVote = userVoteData && Object.hasOwn(userVoteData, "userVote");
 	const isLoadingVoteData = (!hasValidStats || !hasValidUserVote) && !votingMutation.isPending;
 
 	const createMdcContent = () => {
-		let frontmatter = '';
+		let frontmatter = "";
 
 		switch (rule.applicationMode) {
-			case 'always':
+			case "always":
 				// Always Apply - no description field
 				frontmatter = `---
 alwaysApply: true
 ---`;
 				break;
-			case 'intelligent':
+			case "intelligent":
 				// Apply Intelligently - description decides when to apply
 				frontmatter = `---
 description: ${rule.description}
 alwaysApply: false
 ---`;
 				break;
-			case 'files':
+			case "files":
 				// Apply to Specific Files - globs field for file patterns
 				frontmatter = `---
-globs: ${rule.globs || '*.ts,*.tsx'}
+globs: ${rule.globs || "*.ts,*.tsx"}
 alwaysApply: false
 ---`;
 				break;
-			case 'manual':
 			default:
 				// Apply Manually - just alwaysApply: false
 				frontmatter = `---
@@ -112,7 +115,7 @@ ${rule.content}`;
 					size="sm"
 					disabled={votingMutation.isPending || isLoadingVoteData}
 					onClick={() => handleVote("up")}
-					className={userVote === 'up' ? 'border-foreground' : ''}
+					className={userVote === "up" ? "border-foreground" : ""}
 				>
 					<ArrowUp className="!size-3.5" />
 					{isLoadingVoteData ? <Skeleton className="h-4 w-3" /> : (stats?.upvotes ?? 0)}
@@ -122,7 +125,7 @@ ${rule.content}`;
 					size="sm"
 					disabled={votingMutation.isPending || isLoadingVoteData}
 					onClick={() => handleVote("down")}
-					className={userVote === 'down' ? 'border-foreground' : ''}
+					className={userVote === "down" ? "border-foreground" : ""}
 				>
 					<ArrowDown className="!size-3.5" />
 					{isLoadingVoteData ? <Skeleton className="h-4 w-3" /> : (stats?.downvotes ?? 0)}
@@ -130,20 +133,10 @@ ${rule.content}`;
 			</div>
 
 			<div className="flex items-center gap-1.5">
-				<Button
-					variant="ghost"
-					className="size-8"
-					size="sm"
-					onClick={handleCopy}
-				>
+				<Button variant="ghost" className="size-8" size="sm" onClick={handleCopy}>
 					<Copy className="!size-3.5" />
 				</Button>
-				<Button
-					variant="ghost"
-					className="size-8"
-					size="sm"
-					onClick={handleDownload}
-				>
+				<Button variant="ghost" className="size-8" size="sm" onClick={handleDownload}>
 					<Download className="!size-3.5" />
 				</Button>
 			</div>

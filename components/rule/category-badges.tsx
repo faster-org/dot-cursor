@@ -2,11 +2,7 @@
 
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 interface Category {
 	name: string;
@@ -18,10 +14,7 @@ interface CategoryBadgesProps {
 	maxVisible?: number;
 }
 
-export function CategoryBadges({
-	categories,
-	maxVisible = 3,
-}: CategoryBadgesProps) {
+export function CategoryBadges({ categories, maxVisible = 3 }: CategoryBadgesProps) {
 	// Use a fixed visible count for instant rendering
 	// This avoids the delay from ResizeObserver calculations
 	const visibleCount = Math.min(maxVisible, categories.length);
@@ -55,10 +48,7 @@ export function CategoryBadges({
 					<PopoverContent className="w-auto p-0" side="top">
 						<div className="inline-flex flex-wrap gap-1.5 p-3 pt-2.5 max-w-xs">
 							{overflowCategories.map((category) => (
-								<Link
-									key={category.slug}
-									href={`/rules?category=${category.slug}`}
-								>
+								<Link key={category.slug} href={`/rules?category=${category.slug}`}>
 									<Badge variant="outline" className="text-xs">
 										{category.name}
 									</Badge>

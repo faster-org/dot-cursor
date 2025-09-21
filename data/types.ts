@@ -1,4 +1,4 @@
-export type ApplicationMode = 'always' | 'intelligent' | 'files' | 'manual';
+export type ApplicationMode = "always" | "intelligent" | "files" | "manual";
 
 export interface Rule {
 	id: string;

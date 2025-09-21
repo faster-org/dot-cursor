@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'testing-jest',
-	slug: 'testing-jest',
-	title: 'Jest Testing Framework',
-	description: 'Comprehensive testing with Jest including unit tests, mocking, and code coverage',
+	id: "testing-jest",
+	slug: "testing-jest",
+	title: "Jest Testing Framework",
+	description: "Comprehensive testing with Jest including unit tests, mocking, and code coverage",
 	content: `You are an expert in Jest testing framework for JavaScript and TypeScript applications.
 
 Jest Fundamentals:
@@ -90,10 +90,10 @@ Best Practices:
 - Testing behavior over implementation
 - Avoiding test interdependencies
 - Maintaining test performance`,
-	categories: ['testing', 'jest', 'javascript', 'unit-testing'],
-	tags: ['jest', 'testing', 'mocking', 'code-coverage', 'tdd'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.test.js,*.test.ts,*.spec.js,*.spec.ts,jest.config.js'
+	categories: ["testing", "jest", "javascript", "unit-testing"],
+	tags: ["jest", "testing", "mocking", "code-coverage", "tdd"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.test.js,*.test.ts,*.spec.js,*.spec.ts,jest.config.js",
 };

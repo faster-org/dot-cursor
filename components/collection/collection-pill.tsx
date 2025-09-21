@@ -1,12 +1,7 @@
 import Link from "next/link";
 import { Package } from "lucide-react";
 import { Collection } from "@/data/types";
-import {
-	SiNextdotjs,
-	SiPython,
-	SiReact,
-	SiHtml5
-} from "@icons-pack/react-simple-icons";
+import { SiNextdotjs, SiPython, SiReact, SiHtml5 } from "@icons-pack/react-simple-icons";
 
 interface CollectionPillProps {
 	collection: Collection & { ruleCount: number };
@@ -14,10 +9,10 @@ interface CollectionPillProps {
 
 const getIconComponent = (iconName?: string) => {
 	const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-		'nextdotjs': SiNextdotjs,
-		'python': SiPython,
-		'react': SiReact,
-		'html5': SiHtml5,
+		nextdotjs: SiNextdotjs,
+		python: SiPython,
+		react: SiReact,
+		html5: SiHtml5,
 	};
 
 	const IconComponent = iconName ? iconMap[iconName] : null;
@@ -36,7 +31,10 @@ export function CollectionPill({ collection }: CollectionPillProps) {
 					) : (
 						<Package className="h-4 w-4 text-muted-foreground" />
 					)}
-					<span className="font-medium text-sm">{collection.name} ({collection.ruleCount} {collection.ruleCount === 1 ? "rule" : "rules"})</span>
+					<span className="font-medium text-sm">
+						{collection.name} ({collection.ruleCount}{" "}
+						{collection.ruleCount === 1 ? "rule" : "rules"})
+					</span>
 				</div>
 			</div>
 		</Link>

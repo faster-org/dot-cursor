@@ -50,11 +50,7 @@ interface BrowseClientProps {
 	initialSearchParams: { [key: string]: string | undefined };
 }
 
-export function BrowseClient({
-	initialRules,
-	categories,
-	initialSearchParams,
-}: BrowseClientProps) {
+export function BrowseClient({ initialRules, categories, initialSearchParams }: BrowseClientProps) {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 
@@ -80,18 +76,19 @@ export function BrowseClient({
 
 		// Filter by category
 		if (currentCategory && currentCategory !== "all") {
-			filtered = filtered.filter(rule =>
-				rule.categories.some(cat => cat.slug === currentCategory)
+			filtered = filtered.filter((rule) =>
+				rule.categories.some((cat) => cat.slug === currentCategory),
 			);
 		}
 
 		// Filter by search term
 		if (currentSearch.trim()) {
 			const lowercaseSearch = currentSearch.toLowerCase();
-			filtered = filtered.filter(rule =>
-				rule.title.toLowerCase().includes(lowercaseSearch) ||
-				rule.description.toLowerCase().includes(lowercaseSearch) ||
-				rule.content.toLowerCase().includes(lowercaseSearch)
+			filtered = filtered.filter(
+				(rule) =>
+					rule.title.toLowerCase().includes(lowercaseSearch) ||
+					rule.description.toLowerCase().includes(lowercaseSearch) ||
+					rule.content.toLowerCase().includes(lowercaseSearch),
 			);
 		}
 
@@ -109,7 +106,9 @@ export function BrowseClient({
 	};
 
 	const [filteredRules, setFilteredRules] = useState<Rule[]>(() => getInitialFilteredRules());
-	const [displayedRules, setDisplayedRules] = useState<Rule[]>(() => getInitialFilteredRules().slice(0, 12));
+	const [displayedRules, setDisplayedRules] = useState<Rule[]>(() =>
+		getInitialFilteredRules().slice(0, 12),
+	);
 	const [displayCount, setDisplayCount] = useState(12); // Start with 12 rules
 
 	// Update URL when filters change (remove page param)
@@ -117,7 +116,7 @@ export function BrowseClient({
 		const newSearchParams = new URLSearchParams(searchParams.toString());
 
 		// Always remove page param since we don't need it anymore
-		newSearchParams.delete('page');
+		newSearchParams.delete("page");
 
 		Object.entries(params).forEach(([key, value]) => {
 			if (value && value !== "all" && value.trim()) {
@@ -130,25 +129,25 @@ export function BrowseClient({
 		router.push(`/rules?${newSearchParams.toString()}`);
 	};
 
-
 	// Client-side filtering and sorting - instant updates
 	useEffect(() => {
 		let filtered = [...initialRules];
 
 		// Filter by category
 		if (selectedCategory && selectedCategory !== "all") {
-			filtered = filtered.filter(rule =>
-				rule.categories.some(cat => cat.slug === selectedCategory)
+			filtered = filtered.filter((rule) =>
+				rule.categories.some((cat) => cat.slug === selectedCategory),
 			);
 		}
 
 		// Filter by search term
 		if (search.trim()) {
 			const lowercaseSearch = search.toLowerCase();
-			filtered = filtered.filter(rule =>
-				rule.title.toLowerCase().includes(lowercaseSearch) ||
-				rule.description.toLowerCase().includes(lowercaseSearch) ||
-				rule.content.toLowerCase().includes(lowercaseSearch)
+			filtered = filtered.filter(
+				(rule) =>
+					rule.title.toLowerCase().includes(lowercaseSearch) ||
+					rule.description.toLowerCase().includes(lowercaseSearch) ||
+					rule.content.toLowerCase().includes(lowercaseSearch),
 			);
 		}
 
@@ -188,13 +187,13 @@ export function BrowseClient({
 	};
 
 	const loadMoreRules = () => {
-		setDisplayCount(prev => prev + 12);
+		setDisplayCount((prev) => prev + 12);
 	};
 
 	// Scroll listener for infinite scroll
 	useEffect(() => {
 		const handleScroll = () => {
-			const scrollContainer = document.querySelector('.rules-scroll-container');
+			const scrollContainer = document.querySelector(".rules-scroll-container");
 			if (!scrollContainer) return;
 
 			const { scrollTop, scrollHeight, clientHeight } = scrollContainer;
@@ -206,21 +205,19 @@ export function BrowseClient({
 			}
 		};
 
-		const scrollContainer = document.querySelector('.rules-scroll-container');
+		const scrollContainer = document.querySelector(".rules-scroll-container");
 		if (scrollContainer) {
-			scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
-			return () => scrollContainer.removeEventListener('scroll', handleScroll);
+			scrollContainer.addEventListener("scroll", handleScroll, { passive: true });
+			return () => scrollContainer.removeEventListener("scroll", handleScroll);
 		}
-	}, [displayedRules.length, filteredRules.length]);
+	}, [displayedRules.length, filteredRules.length, loadMoreRules]);
 
 	const CategoryList = () => (
 		<div className="space-y-2">
 			<Button
 				onClick={() => handleCategoryChange("all")}
 				className={`bg-transparent border-none text-muted-foreground w-full text-left justify-start px-3 py-2 rounded-md text-sm transition-colors ${
-					selectedCategory === "all"
-						? "!bg-secondary text-foreground"
-						: "hover:bg-muted"
+					selectedCategory === "all" ? "!bg-secondary text-foreground" : "hover:bg-muted"
 				}`}
 			>
 				All Categories
@@ -230,9 +227,7 @@ export function BrowseClient({
 					key={category.id}
 					onClick={() => handleCategoryChange(category.slug)}
 					className={`bg-transparent border-none text-muted-foreground w-full text-left px-3 py-2 rounded-md text-sm transition-colors flex justify-between items-center ${
-						selectedCategory === category.slug
-							? "!bg-secondary text-foreground"
-							: "hover:bg-muted"
+						selectedCategory === category.slug ? "!bg-secondary text-foreground" : "hover:bg-muted"
 					}`}
 				>
 					<span>{category.name}</span>
@@ -295,7 +290,9 @@ export function BrowseClient({
 							</Select>
 						) : (
 							<div className="w-40 h-9 rounded-md border border-input bg-transparent px-3 py-2 text-sm flex items-center justify-between">
-								<span>{sortBy === "popular" ? "Popular" : sortBy === "votes" ? "Most Voted" : "Latest"}</span>
+								<span>
+									{sortBy === "popular" ? "Popular" : sortBy === "votes" ? "Most Voted" : "Latest"}
+								</span>
 								<ChevronDown className="h-4 w-4 opacity-50" />
 							</div>
 						)}
@@ -308,9 +305,8 @@ export function BrowseClient({
 						<div className="text-center py-12">
 							<p className="text-muted-foreground text-lg">
 								{search || selectedCategory !== "all"
-									? `No rules found ${search ? `for "${search}"` : ''} ${selectedCategory !== "all" ? `in ${categories.find(c => c.slug === selectedCategory)?.name}` : ''}`
-									: "No rules available yet"
-								}
+									? `No rules found ${search ? `for "${search}"` : ""} ${selectedCategory !== "all" ? `in ${categories.find((c) => c.slug === selectedCategory)?.name}` : ""}`
+									: "No rules available yet"}
 							</p>
 						</div>
 					) : (

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { RuleCard } from "@/components/rule/rule-card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowRight } from "lucide-react";
@@ -51,11 +50,11 @@ export function CategorizedRules({
 				<div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="space-y-16">
 						{[...Array(3)].map((_, i) => (
-							<div key={i} className="space-y-6">
+							<div key={`category-skeleton-${i}`} className="space-y-6">
 								<Skeleton className="h-8 w-48" />
 								<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 									{[...Array(3)].map((_, j) => (
-										<Skeleton key={j} className="h-[200px]" />
+										<Skeleton key={`rule-skeleton-${i}-${j}`} className="h-[200px]" />
 									))}
 								</div>
 							</div>
@@ -81,11 +80,7 @@ export function CategorizedRules({
 								</p>
 							</>
 						) : (
-							<>
-								<p className="text-foreground text-sm font-medium">
-									No results found.
-								</p>
-							</>
+							<p className="text-foreground text-sm font-medium">No results found.</p>
 						)}
 					</div>
 				</div>
@@ -112,10 +107,7 @@ export function CategorizedRules({
 								</Link>
 							</div>
 							<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-								{(searchTerm
-									? category.rules
-									: category.rules.slice(0, 20)
-								).map((rule) => (
+								{(searchTerm ? category.rules : category.rules.slice(0, 20)).map((rule) => (
 									<RuleCard key={rule.id} rule={rule} />
 								))}
 							</div>

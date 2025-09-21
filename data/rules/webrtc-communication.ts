@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'webrtc-communication',
-	slug: 'webrtc-communication',
-	title: 'WebRTC Real-time Communication',
-	description: 'Build video calling, voice chat, and peer-to-peer communication with WebRTC',
+	id: "webrtc-communication",
+	slug: "webrtc-communication",
+	title: "WebRTC Real-time Communication",
+	description: "Build video calling, voice chat, and peer-to-peer communication with WebRTC",
 	content: `You are an expert in WebRTC technology for building real-time communication applications.
 
 WebRTC Fundamentals:
@@ -118,10 +118,10 @@ Performance Optimization:
 - Battery consumption
 - Network efficiency
 - User experience optimization`,
-	categories: ['webrtc', 'real-time', 'video-calling', 'p2p'],
-	tags: ['webrtc', 'video-calling', 'real-time', 'peer-to-peer', 'media'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.js,*.ts,*.html,package.json'
+	categories: ["webrtc", "real-time", "video-calling", "p2p"],
+	tags: ["webrtc", "video-calling", "real-time", "peer-to-peer", "media"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.js,*.ts,*.html,package.json",
 };

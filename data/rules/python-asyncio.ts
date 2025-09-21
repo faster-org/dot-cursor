@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'python-asyncio',
-	slug: 'python-asyncio',
-	title: 'Python Asyncio & Asynchronous Programming',
-	description: 'Build high-performance asynchronous applications with Python asyncio',
+	id: "python-asyncio",
+	slug: "python-asyncio",
+	title: "Python Asyncio & Asynchronous Programming",
+	description: "Build high-performance asynchronous applications with Python asyncio",
 	content: `You are an expert in Python asynchronous programming using asyncio and related libraries.
 
 Asyncio Fundamentals:
@@ -111,10 +111,10 @@ Common Pitfalls:
 - Exception handling mistakes
 - Task cancellation problems
 - Memory leak prevention`,
-	categories: ['python', 'asyncio', 'async', 'concurrency'],
-	tags: ['python', 'asyncio', 'async-await', 'concurrency', 'event-loop'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.py,requirements.txt,pyproject.toml'
+	categories: ["python", "asyncio", "async", "concurrency"],
+	tags: ["python", "asyncio", "async-await", "concurrency", "event-loop"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.py,requirements.txt,pyproject.toml",
 };

@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'firebase-development',
-	slug: 'firebase-development',
-	title: 'Firebase App Development',
-	description: 'Build scalable applications with Firebase backend services and real-time features',
+	id: "firebase-development",
+	slug: "firebase-development",
+	title: "Firebase App Development",
+	description: "Build scalable applications with Firebase backend services and real-time features",
 	content: `You are an expert in Firebase development for building scalable web and mobile applications.
 
 Firebase Fundamentals:
@@ -125,10 +125,10 @@ Best Practices:
 - Performance optimization
 - Error handling strategies
 - Code organization patterns`,
-	categories: ['firebase', 'backend-as-a-service', 'real-time', 'mobile'],
-	tags: ['firebase', 'baas', 'real-time', 'serverless', 'mobile-backend'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.js,*.ts,firebase.json,firestore.rules,storage.rules'
+	categories: ["firebase", "backend-as-a-service", "real-time", "mobile"],
+	tags: ["firebase", "baas", "real-time", "serverless", "mobile-backend"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.js,*.ts,firebase.json,firestore.rules,storage.rules",
 };

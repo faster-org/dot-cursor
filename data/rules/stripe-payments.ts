@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'stripe-payments',
-	slug: 'stripe-payments',
-	title: 'Stripe Payment Integration',
-	description: 'Implement secure payment processing with Stripe API and payment flows',
+	id: "stripe-payments",
+	slug: "stripe-payments",
+	title: "Stripe Payment Integration",
+	description: "Implement secure payment processing with Stripe API and payment flows",
 	content: `You are an expert in Stripe payment integration for e-commerce and subscription-based applications.
 
 Stripe Fundamentals:
@@ -118,10 +118,10 @@ Production Deployment:
 - Backup and recovery
 - Scaling considerations
 - Support and maintenance`,
-	categories: ['stripe', 'payments', 'e-commerce', 'fintech'],
-	tags: ['stripe', 'payments', 'e-commerce', 'subscriptions', 'checkout'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.js,*.ts,*.py,*.php,*.rb,package.json'
+	categories: ["stripe", "payments", "e-commerce", "fintech"],
+	tags: ["stripe", "payments", "e-commerce", "subscriptions", "checkout"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.js,*.ts,*.py,*.php,*.rb,package.json",
 };

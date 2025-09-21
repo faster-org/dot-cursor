@@ -1,10 +1,11 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'jenkins-cicd',
-	slug: 'jenkins-cicd',
-	title: 'Jenkins CI/CD Automation',
-	description: 'Build automated CI/CD pipelines with Jenkins for continuous integration and deployment',
+	id: "jenkins-cicd",
+	slug: "jenkins-cicd",
+	title: "Jenkins CI/CD Automation",
+	description:
+		"Build automated CI/CD pipelines with Jenkins for continuous integration and deployment",
 	content: `You are an expert in Jenkins automation, pipeline development, and continuous integration/deployment.
 
 Jenkins Fundamentals:
@@ -125,10 +126,10 @@ Best Practices:
 - Security best practices
 - Maintenance procedures
 - Documentation standards`,
-	categories: ['jenkins', 'cicd', 'automation', 'devops'],
-	tags: ['jenkins', 'ci-cd', 'automation', 'pipeline', 'devops'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: 'Jenkinsfile,*.groovy,*.xml,build.gradle,pom.xml'
+	categories: ["jenkins", "cicd", "automation", "devops"],
+	tags: ["jenkins", "ci-cd", "automation", "pipeline", "devops"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "Jenkinsfile,*.groovy,*.xml,build.gradle,pom.xml",
 };

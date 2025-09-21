@@ -1,82 +1,154 @@
-import { Category } from './types';
+import { Category } from "./types";
 
 export const categories: Category[] = [
 	{
-		id: 'nextjs',
-		slug: 'nextjs',
-		name: 'Next.js',
-		description: 'Next.js framework and React Server Components'
+		id: "nextjs",
+		slug: "nextjs",
+		name: "Next.js",
+		description: "Next.js framework and React Server Components",
 	},
 	{
-		id: 'react',
-		slug: 'react',
-		name: 'React',
-		description: 'React library and component patterns'
+		id: "react",
+		slug: "react",
+		name: "React",
+		description: "React library and component patterns",
 	},
 	{
-		id: 'typescript',
-		slug: 'typescript',
-		name: 'TypeScript',
-		description: 'TypeScript language and type safety'
+		id: "angular",
+		slug: "angular",
+		name: "Angular",
+		description: "Angular framework and standalone components",
 	},
 	{
-		id: 'css',
-		slug: 'css',
-		name: 'CSS',
-		description: 'CSS and styling frameworks'
+		id: "vue",
+		slug: "vue",
+		name: "Vue",
+		description: "Vue.js framework and composition API",
 	},
 	{
-		id: 'design',
-		slug: 'design',
-		name: 'Design',
-		description: 'UI/UX design and design systems'
+		id: "svelte",
+		slug: "svelte",
+		name: "Svelte",
+		description: "Svelte and SvelteKit framework",
 	},
 	{
-		id: 'frontend',
-		slug: 'frontend',
-		name: 'Frontend',
-		description: 'Frontend development and frameworks'
+		id: "solidjs",
+		slug: "solidjs",
+		name: "SolidJS",
+		description: "SolidJS reactive framework",
 	},
 	{
-		id: 'javascript',
-		slug: 'javascript',
-		name: 'JavaScript',
-		description: 'JavaScript programming language'
+		id: "typescript",
+		slug: "typescript",
+		name: "TypeScript",
+		description: "TypeScript language and type safety",
 	},
 	{
-		id: 'python',
-		slug: 'python',
-		name: 'Python',
-		description: 'Python programming language'
+		id: "css",
+		slug: "css",
+		name: "CSS",
+		description: "CSS and styling frameworks",
 	},
 	{
-		id: 'backend',
-		slug: 'backend',
-		name: 'Backend',
-		description: 'Backend development and APIs'
+		id: "design",
+		slug: "design",
+		name: "Design",
+		description: "UI/UX design and design systems",
 	},
 	{
-		id: 'api',
-		slug: 'api',
-		name: 'API',
-		description: 'API design and development'
+		id: "frontend",
+		slug: "frontend",
+		name: "Frontend",
+		description: "Frontend development and frameworks",
 	},
 	{
-		id: 'database',
-		slug: 'database',
-		name: 'Database',
-		description: 'Database design and optimization'
+		id: "javascript",
+		slug: "javascript",
+		name: "JavaScript",
+		description: "JavaScript programming language",
 	},
 	{
-		id: 'devops',
-		slug: 'devops',
-		name: 'DevOps',
-		description: 'DevOps and infrastructure'
+		id: "python",
+		slug: "python",
+		name: "Python",
+		description: "Python programming language",
 	},
 	{
-		id: 'testing',
-		slug: 'testing',
-		name: 'Testing',
-		description: 'Testing strategies and frameworks'
-	}
+		id: "nodejs",
+		slug: "nodejs",
+		name: "Node.js",
+		description: "Node.js runtime and server-side JavaScript",
+	},
+	{
+		id: "backend",
+		slug: "backend",
+		name: "Backend",
+		description: "Backend development and APIs",
+	},
+	{
+		id: "api",
+		slug: "api",
+		name: "API",
+		description: "API design and development",
+	},
+	{
+		id: "database",
+		slug: "database",
+		name: "Database",
+		description: "Database design and optimization",
+	},
+	{
+		id: "devops",
+		slug: "devops",
+		name: "DevOps",
+		description: "DevOps and infrastructure",
+	},
+	{
+		id: "testing",
+		slug: "testing",
+		name: "Testing",
+		description: "Testing strategies and frameworks",
+	},
+	{
+		id: "mobile",
+		slug: "mobile",
+		name: "Mobile",
+		description: "Mobile app development",
+	},
+	{
+		id: "cloud",
+		slug: "cloud",
+		name: "Cloud",
+		description: "Cloud computing and services",
+	},
+	{
+		id: "security",
+		slug: "security",
+		name: "Security",
+		description: "Security best practices and authentication",
+	},
+	{
+		id: "performance",
+		slug: "performance",
+		name: "Performance",
+		description: "Performance optimization and monitoring",
+	},
+	{
+		id: "data-science",
+		slug: "data-science",
+		name: "Data Science",
+		description: "Data science and machine learning",
+	},
+	{
+		id: "fullstack",
+		slug: "fullstack",
+		name: "Full-Stack",
+		description: "Full-stack development patterns",
+	},
+	{
+		id: "reactive",
+		slug: "reactive",
+		name: "Reactive",
+		description: "Reactive programming patterns",
+	},
 ];

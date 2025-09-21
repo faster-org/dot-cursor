@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'scala-functional',
-	slug: 'scala-functional',
-	title: 'Scala Functional Programming',
-	description: 'Build scalable applications with Scala using functional programming paradigms',
+	id: "scala-functional",
+	slug: "scala-functional",
+	title: "Scala Functional Programming",
+	description: "Build scalable applications with Scala using functional programming paradigms",
 	content: `You are an expert in Scala programming with focus on functional programming and the Scala ecosystem.
 
 Scala Fundamentals:
@@ -111,10 +111,10 @@ Advanced Topics:
 - Custom DSL creation
 - Metaprogramming techniques
 - Scala 3 new features`,
-	categories: ['scala', 'functional-programming', 'jvm', 'big-data'],
-	tags: ['scala', 'functional-programming', 'akka', 'cats', 'spark'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.scala,build.sbt,*.sc,project/*.scala'
+	categories: ["scala", "functional-programming", "jvm", "big-data"],
+	tags: ["scala", "functional-programming", "akka", "cats", "spark"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.scala,build.sbt,*.sc,project/*.scala",
 };

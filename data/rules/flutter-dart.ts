@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'flutter-dart',
-	slug: 'flutter-dart',
-	title: 'Flutter & Dart Development',
-	description: 'Build beautiful native mobile and web apps with Flutter framework',
+	id: "flutter-dart",
+	slug: "flutter-dart",
+	title: "Flutter & Dart Development",
+	description: "Build beautiful native mobile and web apps with Flutter framework",
 	content: `You are an expert in Flutter development using Dart programming language.
 
 Flutter Core Concepts:
@@ -69,10 +69,10 @@ Deployment:
 - Web deployment
 - CI/CD with GitHub Actions
 - Code signing and certificates`,
-	categories: ['flutter', 'dart', 'mobile', 'cross-platform'],
-	tags: ['flutter', 'dart', 'mobile-app', 'widgets', 'state-management'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.dart,pubspec.yaml,analysis_options.yaml'
+	categories: ["flutter", "dart", "mobile", "cross-platform"],
+	tags: ["flutter", "dart", "mobile-app", "widgets", "state-management"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.dart,pubspec.yaml,analysis_options.yaml",
 };

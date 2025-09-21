@@ -1,10 +1,11 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'nginx-configuration',
-	slug: 'nginx-configuration',
-	title: 'Nginx Web Server Configuration',
-	description: 'Configure Nginx for high-performance web serving, load balancing, and reverse proxy',
+	id: "nginx-configuration",
+	slug: "nginx-configuration",
+	title: "Nginx Web Server Configuration",
+	description:
+		"Configure Nginx for high-performance web serving, load balancing, and reverse proxy",
 	content: `You are an expert in Nginx configuration for web servers, reverse proxies, and load balancing.
 
 Nginx Fundamentals:
@@ -118,10 +119,10 @@ Best Practices:
 - Performance tuning
 - Maintenance procedures
 - Documentation standards`,
-	categories: ['nginx', 'web-server', 'devops', 'infrastructure'],
-	tags: ['nginx', 'web-server', 'reverse-proxy', 'load-balancer', 'ssl'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: 'nginx.conf,*.conf,sites-available/*,sites-enabled/*'
+	categories: ["nginx", "web-server", "devops", "infrastructure"],
+	tags: ["nginx", "web-server", "reverse-proxy", "load-balancer", "ssl"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "nginx.conf,*.conf,sites-available/*,sites-enabled/*",
 };

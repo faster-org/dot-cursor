@@ -1,10 +1,10 @@
-import { Rule } from '../types';
+import { Rule } from "../types";
 
 export const rule: Rule = {
-	id: 'golang-web-api',
-	slug: 'golang-web-api',
-	title: 'Go Web API Development',
-	description: 'Build robust REST APIs and web services with Go standard library and frameworks',
+	id: "golang-web-api",
+	slug: "golang-web-api",
+	title: "Go Web API Development",
+	description: "Build robust REST APIs and web services with Go standard library and frameworks",
 	content: `You are an expert in Go web development, API design, and HTTP services.
 
 HTTP Server Fundamentals:
@@ -83,10 +83,10 @@ Documentation:
 - Code comments and examples
 - Postman collection generation
 - Interactive API documentation`,
-	categories: ['golang', 'web', 'api', 'backend'],
-	tags: ['go', 'rest-api', 'http', 'web-server', 'gin'],
-	author: 'Community',
-	createdAt: '2024-01-30T00:00:00Z',
-	applicationMode: 'files',
-	globs: '*.go,go.mod,go.sum'
+	categories: ["golang", "web", "api", "backend"],
+	tags: ["go", "rest-api", "http", "web-server", "gin"],
+	author: "Community",
+	createdAt: "2024-01-30T00:00:00Z",
+	applicationMode: "files",
+	globs: "*.go,go.mod,go.sum",
 };

@@ -35,13 +35,10 @@ export function SearchHero({ onSearch }: SearchHeroProps) {
 					height={85}
 					priority
 				/>
-				<h1 className="text-4xl font-medium tracking-tight">
-					Community AI Rules for Cursor IDE
-				</h1>
+				<h1 className="text-4xl font-medium tracking-tight">Community AI Rules for Cursor IDE</h1>
 				<p className="mt-4 max-w-2xl mx-auto text-base leading-6 text-muted-foreground">
-					Discover, share, and use AI-powered rules to supercharge your
-					development workflow. Browse community-created prompts and
-					configurations for Cursor IDE.
+					Discover, share, and use AI-powered rules to supercharge your development workflow. Browse
+					community-created prompts and configurations for Cursor IDE.
 				</p>
 
 				<div className="mt-10 max-w-2xl mx-auto">

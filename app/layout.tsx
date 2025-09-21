@@ -4,7 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Toaster } from "@/components/ui/sonner";
 import { ReactQueryProvider } from "@/lib/react-query-provider";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -34,13 +34,11 @@ export default function RootLayout({
 				<link rel="preload" href="/cursor-dark.png" as="image" type="image/png" />
 				<link rel="preload" href="/cursor.svg" as="image" type="image/svg+xml" />
 			</head>
-			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-			>
+			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 				<ReactQueryProvider>
 					<div className="relative flex min-h-screen flex-col">
 						<Analytics />
-            <Header />
+						<Header />
 						<main className="flex-1">{children}</main>
 						<footer className="border-t py-6 md:py-0">
 							<div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
