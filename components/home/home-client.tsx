@@ -48,9 +48,7 @@ export function HomeClient({ initialData }: HomeClientProps) {
 	const [allLoadedCategories, setAllLoadedCategories] = useState<Category[]>(initialData.categories);
 	const [pagination, setPagination] = useState(initialData.pagination);
 	const [loading, setLoading] = useState(false);
-	const [searchLoading, setSearchLoading] = useState(false);
 	const [isClientFiltering, setIsClientFiltering] = useState(false);
-	const [lastServerSearchTerm, setLastServerSearchTerm] = useState("");
 
 	const loadMoreCategories = useCallback(async () => {
 		if (loading || !pagination.hasMore || searchTerm) return;
@@ -78,7 +76,7 @@ export function HomeClient({ initialData }: HomeClientProps) {
 		} finally {
 			setLoading(false);
 		}
-	}, [loading, pagination.hasMore, pagination.page, searchTerm]);
+	}, [loading, pagination.hasMore, pagination.page, searchTerm, categories]);
 
 	// Client-side filtering for instant feedback
 	const filterCategoriesLocally = useCallback((term: string, categoriesToFilter: Category[]) => {
@@ -99,31 +97,7 @@ export function HomeClient({ initialData }: HomeClientProps) {
 			.filter((category) => category.rules.length > 0);
 	}, []);
 
-	// Server-side search for comprehensive results
-	const searchCategoriesOnServer = useCallback(async (term: string) => {
-		setSearchLoading(true);
-		try {
-			if (!term.trim()) {
-				// Reset to loaded categories when search is cleared
-				setCategories(allLoadedCategories);
-				setPagination(initialData.pagination);
-				setIsClientFiltering(false);
-			} else {
-				// Search across all categories on server
-				const response = await fetch(`/api/categories?search=${encodeURIComponent(term)}&limit=100`);
-				const data = await response.json();
-				setCategories(data.categories);
-				setPagination(data.pagination);
-				setIsClientFiltering(false);
-			}
-		} catch (error) {
-			console.error('Failed to search categories:', error);
-		} finally {
-			setSearchLoading(false);
-		}
-	}, [allLoadedCategories, initialData.pagination]);
-
-	// Instant client-side filtering effect - no debouncing for real-time filtering
+	// Client-side filtering effect - instant feedback
 	useEffect(() => {
 		if (searchTerm.trim()) {
 			setIsClientFiltering(true);
@@ -131,26 +105,10 @@ export function HomeClient({ initialData }: HomeClientProps) {
 			setCategories(filtered);
 		} else {
 			setIsClientFiltering(false);
-			// When search is cleared, just restore all loaded categories immediately
+			// When search is cleared, restore all loaded categories
 			setCategories(allLoadedCategories);
 		}
 	}, [searchTerm, allLoadedCategories, filterCategoriesLocally]);
-
-	// Debounced server-side search effect for comprehensive results
-	useEffect(() => {
-		const timeoutId = setTimeout(() => {
-			const trimmedSearchTerm = searchTerm.trim();
-			// Only perform server search if the search term has actually changed
-			if (trimmedSearchTerm && trimmedSearchTerm !== lastServerSearchTerm) {
-				setLastServerSearchTerm(trimmedSearchTerm);
-				searchCategoriesOnServer(trimmedSearchTerm);
-			} else if (!trimmedSearchTerm && lastServerSearchTerm) {
-				setLastServerSearchTerm("");
-			}
-		}, 500); // Longer delay for server search
-
-		return () => clearTimeout(timeoutId);
-	}, [searchTerm, searchCategoriesOnServer, lastServerSearchTerm]);
 
 	// Scroll listener for infinite scroll - predictive loading with throttling
 	useEffect(() => {
@@ -199,12 +157,11 @@ export function HomeClient({ initialData }: HomeClientProps) {
 			<CategorizedRules
 				categoriesWithRules={categories}
 				searchTerm={searchTerm}
-				loading={searchLoading && !isClientFiltering}
+				loading={loading && !searchTerm}
 				hasMore={pagination.hasMore && !searchTerm}
 				onLoadMore={loadMoreCategories}
 				loadingMore={loading}
 				isClientFiltering={isClientFiltering}
-				serverSearchLoading={searchLoading && isClientFiltering}
 			/>
 		</div>
 	);

@@ -4,10 +4,10 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import {
-	HoverCard,
-	HoverCardContent,
-	HoverCardTrigger,
-} from "@/components/ui/hover-card";
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "@/components/ui/popover";
 
 interface Category {
 	name: string;
@@ -78,7 +78,7 @@ export function CategoryBadges({
 	return (
 		<div ref={containerRef} className="flex items-center gap-2">
 			{visibleCategories.map((category) => (
-				<Link key={category.slug} href={`/browse?category=${category.slug}`}>
+				<Link key={category.slug} href={`/rules?category=${category.slug}`}>
 					<Badge variant="outline" className="whitespace-nowrap">
 						{category.name}
 					</Badge>
@@ -86,21 +86,21 @@ export function CategoryBadges({
 			))}
 
 			{hasOverflow && (
-				<HoverCard>
-					<HoverCardTrigger asChild>
+				<Popover>
+					<PopoverTrigger asChild>
 						<Badge
 							variant="outline"
 							className="cursor-pointer hover:bg-secondary/80 transition-colors whitespace-nowrap flex-shrink-0"
 						>
 							+{overflowCategories.length}
 						</Badge>
-					</HoverCardTrigger>
-					<HoverCardContent className="w-auto p-3" side="top">
-						<div className="flex flex-wrap gap-2">
+					</PopoverTrigger>
+					<PopoverContent className="w-auto p-0" side="top">
+						<div className="inline-flex flex-wrap gap-1.5 p-3 pt-2.5 max-w-xs">
 							{overflowCategories.map((category) => (
 								<Link
 									key={category.slug}
-									href={`/browse?category=${category.slug}`}
+									href={`/rules?category=${category.slug}`}
 								>
 									<Badge variant="outline" className="text-xs">
 										{category.name}
@@ -108,8 +108,8 @@ export function CategoryBadges({
 								</Link>
 							))}
 						</div>
-					</HoverCardContent>
-				</HoverCard>
+					</PopoverContent>
+				</Popover>
 			)}
 		</div>
 	);

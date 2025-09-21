@@ -1,44 +1,92 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Copy, ArrowUp, ArrowDown } from "lucide-react";
+import { Copy, ArrowUp, ArrowDown, Download } from "lucide-react";
 import { useVoting } from "@/hooks/use-voting";
 import { toast } from "sonner";
-import { cn } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useRuleStatsContext } from "./rule-stats-provider";
 
 interface RuleActionsProps {
-	ruleId: string;
-	content: string;
-	initialUpvotes: number;
-	initialDownvotes: number;
+	rule: {
+		slug: string;
+		title: string;
+		description: string;
+		content: string;
+		applicationMode: string;
+		globs?: string;
+	};
 }
 
-export function RuleActions({
-	ruleId,
-	content,
-	initialUpvotes,
-	initialDownvotes,
-}: RuleActionsProps) {
-	const { userVote, hasVoted, vote } = useVoting(ruleId);
-	const [copyCount, setCopyCount] = useState(0);
-	const [upvotes, setUpvotes] = useState(initialUpvotes);
-	const [downvotes, setDownvotes] = useState(initialDownvotes);
+export function RuleActions({ rule }: RuleActionsProps) {
+	const { userVote, vote } = useVoting(rule.slug);
+	const { stats, loading, updateStats } = useRuleStatsContext();
+
+	const createMdcContent = () => {
+		let frontmatter = '';
+
+		switch (rule.applicationMode) {
+			case 'always':
+				// Always Apply - no description field
+				frontmatter = `---
+alwaysApply: true
+---`;
+				break;
+			case 'intelligent':
+				// Apply Intelligently - description decides when to apply
+				frontmatter = `---
+description: ${rule.description}
+alwaysApply: false
+---`;
+				break;
+			case 'files':
+				// Apply to Specific Files - globs field for file patterns
+				frontmatter = `---
+globs: ${rule.globs || '*.ts,*.tsx'}
+alwaysApply: false
+---`;
+				break;
+			case 'manual':
+			default:
+				// Apply Manually - just alwaysApply: false
+				frontmatter = `---
+alwaysApply: false
+---`;
+				break;
+		}
+
+		return `${frontmatter}
+${rule.content}`;
+	};
 
 	const handleCopy = async () => {
 		try {
-			await navigator.clipboard.writeText(content);
+			const mdcContent = createMdcContent();
+			await navigator.clipboard.writeText(mdcContent);
 			toast.success("Rule copied to clipboard!");
-			// Increment copy count
-			const response = await fetch(`/api/rules/${ruleId}/copy`, {
-				method: "POST",
-			});
-			if (response.ok) {
-				const data = await response.json();
-				setCopyCount(data.copyCount);
-			}
+			// Still increment copy count in background for analytics
+			fetch(`/api/rules/${rule.slug}/copy`, { method: "POST" });
 		} catch {
 			toast.error("Failed to copy rule");
+		}
+	};
+
+	const handleDownload = () => {
+		try {
+			const mdcContent = createMdcContent();
+
+			// Create blob and download
+			const blob = new Blob([mdcContent], { type: "text/markdown" });
+			const url = URL.createObjectURL(blob);
+			const a = document.createElement("a");
+			a.href = url;
+			a.download = `${rule.slug}.mdc`;
+			document.body.appendChild(a);
+			a.click();
+			document.body.removeChild(a);
+			URL.revokeObjectURL(url);
+		} catch {
+			toast.error("Failed downloading rule");
 		}
 	};
 
@@ -51,49 +99,54 @@ export function RuleActions({
 		}
 
 		if (result.success) {
-			setUpvotes(result.upvotes);
-			setDownvotes(result.downvotes);
+			updateStats({
+				upvotes: result.upvotes,
+				downvotes: result.downvotes
+			});
 		}
 	};
 
 	return (
-		<div className="flex items-center gap-2">
-			<div className="flex items-center gap-1">
+		<div className="flex items-center justify-between w-full">
+			<div className="flex items-center gap-1.5">
 				<Button
-					variant="outline"
+					variant="ghost"
+					className="size-8"
 					size="sm"
-					onClick={() => handleVote("up")}
-					className={cn(
-						"text-muted-foreground hover:text-green-600 transition-colors",
-						userVote === "up" &&
-							"text-green-600 bg-green-50 hover:bg-green-100",
-					)}
-					title={userVote === "up" ? "Change to downvote" : "Upvote this rule"}
+					onClick={handleCopy}
 				>
-					<ArrowUp className="h-4 w-4" />
-					{upvotes > 0 && <span className="ml-1">{upvotes}</span>}
+					<Copy className="!size-3.5" />
 				</Button>
 				<Button
-					variant="outline"
+					variant="ghost"
+					className="size-8"
 					size="sm"
-					onClick={() => handleVote("down")}
-					className={cn(
-						"text-muted-foreground hover:text-red-600 transition-colors",
-						userVote === "down" && "text-red-600 bg-red-50 hover:bg-red-100",
-					)}
-					title={
-						userVote === "down" ? "Change to upvote" : "Downvote this rule"
-					}
+					onClick={handleDownload}
 				>
-					<ArrowDown className="h-4 w-4" />
-					{downvotes > 0 && <span className="ml-1">{downvotes}</span>}
+					<Download className="!size-3.5" />
 				</Button>
 			</div>
 
-			<Button onClick={handleCopy}>
-				<Copy className="h-4 w-4 mr-2" />
-				Copy Rule
-			</Button>
+			<div className="flex items-center gap-1.5">
+				<Button
+					variant="outline"
+					size="sm"
+					disabled={loading || userVote === "up"}
+					onClick={() => handleVote("up")}
+				>
+					<ArrowUp className="!size-3.5" />
+					{loading ? <Skeleton className="h-4 w-3" /> : stats.upvotes}
+				</Button>
+				<Button
+					variant="outline"
+					size="sm"
+					disabled={loading || userVote === "down"}
+					onClick={() => handleVote("down")}
+				>
+					<ArrowDown className="!size-3.5" />
+					{loading ? <Skeleton className="h-4 w-3" /> : stats.downvotes}
+				</Button>
+			</div>
 		</div>
 	);
 }

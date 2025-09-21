@@ -1,88 +1,39 @@
 import { HomeClient } from '@/components/home/home-client'
-import { prisma } from '@/lib/prisma'
+import { getCategoriesWithRulesNoStats } from '@/lib/data-loader'
 
 async function getInitialCategoriesWithRules() {
   try {
-    const page = 1
-    const limit = 5
-    const skip = (page - 1) * limit
+    const categoriesWithRules = await getCategoriesWithRulesNoStats()
 
-    // Build where clause - always include categories that have published rules
-    const whereClause = {
-      rules: {
-        some: {
-          rule: {
-            isPublished: true
-          }
-        }
+    // Take first 5 categories for initial load
+    const paginatedCategories = categoriesWithRules.slice(0, 5)
+
+    // Transform to match the existing format
+    const transformedCategories = paginatedCategories.map(category => ({
+      id: category.id,
+      name: category.name,
+      slug: category.slug,
+      description: category.description,
+      rules: category.rules.map(rule => ({
+        ...rule,
+        categories: rule.categories
+          .map(catSlug => categoriesWithRules.find(c => c.slug === catSlug))
+          .filter(Boolean)
+          .map(cat => ({ name: cat!.name, slug: cat!.slug }))
+      })),
+      _count: {
+        rules: category.rules.length
       }
-    }
-
-    const [categories, total] = await Promise.all([
-      prisma.category.findMany({
-        where: whereClause,
-        include: {
-          rules: {
-            where: {
-              rule: {
-                isPublished: true
-              }
-            },
-            include: {
-              rule: {
-                include: {
-                  categories: {
-                    include: {
-                      category: true
-                    }
-                  }
-                }
-              }
-            },
-            orderBy: {
-              rule: {
-                createdAt: 'desc'
-              }
-            }
-          },
-          _count: {
-            select: {
-              rules: {
-                where: {
-                  rule: {
-                    isPublished: true
-                  }
-                }
-              }
-            }
-          }
-        },
-        orderBy: { name: 'asc' },
-        skip,
-        take: limit,
-      }),
-      prisma.category.count({
-        where: whereClause
-      })
-    ])
-
-    // Transform the data to match the expected format
-    const categoriesWithRules = categories.map(category => ({
-      ...category,
-      rules: category.rules.map(ruleCategory => ({
-        ...ruleCategory.rule,
-        categories: ruleCategory.rule.categories.map(rc => rc.category)
-      }))
     }))
 
     return {
-      categories: categoriesWithRules,
+      categories: transformedCategories,
       pagination: {
-        page,
-        limit,
-        total,
-        totalPages: Math.ceil(total / limit),
-        hasMore: page < Math.ceil(total / limit)
+        page: 1,
+        limit: 5,
+        total: categoriesWithRules.length,
+        totalPages: Math.ceil(categoriesWithRules.length / 5),
+        hasMore: categoriesWithRules.length > 5
       }
     }
   } catch (error) {

@@ -51,7 +51,7 @@ export function useVoting(ruleId: string) {
       setUserVote(newVote)
 
       return { success: true, ...data }
-    } catch (error) {
+    } catch {
       return { error: 'Failed to vote on rule' }
     }
   }

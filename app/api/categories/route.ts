@@ -1,105 +1,45 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { getCategoriesWithRules } from '@/lib/data-loader'
 
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams
     const page = parseInt(searchParams.get('page') || '1')
     const limit = parseInt(searchParams.get('limit') || '10')
-    const search = searchParams.get('search')
 
+    // Get all categories with rules from files
+    const allCategoriesWithRules = await getCategoriesWithRules()
+
+    // Paginate
     const skip = (page - 1) * limit
+    const paginatedCategories = allCategoriesWithRules.slice(skip, skip + limit)
 
-    // Build where clause - always include categories that have published rules
-    const whereClause = {
-      rules: {
-        some: {
-          rule: search ? {
-            isPublished: true,
-            OR: [
-              { title: { contains: search, mode: 'insensitive' } },
-              { description: { contains: search, mode: 'insensitive' } },
-              { content: { contains: search, mode: 'insensitive' } },
-            ]
-          } : {
-            isPublished: true
-          }
-        }
+    // Transform to match the existing format
+    const transformedCategories = paginatedCategories.map(category => ({
+      id: category.id,
+      name: category.name,
+      slug: category.slug,
+      description: category.description,
+      rules: category.rules.map(rule => ({
+        ...rule,
+        categories: rule.categories
+          .map(catSlug => allCategoriesWithRules.find(c => c.slug === catSlug))
+          .filter(Boolean)
+          .map(cat => ({ name: cat!.name, slug: cat!.slug }))
+      })),
+      _count: {
+        rules: category.rules.length
       }
-    }
-
-    const [categories, total] = await Promise.all([
-      prisma.category.findMany({
-        where: whereClause,
-        include: {
-          rules: {
-            where: {
-              rule: {
-                isPublished: true,
-                ...(search ? {
-                  OR: [
-                    { title: { contains: search, mode: 'insensitive' } },
-                    { description: { contains: search, mode: 'insensitive' } },
-                    { content: { contains: search, mode: 'insensitive' } },
-                  ]
-                } : {})
-              }
-            },
-            include: {
-              rule: {
-                include: {
-                  categories: {
-                    include: {
-                      category: true
-                    }
-                  }
-                }
-              }
-            },
-            orderBy: {
-              rule: {
-                createdAt: 'desc'
-              }
-            }
-          },
-          _count: {
-            select: {
-              rules: {
-                where: {
-                  rule: {
-                    isPublished: true
-                  }
-                }
-              }
-            }
-          }
-        },
-        orderBy: { name: 'asc' },
-        skip,
-        take: limit,
-      }),
-      prisma.category.count({
-        where: whereClause
-      })
-    ])
-
-    // Transform the data to match the expected format
-    const categoriesWithRules = categories.map(category => ({
-      ...category,
-      rules: category.rules.map(ruleCategory => ({
-        ...ruleCategory.rule,
-        categories: ruleCategory.rule.categories.map(rc => rc.category)
-      }))
     }))
 
     return NextResponse.json({
-      categories: categoriesWithRules,
+      categories: transformedCategories,
       pagination: {
         page,
         limit,
-        total,
-        totalPages: Math.ceil(total / limit),
-        hasMore: page < Math.ceil(total / limit)
+        total: allCategoriesWithRules.length,
+        totalPages: Math.ceil(allCategoriesWithRules.length / limit),
+        hasMore: page < Math.ceil(allCategoriesWithRules.length / limit)
       }
     })
   } catch (error) {

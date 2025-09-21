@@ -15,7 +15,7 @@ export function Header() {
 	const pathname = usePathname();
 
 	return (
-		<header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+		<header className="sticky top-0 z-50 w-full bg-background">
 			<div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex h-14 items-center">
 				<div className="mr-4 hidden md:flex">
 					<Link href="/" className="mr-6 flex items-center space-x-2">
@@ -26,7 +26,7 @@ export function Header() {
 							height={24}
 							className="h-5 w-5"
 						/>
-						<span className="hidden text-sm font-mono font-semibold sm:inline-block">
+						<span className="hidden text-base font-mono font-semibold sm:inline-block">
 							.cursor
 						</span>
 					</Link>
@@ -59,10 +59,10 @@ export function Header() {
 						</Link>
 						<nav className="mt-6 flex flex-col space-y-3">
 							<Link
-								href="/browse"
+								href="/rules"
 								className={cn(
-									"transition-colors hover:text-foreground/80",
-									pathname === "/browse"
+									"transition-colors",
+									pathname === "/rules"
 										? "text-foreground"
 										: "text-foreground/60",
 								)}
@@ -73,7 +73,7 @@ export function Header() {
 							<Link
 								href="/trending"
 								className={cn(
-									"transition-colors hover:text-foreground/80",
+									"transition-colors",
 									pathname === "/trending"
 										? "text-foreground"
 										: "text-foreground/60",
@@ -88,10 +88,12 @@ export function Header() {
 
 				<div className="flex flex-1 flex-row gap-5 items-center justify-end">
 					<Link
-						href="/browse"
+						href="/rules"
 						className={cn(
-							"font-medium text-sm transition-colors hover:text-foreground/80",
-							pathname === "/browse" ? "text-foreground" : "text-foreground/60",
+							"font-medium text-sm transition-colors",
+							pathname === "/rules"
+								? "text-foreground"
+								: "text-muted-foreground",
 						)}
 					>
 						Rules
@@ -99,10 +101,10 @@ export function Header() {
 					<Link
 						href="/trending"
 						className={cn(
-							"font-medium text-sm transition-colors hover:text-foreground/80",
+							"font-medium text-sm transition-colors",
 							pathname === "/trending"
 								? "text-foreground"
-								: "text-foreground/60",
+								: "text-muted-foreground",
 						)}
 					>
 						Trending
@@ -111,15 +113,14 @@ export function Header() {
 						href="https://discord.gg/BVjdzW2psp"
 						target="_blank"
 						className={cn(
-							"flex flex-row items-center gap-1.5 font-medium text-sm transition-colors hover:text-foreground/80",
-							pathname === "/browse" ? "text-foreground" : "text-foreground/60",
+							"flex flex-row items-center gap-1.5 font-medium text-sm transition-colors text-muted-foreground",
 						)}
 					>
 						Community
 						<ArrowUpRight className="h-4 w-4" />
 					</Link>
 					<Link
-						href="https://github.com/your-repo/dotcursor"
+						href="https://github.com/faster-org/dot-cursor"
 						target="_blank"
 						rel="noopener noreferrer"
 						className="font-medium text-sm transition-colors text-foreground hover:text-foreground/80"

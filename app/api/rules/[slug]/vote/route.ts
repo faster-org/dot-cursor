@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { getRuleBySlug } from '@/lib/data-loader'
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const { id } = await params
+    const { slug } = await params
     const body = await request.json()
     const { voteType, previousVote } = body
 
@@ -17,15 +18,34 @@ export async function POST(
       )
     }
 
-    const rule = await prisma.rule.findUnique({
-      where: { id }
-    })
-
-    if (!rule) {
+    // Check if rule exists in our file system
+    const fileRule = await getRuleBySlug(slug);
+    if (!fileRule) {
       return NextResponse.json(
         { error: 'Rule not found' },
         { status: 404 }
-      )
+      );
+    }
+
+    // Find or create the rule in Supabase
+    let rule = await prisma.rule.findUnique({
+      where: { slug }
+    });
+
+    if (!rule) {
+      rule = await prisma.rule.create({
+        data: {
+          slug,
+          title: fileRule.title,
+          description: fileRule.description,
+          content: fileRule.content,
+          upvotes: 0,
+          downvotes: 0,
+          viewCount: 0,
+          copyCount: 0,
+          isPublished: true
+        }
+      });
     }
 
     // Calculate vote changes based on previous vote
@@ -58,7 +78,7 @@ export async function POST(
 
     // Update the vote count
     const updatedRule = await prisma.rule.update({
-      where: { id },
+      where: { id: rule.id },
       data: {
         upvotes: Math.max(0, rule.upvotes + upvoteChange),
         downvotes: Math.max(0, rule.downvotes + downvoteChange),

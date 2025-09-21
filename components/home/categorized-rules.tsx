@@ -35,7 +35,6 @@ interface CategorizedRulesProps {
 	onLoadMore?: () => void;
 	loadingMore?: boolean;
 	isClientFiltering?: boolean;
-	serverSearchLoading?: boolean;
 }
 
 export function CategorizedRules({
@@ -108,11 +107,11 @@ export function CategorizedRules({
 						<div key={category.id} className="flex flex-col gap-4">
 							<div className="flex items-center justify-between">
 								<div>
-									<h2 className="text-xl font-medium">{category.name}</h2>
+									<h2 className="text-lg font-medium">{category.name}</h2>
 								</div>
 								<Link
 									className="transition-colors text-sm font-medium text-muted-foreground hover:text-foreground flex flex-row items-center gap-2"
-									href={`/browse?category=${category.slug}`}
+									href={`/rules?category=${category.slug}`}
 								>
 									View all
 									<ArrowRight className="h-3.5 w-3.5" />

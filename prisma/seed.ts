@@ -233,7 +233,7 @@ Optimization:
         const contentTemplate = contentTemplates[randomBetween(0, contentTemplates.length - 1)]
         const content = contentTemplate.replace(/{}/g, category.name)
 
-        const rule = await prisma.rule.create({
+        await prisma.rule.create({
           data: {
             title,
             slug,

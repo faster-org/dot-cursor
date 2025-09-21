@@ -1,37 +1,39 @@
 import { RuleCard } from "@/components/rule/rule-card";
-import { prisma } from "@/lib/prisma";
+import { loadRules, getCategories } from "@/lib/data-loader";
+import { Rule } from "@/data/types";
 
-interface RuleWithCategories {
-	id: string;
-	title: string;
-	slug: string;
-	description: string;
-	content: string;
-	viewCount: number;
-	copyCount: number;
-	upvotes: number;
-	downvotes: number;
-	createdAt: Date;
-	categories: Array<{
-		category: {
-			id: string;
-			name: string;
-			slug: string;
-		};
-	}>;
+async function getTrendingRules() {
+	// Get all rules from files without stats for fast SSR
+	const allRules = await loadRules();
+	const allCategories = getCategories();
+
+	// Transform rules to match expected format for RuleCard
+	const transformedRules = allRules.map(rule => ({
+		...rule,
+		// Add default stats that will be loaded client-side
+		upvotes: 0,
+		downvotes: 0,
+		viewCount: 0,
+		copyCount: 0,
+		createdAt: rule.createdAt,
+		categories: rule.categories
+			.map(catSlug => allCategories.find(c => c.slug === catSlug))
+			.filter(Boolean)
+			.map(cat => ({ id: cat!.id, name: cat!.name, slug: cat!.slug }))
+	}));
+
+	// Sort by creation date since we don't have view counts at SSR time
+	// Most recent first for "trending"
+	return transformedRules
+		.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+		.slice(0, 24);
 }
 
-interface TransformedRule {
-	id: string;
-	title: string;
-	slug: string;
-	description: string;
-	content: string;
-	viewCount: number;
-	copyCount: number;
+interface TrendingRule extends Rule {
 	upvotes: number;
 	downvotes: number;
-	createdAt: Date;
+	viewCount: number;
+	copyCount: number;
 	categories: Array<{
 		id: string;
 		name: string;
@@ -39,35 +41,7 @@ interface TransformedRule {
 	}>;
 }
 
-function transformRule(rule: RuleWithCategories): TransformedRule {
-	return {
-		...rule,
-		categories: rule.categories?.map((rc) => rc.category) || [],
-	};
-}
-
-async function getTrendingRules() {
-	// Get rules with highest view counts (trending by popularity)
-	// Since we don't track view timestamps, we'll show most viewed rules overall
-	const trendingRules = await prisma.rule.findMany({
-		where: {
-			isPublished: true,
-		},
-		include: {
-			categories: {
-				include: {
-					category: true,
-				},
-			},
-		},
-		orderBy: { viewCount: "desc" },
-		take: 24,
-	});
-
-	return trendingRules.map(transformRule);
-}
-
-function RuleGrid({ rules }: { rules: TransformedRule[] }) {
+function RuleGrid({ rules }: { rules: TrendingRule[] }) {
 	return (
 		<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 			{rules.length > 0 ? (
