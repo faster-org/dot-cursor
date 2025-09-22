@@ -739,6 +739,6 @@ Follow these patterns to build modern, performant Angular applications using sta
 	tags: ["standalone", "signals", "modern-angular"],
 	author: "Community",
 	createdAt: "2024-01-15T00:00:00Z",
-	applicationMode: "files",
+	applicationMode: "intelligent",
 	globs: "*.ts,*.html,*.scss",
 };

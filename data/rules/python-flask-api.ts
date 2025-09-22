@@ -7,7 +7,8 @@ export const rule: Rule = {
 	tags: ["python", "flask", "api", "backend", "rest"],
 	languages: ["python"],
 	description: "Best practices for building secure and scalable REST APIs with Python Flask",
-	content: `# Python Flask API Development
+	
+	categories: ["programming", "language", "api", "backend"],content: `# Python Flask API Development
 
 ## 1. Project Structure and Organization
 
@@ -451,5 +452,6 @@ class User(db.Model):
 - [ ] Optimize database queries
 - [ ] Set up logging and monitoring
 - [ ] Configure production deployment
-- [ ] Document API endpoints`,
-};
+- [ ] Document API endpoints`,	applicationMode: "intelligent",
+
+}

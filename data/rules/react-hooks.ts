@@ -113,5 +113,5 @@ Master React Hooks patterns, custom hooks, and state management with these compr
 	tags: ["hooks", "state-management", "performance"],
 	author: "Community",
 	createdAt: "2024-01-25T00:00:00Z",
-	applicationMode: "always",
+	applicationMode: "intelligent",
 };

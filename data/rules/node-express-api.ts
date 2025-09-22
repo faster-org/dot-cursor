@@ -612,6 +612,6 @@ Follow these practices to build secure, scalable, and maintainable Express.js AP
 	tags: ["express", "rest-api", "middleware"],
 	author: "Community",
 	createdAt: "2024-01-27T00:00:00Z",
-	applicationMode: "files",
+	applicationMode: "intelligent",
 	globs: "*.js,*.ts,server.js,app.js",
 };

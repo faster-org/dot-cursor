@@ -1178,5 +1178,6 @@ const clientSideEncryption = {
 - [ ] Optimize queries based on explain plans
 - [ ] Monitor collection and index statistics
 
-This comprehensive guide provides the foundation for building scalable, performant MongoDB applications with proper schema design, indexing strategies, and operational best practices.`,
-};
+This comprehensive guide provides the foundation for building scalable, performant MongoDB applications with proper schema design, indexing strategies, and operational best practices.`,	applicationMode: "intelligent",
+
+}

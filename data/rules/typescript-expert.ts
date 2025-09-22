@@ -561,6 +561,6 @@ Follow these advanced TypeScript patterns to build robust, type-safe application
 	tags: ["types", "generics", "type-safety"],
 	author: "Community",
 	createdAt: "2024-01-26T00:00:00Z",
-	applicationMode: "files",
+	applicationMode: "intelligent",
 	globs: "*.ts,*.tsx",
 };

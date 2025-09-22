@@ -710,6 +710,6 @@ Follow these patterns to build scalable, maintainable, and performant Vue 3 appl
 	tags: ["composition-api", "reactivity", "vue3"],
 	author: "Community",
 	createdAt: "2024-01-28T00:00:00Z",
-	applicationMode: "files",
+	applicationMode: "intelligent",
 	globs: "*.vue,*.ts,*.js",
 };

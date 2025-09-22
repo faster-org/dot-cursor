@@ -8,7 +8,8 @@ export const rule: Rule = {
 	languages: ["python"],
 	description:
 		"Comprehensive guide for testing Python applications with pytest, including fixtures, parameterization, mocking, and advanced testing patterns.",
-	content: `# Pytest Testing Framework for Python Applications
+	
+	categories: ["programming", "language", "quality-assurance", "testing"],content: `# Pytest Testing Framework for Python Applications
 
 ## 1. Basic Pytest Setup and Configuration
 
@@ -1640,5 +1641,6 @@ class TestWithHelpers:
 - [ ] Set up CI/CD pipeline integration
 - [ ] Document testing guidelines and conventions
 
-This comprehensive guide provides the foundation for building robust test suites with pytest, covering everything from basic setup to advanced patterns like fixtures, mocking, parameterization, and performance testing.`,
-};
+This comprehensive guide provides the foundation for building robust test suites with pytest, covering everything from basic setup to advanced patterns like fixtures, mocking, parameterization, and performance testing.`,	applicationMode: "intelligent",
+
+}

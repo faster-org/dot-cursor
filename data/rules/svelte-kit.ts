@@ -1369,6 +1369,6 @@ Follow these practices to build fast, scalable, and maintainable full-stack web 
 	tags: ["sveltekit", "stores", "ssr", "routing"],
 	author: "Community",
 	createdAt: "2024-01-15T00:00:00Z",
-	applicationMode: "files",
+	applicationMode: "intelligent",
 	globs: "*.svelte,*.ts,*.js",
 };

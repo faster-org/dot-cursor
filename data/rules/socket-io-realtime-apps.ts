@@ -8,7 +8,8 @@ export const rule: Rule = {
 	languages: ["javascript", "typescript"],
 	description:
 		"Comprehensive guide for building real-time applications with Socket.IO, including chat systems, live updates, gaming, and collaboration features.",
-	content: `# Socket.IO Real-time Application Development
+	
+	categories: ["best-practices", "development"],content: `# Socket.IO Real-time Application Development
 
 ## 1. Basic Socket.IO Setup and Configuration
 
@@ -1451,5 +1452,6 @@ class SecureSocketServer {
 - [ ] Implement proper logging and analytics
 - [ ] Test with load testing tools
 
-This comprehensive guide provides the foundation for building robust, scalable real-time applications with Socket.IO, covering everything from basic setup to advanced features like collaborative editing and multiplayer gaming.`,
-};
+This comprehensive guide provides the foundation for building robust, scalable real-time applications with Socket.IO, covering everything from basic setup to advanced features like collaborative editing and multiplayer gaming.`,	applicationMode: "intelligent",
+
+}

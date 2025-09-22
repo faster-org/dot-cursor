@@ -3,13 +3,15 @@ import { Rule } from "../types";
 export const rule: Rule = {
 	id: "ruby-on-rails",
 	slug: "ruby-on-rails",
-	name: "Ruby on Rails",
+	title: "Ruby on Rails",
 	description: "Best practices for Ruby on Rails development",
-	tags: ["ruby", "rails", "mvc", "activerecord", "orm"],
+	
+	categories: ["development", "best-practices"],tags: ["ruby", "rails", "mvc", "activerecord", "orm"],
 	votes: { up: 0, down: 0 },
 	featured: false,
 	createdAt: "2024-01-01",
-	content: `# Ruby on Rails Development Best Practices
+	
+	applicationMode: "intelligent",content: `# Ruby on Rails Development Best Practices
 
 ## 1. Rails Application Structure
 

@@ -3,13 +3,15 @@ import { Rule } from "../types";
 export const rule: Rule = {
 	id: "csharp-dotnet",
 	slug: "csharp-dotnet",
-	name: "C# .NET",
+	title: "C# .NET",
 	description: "Best practices for C# and .NET development",
-	tags: ["csharp", "dotnet", "aspnet", "entity-framework", "mvc"],
+	
+	categories: ["development", "best-practices"],tags: ["csharp", "dotnet", "aspnet", "entity-framework", "mvc"],
 	votes: { up: 0, down: 0 },
 	featured: false,
 	createdAt: "2024-01-01",
-	content: `# C# .NET Development Best Practices
+	
+	applicationMode: "intelligent",content: `# C# .NET Development Best Practices
 
 ## 1. Project Structure & Solution Organization
 

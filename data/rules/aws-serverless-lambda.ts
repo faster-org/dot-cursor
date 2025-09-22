@@ -8,7 +8,8 @@ export const rule: Rule = {
 	languages: ["javascript", "typescript", "python"],
 	description:
 		"Build scalable serverless applications using AWS Lambda, API Gateway, and serverless framework",
-	content: `# AWS Serverless Development with Lambda
+	
+	categories: ["infrastructure", "cloud"],content: `# AWS Serverless Development with Lambda
 
 ## 1. Serverless Framework Setup
 
@@ -1282,5 +1283,6 @@ async function clearTestData() {
 - [ ] Configure environment-specific deployments
 - [ ] Implement proper secret management
 - [ ] Add performance monitoring and alerting
-- [ ] Set up CI/CD pipeline for automated deployments`,
-};
+- [ ] Set up CI/CD pipeline for automated deployments`,	applicationMode: "intelligent",
+
+}

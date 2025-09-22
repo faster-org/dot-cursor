@@ -7,7 +7,8 @@ export const rule: Rule = {
   tags: ["devops", "cicd", "github-actions", "deployment", "automation"],
   languages: ["yaml", "bash"],
   description: "Build robust CI/CD pipelines using GitHub Actions for automated testing, building, and deployment",
-  content: `# DevOps CI/CD with GitHub Actions
+  
+	categories: ["devops", "deployment"],content: `# DevOps CI/CD with GitHub Actions
 
 ## 1. Workflow Fundamentals and Setup
 
@@ -1057,5 +1058,7 @@ jobs:
 - [ ] Add performance monitoring and lighthouse checks
 - [ ] Create reusable workflows and custom actions
 - [ ] Configure proper notification systems (Slack, email)
-- [ ] Implement rollback mechanisms for failed deployments`
-};
+- [ ] Implement rollback mechanisms for failed deployments`,
+	applicationMode: "intelligent",
+
+}

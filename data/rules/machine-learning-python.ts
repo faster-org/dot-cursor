@@ -8,7 +8,8 @@ export const rule: Rule = {
 	languages: ["python"],
 	description:
 		"Build and deploy machine learning models using Python, scikit-learn, and best practices for ML development",
-	content: `# Machine Learning with Python and Scikit-Learn
+	
+	categories: ["programming", "language"],content: `# Machine Learning with Python and Scikit-Learn
 
 ## 1. Project Setup and Environment
 
@@ -897,5 +898,6 @@ class ModelMonitor:
 - [ ] Document model assumptions and limitations
 - [ ] Set up CI/CD for ML pipelines
 - [ ] Implement data versioning and lineage tracking
-- [ ] Add performance monitoring and alerting`,
-};
+- [ ] Add performance monitoring and alerting`,	applicationMode: "intelligent",
+
+}

@@ -8,7 +8,8 @@ export const rule: Rule = {
 	languages: ["javascript", "typescript", "graphql"],
 	description:
 		"Build scalable GraphQL APIs with Apollo Server, schema design, and resolver patterns",
-	content: `# GraphQL API Development with Apollo Server
+	
+	categories: ["best-practices", "development"],content: `# GraphQL API Development with Apollo Server
 
 ## 1. Project Setup and Schema Design
 
@@ -1254,5 +1255,6 @@ export const depthLimitPlugin = (maxDepth: number = 10): Plugin => {
 - [ ] Set up monitoring and logging for GraphQL operations
 - [ ] Implement pagination with cursor-based approach
 - [ ] Add subscription support for real-time features
-- [ ] Configure proper CORS and security headers`,
-};
+- [ ] Configure proper CORS and security headers`,	applicationMode: "intelligent",
+
+}

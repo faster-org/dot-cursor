@@ -1090,6 +1090,6 @@ Follow these practices to build high-performance, reactive web applications with
 	tags: ["signals", "fine-grained-reactivity", "performance"],
 	author: "Community",
 	createdAt: "2024-01-15T00:00:00Z",
-	applicationMode: "files",
+	applicationMode: "intelligent",
 	globs: "*.tsx,*.ts,*.jsx,*.js",
 };

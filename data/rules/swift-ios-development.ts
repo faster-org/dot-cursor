@@ -8,7 +8,8 @@ export const rule: Rule = {
 	languages: ["swift"],
 	description:
 		"Comprehensive guide for building iOS applications with Swift, SwiftUI, and UIKit best practices",
-	content: `# Swift iOS Development with SwiftUI and UIKit
+	
+	categories: ["development", "mobile"],content: `# Swift iOS Development with SwiftUI and UIKit
 
 ## 1. Project Setup and Architecture
 
@@ -764,7 +765,8 @@ class UserProfileViewModelTests: XCTestCase {
         mockUserService.fetchUserResult = .success(expectedUser)
         mockPostService.fetchUserPostsResult = .success(expectedPosts)
 
-        let expectation = XCTestExpectation(description: "Load user profile")
+        let expectation = XCTestExpectation(description: "Load user profile"
+	categories: ["development", "mobile"],)
 
         // When
         viewModel.$isLoading
@@ -792,7 +794,8 @@ class UserProfileViewModelTests: XCTestCase {
         let expectedError = AppError.networkError("Network failure")
         mockUserService.fetchUserResult = .failure(expectedError)
 
-        let expectation = XCTestExpectation(description: "Handle error")
+        let expectation = XCTestExpectation(description: "Handle error"
+	categories: ["development", "mobile"],)
 
         // When
         viewModel.$errorMessage
@@ -1004,5 +1007,6 @@ struct AsyncImageView: View {
 - [ ] Add logging and analytics integration
 - [ ] Configure proper networking with error handling
 - [ ] Implement offline capabilities and data persistence
-- [ ] Add proper app lifecycle management`,
-};
+- [ ] Add proper app lifecycle management`,	applicationMode: "intelligent",
+
+}

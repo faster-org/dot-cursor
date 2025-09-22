@@ -8,7 +8,8 @@ export const rule: Rule = {
 	languages: ["kotlin"],
 	description:
 		"Build modern Android applications using Kotlin, Jetpack Compose, and Android Architecture Components",
-	content: `# Kotlin Android Development with Jetpack Compose
+	
+	categories: ["development", "mobile"],content: `# Kotlin Android Development with Jetpack Compose
 
 ## 1. Project Setup and Architecture
 
@@ -1038,5 +1039,6 @@ fun HomeScreen(
 - [ ] Add comprehensive unit and UI tests
 - [ ] Configure ProGuard/R8 for release builds
 - [ ] Implement proper network error handling and retry logic
-- [ ] Add accessibility support and proper content descriptions`,
-};
+- [ ] Add accessibility support and proper content descriptions`,	applicationMode: "intelligent",
+
+}

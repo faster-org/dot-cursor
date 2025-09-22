@@ -8,7 +8,8 @@ export const rule: Rule = {
 	languages: ["python"],
 	description:
 		"Comprehensive guide for building machine learning models with TensorFlow, including neural networks, training pipelines, and deployment strategies.",
-	content: `# TensorFlow Machine Learning Development
+	
+	categories: ["best-practices", "development"],content: `# TensorFlow Machine Learning Development
 
 ## 1. TensorFlow Setup and Environment Configuration
 
@@ -1296,5 +1297,6 @@ api = ModelAPI(model, class_names)
 - [ ] Set up model versioning and registry
 - [ ] Add comprehensive testing for all components
 
-This comprehensive guide provides the foundation for building production-ready machine learning applications with TensorFlow, covering everything from basic setup to advanced deployment strategies and model interpretation techniques.`,
-};
+This comprehensive guide provides the foundation for building production-ready machine learning applications with TensorFlow, covering everything from basic setup to advanced deployment strategies and model interpretation techniques.`,	applicationMode: "intelligent",
+
+}

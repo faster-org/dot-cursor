@@ -8,7 +8,8 @@ export const rule: Rule = {
 	languages: ["javascript", "typescript", "python", "java", "go"],
 	description:
 		"Comprehensive guide for implementing Redis caching strategies, including cache patterns, data structures, and performance optimization techniques.",
-	content: `# Redis Caching Strategies and Implementation
+	
+	categories: ["best-practices", "development"],content: `# Redis Caching Strategies and Implementation
 
 ## 1. Redis Setup and Configuration
 
@@ -1118,5 +1119,6 @@ spec:
 - [ ] Set up cache invalidation strategies
 - [ ] Monitor cache hit ratios and performance metrics
 
-This guide provides a comprehensive foundation for implementing Redis caching strategies that can significantly improve application performance and scalability while maintaining data consistency and reliability.`,
-};
+This guide provides a comprehensive foundation for implementing Redis caching strategies that can significantly improve application performance and scalability while maintaining data consistency and reliability.`,	applicationMode: "intelligent",
+
+}

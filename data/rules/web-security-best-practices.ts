@@ -8,7 +8,8 @@ export const rule: Rule = {
 	languages: ["javascript", "typescript", "php", "python"],
 	description:
 		"Implement comprehensive web security measures including authentication, authorization, and protection against common vulnerabilities",
-	content: `# Web Security Best Practices
+	
+	categories: ["security", "authentication"],content: `# Web Security Best Practices
 
 ## 1. Authentication and Authorization
 
@@ -868,5 +869,6 @@ app.post('/upload', upload.array('files'), async (req, res) => {
 - [ ] Add logging and monitoring for security events
 - [ ] Implement proper error handling without information disclosure
 - [ ] Regular security audits and dependency updates
-- [ ] Set up automated security testing in CI/CD pipeline`,
-};
+- [ ] Set up automated security testing in CI/CD pipeline`,	applicationMode: "intelligent",
+
+}

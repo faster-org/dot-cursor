@@ -8,7 +8,8 @@ export const rule: Rule = {
 	languages: ["javascript", "typescript", "python", "java"],
 	description:
 		"Comprehensive guide for building search engines with Elasticsearch, including indexing strategies, query optimization, and analytics implementation.",
-	content: `# Elasticsearch Search Engine Development
+	
+	categories: ["best-practices", "development"],content: `# Elasticsearch Search Engine Development
 
 ## 1. Elasticsearch Setup and Configuration
 
@@ -913,5 +914,6 @@ spec:
 - [ ] Configure index lifecycle management
 - [ ] Implement security and access controls
 
-This guide provides a production-ready foundation for building sophisticated search engines with Elasticsearch, covering everything from basic setup to advanced features and deployment strategies.`,
-};
+This guide provides a production-ready foundation for building sophisticated search engines with Elasticsearch, covering everything from basic setup to advanced features and deployment strategies.`,	applicationMode: "intelligent",
+
+}

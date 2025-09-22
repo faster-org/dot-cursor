@@ -7,7 +7,8 @@ export const rule: Rule = {
 	tags: ["vue", "javascript", "typescript", "composition-api", "frontend"],
 	languages: ["vue", "javascript", "typescript"],
 	description: "Master Vue 3 Composition API for building reactive and maintainable components",
-	content: `# Vue 3 Composition API Best Practices
+	
+	categories: ["frontend", "javascript"],content: `# Vue 3 Composition API Best Practices
 
 ## 1. Setup Function and Script Setup
 
@@ -760,5 +761,6 @@ describe('UserProfile', () => {
 - [ ] Handle cleanup in composables (onUnmounted)
 - [ ] Document complex composables with JSDoc
 - [ ] Use computed properties for derived state
-- [ ] Implement proper error handling in async composables`,
-};
+- [ ] Implement proper error handling in async composables`,	applicationMode: "intelligent",
+
+}

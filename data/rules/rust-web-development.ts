@@ -8,7 +8,8 @@ export const rule: Rule = {
 	languages: ["rust"],
 	description:
 		"Build high-performance web APIs using Rust, Axum framework, and SQLx for database operations",
-	content: `# Rust Web Development with Axum and SQLx
+	
+	categories: ["programming", "language"],content: `# Rust Web Development with Axum and SQLx
 
 ## 1. Project Setup and Dependencies
 
@@ -842,5 +843,6 @@ async fn test_user_login() {
 - [ ] Configure environment variables properly
 - [ ] Set up proper HTTP status codes and responses
 - [ ] Implement pagination for list endpoints
-- [ ] Add proper documentation with rustdoc`,
-};
+- [ ] Add proper documentation with rustdoc`,	applicationMode: "intelligent",
+
+}

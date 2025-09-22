@@ -3,13 +3,15 @@ import { Rule } from "../types";
 export const rule: Rule = {
 	id: "android-kotlin",
 	slug: "android-kotlin",
-	name: "Android Kotlin Development",
+	title: "Android Kotlin Development",
 	description: "Best practices for Android app development with Kotlin",
-	tags: ["android", "kotlin", "mobile", "jetpack-compose", "mvvm"],
+	
+	categories: ["android", "kotlin", "mobile"],tags: ["android", "kotlin", "mobile", "jetpack-compose", "mvvm"],
 	votes: { up: 0, down: 0 },
 	featured: false,
 	createdAt: "2024-01-01",
-	content: `# Android Kotlin Development Best Practices
+	
+	applicationMode: "intelligent",content: `# Android Kotlin Development Best Practices
 
 ## 1. Project Structure & Architecture
 

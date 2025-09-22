@@ -7,7 +7,8 @@ export const rule: Rule = {
   tags: ["docker", "containers", "devops", "deployment", "infrastructure"],
   languages: ["dockerfile", "yaml"],
   description: "Comprehensive guide for building efficient, secure, and production-ready Docker containers",
-  content: `# Docker Containerization Best Practices
+  
+	categories: ["devops", "deployment"],content: `# Docker Containerization Best Practices
 
 ## 1. Dockerfile Optimization
 
@@ -649,5 +650,7 @@ services:
 - [ ] Configure production deployment
 - [ ] Implement container security scanning
 - [ ] Add monitoring and observability
-- [ ] Document container architecture`
-};
+- [ ] Document container architecture`,
+	applicationMode: "intelligent",
+
+}

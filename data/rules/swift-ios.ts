@@ -3,13 +3,15 @@ import { Rule } from "../types";
 export const rule: Rule = {
 	id: "swift-ios",
 	slug: "swift-ios",
-	name: "Swift iOS Development",
+	title: "Swift iOS Development",
 	description: "Best practices for iOS app development with Swift",
-	tags: ["swift", "ios", "mobile", "xcode", "app-development"],
+	
+	categories: ["development", "best-practices"],tags: ["swift", "ios", "mobile", "xcode", "app-development"],
 	votes: { up: 0, down: 0 },
 	featured: false,
 	createdAt: "2024-01-01",
-	content: `# Swift iOS Development Best Practices
+	
+	applicationMode: "intelligent",content: `# Swift iOS Development Best Practices
 
 ## 1. Project Structure & Architecture
 
@@ -191,7 +193,7 @@ class CoreDataManager {
     private init() {}
 
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "DataModel")
+        let container = NSPersistentContainer(title: "DataModel")
         container.loadPersistentStores { _, error in
             if let error = error {
                 fatalError("Core Data error: \\(error)")
@@ -443,11 +445,12 @@ class UserViewModelTests: XCTestCase {
     func testLoadUsersSuccess() {
         // Given
         let expectedUsers = [
-            User(id: 1, name: "John Doe", email: "john@example.com", avatarURL: nil)
+            User(id: 1, title: "John Doe", email: "john@example.com", avatarURL: nil)
         ]
         mockUserService.mockUsers = expectedUsers
 
-        let expectation = XCTestExpectation(description: "Users loaded")
+        let expectation = XCTestExpectation(description: "Users loaded"
+	categories: ["development", "best-practices"],)
 
         // When
         viewModel.$users
@@ -469,7 +472,8 @@ class UserViewModelTests: XCTestCase {
         // Given
         mockUserService.shouldReturnError = true
 
-        let expectation = XCTestExpectation(description: "Error message set")
+        let expectation = XCTestExpectation(description: "Error message set"
+	categories: ["development", "best-practices"],)
 
         // When
         viewModel.$errorMessage

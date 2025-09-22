@@ -455,6 +455,6 @@ Follow these practices to build robust, scalable, and maintainable FastAPI appli
 	tags: ["fastapi", "async", "rest-api"],
 	author: "Community",
 	createdAt: "2024-02-01T00:00:00Z",
-	applicationMode: "files",
+	applicationMode: "intelligent",
 	globs: "*.py",
 };

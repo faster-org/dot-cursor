@@ -394,6 +394,6 @@ Follow these practices to build beautiful, responsive, and maintainable user int
 	tags: ["tailwind", "responsive", "utility-first"],
 	author: "Community",
 	createdAt: "2024-01-20T00:00:00Z",
-	applicationMode: "files",
+	applicationMode: "intelligent",
 	globs: "*.css,*.scss,*.tsx,*.jsx",
 };

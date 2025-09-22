@@ -3,13 +3,15 @@ import { Rule } from "../types";
 export const rule: Rule = {
 	id: "php-laravel",
 	slug: "php-laravel",
-	name: "PHP Laravel",
+	title: "PHP Laravel",
 	description: "Best practices for Laravel PHP development",
-	tags: ["php", "laravel", "mvc", "eloquent", "artisan"],
+	
+	categories: ["php", "laravel", "backend"],tags: ["php", "laravel", "mvc", "eloquent", "artisan"],
 	votes: { up: 0, down: 0 },
 	featured: false,
 	createdAt: "2024-01-01",
-	content: `# PHP Laravel Development Best Practices
+	
+	applicationMode: "intelligent",content: `# PHP Laravel Development Best Practices
 
 ## 1. Project Structure & Organization
 

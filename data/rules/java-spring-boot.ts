@@ -3,13 +3,15 @@ import { Rule } from "../types";
 export const rule: Rule = {
 	id: "java-spring-boot",
 	slug: "java-spring-boot",
-	name: "Java Spring Boot",
+	title: "Java Spring Boot",
 	description: "Best practices for Java Spring Boot development",
-	tags: ["java", "spring", "spring-boot", "jpa", "rest"],
+	
+	categories: ["development", "best-practices"],tags: ["java", "spring", "spring-boot", "jpa", "rest"],
 	votes: { up: 0, down: 0 },
 	featured: false,
 	createdAt: "2024-01-01",
-	content: `# Java Spring Boot Development Best Practices
+	
+	applicationMode: "intelligent",content: `# Java Spring Boot Development Best Practices
 
 ## 1. Project Structure & Configuration
 

@@ -3,13 +3,15 @@ import { Rule } from "../types";
 export const rule: Rule = {
 	id: "rust-development",
 	slug: "rust-development",
-	name: "Rust Development",
+	title: "Rust Development",
 	description: "Best practices for Rust systems programming",
-	tags: ["rust", "systems", "performance", "safety", "cargo"],
+	
+	categories: ["rust", "systems", "programming"],tags: ["rust", "systems", "performance", "safety", "cargo"],
 	votes: { up: 0, down: 0 },
 	featured: false,
 	createdAt: "2024-01-01",
-	content: `# Rust Development Best Practices
+	
+	applicationMode: "intelligent",content: `# Rust Development Best Practices
 
 ## 1. Project Structure & Cargo Management
 
@@ -407,7 +409,7 @@ mod tests {
     fn test_user_validation() {
         let user = User {
             id: 1,
-            name: "John Doe".to_string(),
+            title: "John Doe".to_string(),
             email: "john@example.com".to_string(),
             created_at: chrono::Utc::now(),
         };
@@ -431,7 +433,7 @@ mod tests {
     async fn test_async_user_service() {
         let mut service = UserService::new();
         let user = service.create_user(CreateUserRequest {
-            name: "Jane Doe".to_string(),
+            title: "Jane Doe".to_string(),
             email: "jane@example.com".to_string(),
         }).await.unwrap();
 

@@ -901,5 +901,7 @@ spec:
 - [ ] Implement network policies for security
 - [ ] Use pod disruption budgets for high availability
 - [ ] Monitor resource usage and optimize for cost
-- [ ] Regularly update and patch container images and Kubernetes components`
-};
+- [ ] Regularly update and patch container images and Kubernetes components`,
+	applicationMode: "intelligent",
+
+}

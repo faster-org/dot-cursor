@@ -739,6 +739,6 @@ Follow these practices to build robust, scalable, and maintainable REST APIs wit
 	tags: ["rest-framework", "serializers", "viewsets"],
 	author: "Community",
 	createdAt: "2024-01-29T00:00:00Z",
-	applicationMode: "files",
+	applicationMode: "intelligent",
 	globs: "*.py,views.py,serializers.py,models.py",
 };

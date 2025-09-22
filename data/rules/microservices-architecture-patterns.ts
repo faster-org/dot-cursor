@@ -8,7 +8,8 @@ export const rule: Rule = {
 	languages: ["javascript", "typescript", "python", "java", "go"],
 	description:
 		"Comprehensive guide for designing and implementing microservices architecture with communication patterns, data management, and deployment strategies.",
-	content: `# Microservices Architecture Patterns and Implementation
+	
+	categories: ["best-practices", "development"],content: `# Microservices Architecture Patterns and Implementation
 
 ## 1. Microservices Architecture Design Principles
 
@@ -1448,5 +1449,6 @@ interface PerformanceMetric {
 - [ ] Plan for service versioning and backward compatibility
 - [ ] Set up centralized logging and metrics collection
 
-This comprehensive guide provides the foundation for building robust, scalable microservices architecture with proper patterns, communication strategies, and operational considerations.`,
-};
+This comprehensive guide provides the foundation for building robust, scalable microservices architecture with proper patterns, communication strategies, and operational considerations.`,	applicationMode: "intelligent",
+
+}

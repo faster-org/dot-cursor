@@ -1010,6 +1010,6 @@ Follow these practices to write comprehensive, maintainable tests that give conf
 	tags: ["react-testing-library", "jest", "user-testing"],
 	author: "Community",
 	createdAt: "2024-01-15T00:00:00Z",
-	applicationMode: "files",
+	applicationMode: "intelligent",
 	globs: "*.test.ts,*.test.tsx,*.spec.ts,*.spec.tsx",
 };
