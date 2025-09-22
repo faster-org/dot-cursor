@@ -36,6 +36,33 @@ interface RuleCardProps {
 
 type RuleForCard = RuleCardProps["rule"];
 
+function extractCleanTextFromMarkdown(content: string): string {
+	return content
+		// Remove frontmatter/metadata blocks
+		.replace(/^---[\s\S]*?---\n?/gm, '')
+		// Remove code blocks
+		.replace(/```[\s\S]*?```/g, '')
+		.replace(/`[^`\n]*`/g, '')
+		// Remove headers
+		.replace(/^#{1,6}\s+/gm, '')
+		// Remove horizontal rules
+		.replace(/^---+$/gm, '')
+		// Remove list markers
+		.replace(/^\s*[-*+]\s+/gm, '')
+		.replace(/^\s*\d+\.\s+/gm, '')
+		// Remove bold/italic markers
+		.replace(/\*\*([^*]+)\*\*/g, '$1')
+		.replace(/\*([^*]+)\*/g, '$1')
+		// Remove links but keep text
+		.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+		// Remove extra whitespace and newlines
+		.replace(/\n\s*\n/g, '\n')
+		.replace(/^\s+|\s+$/g, '')
+		// Convert multiple spaces to single space
+		.replace(/\s+/g, ' ')
+		.trim();
+}
+
 function buildMdcContent(rule: RuleForCard): string {
 	let frontmatter = "";
 
@@ -128,8 +155,8 @@ export function RuleCard({ rule }: RuleCardProps) {
 				<div className="flex items-start justify-between">
 					<div className="flex flex-col gap-2 flex-1">
 						<CardTitle className="-mt-0.5 leading-6 line-clamp-1">{rule.title}</CardTitle>
-						<CardDescription className="line-clamp-4 font-mono text-xs leading-4.5">
-							{rule.content}
+						<CardDescription className="line-clamp-4 text-xs font-mono leading-4.5">
+							{extractCleanTextFromMarkdown(rule.content)}
 						</CardDescription>
 					</div>
 				</div>
