@@ -43,7 +43,7 @@ async function getInitialData() {
 		.map((category) => ({
 			...category,
 			_count: {
-				rules: allRules.filter((rule) => rule.categories.includes(category.slug)).length,
+				rules: allRules.filter((rule) => rule.categories?.includes(category.slug)).length,
 			},
 		}))
 		.sort((a, b) => b._count.rules - a._count.rules);
@@ -56,7 +56,7 @@ async function getInitialData() {
 		downvotes: 0,
 		viewCount: 0,
 		copyCount: 0,
-		categories: rule.categories
+		categories: (rule.categories || [])
 			.map((catSlug) => allCategories.find((c) => c.slug === catSlug))
 			.filter(Boolean)
 			.map((cat) => ({ id: cat?.id, name: cat?.name, slug: cat?.slug })),

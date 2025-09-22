@@ -49,7 +49,7 @@ async function getTrendingRules(): Promise<TrendingRule[]> {
 		viewCount: 0,
 		copyCount: 0,
 		createdAt: rule.createdAt,
-		categories: rule.categories
+		categories: (rule.categories || [])
 			.map((catSlug) => allCategories.find((c) => c.slug === catSlug))
 			.filter(Boolean)
 			.map((cat) => ({ id: cat?.id, name: cat?.name, slug: cat?.slug })),
@@ -58,7 +58,11 @@ async function getTrendingRules(): Promise<TrendingRule[]> {
 	// Sort by creation date since we don't have view counts at SSR time
 	// Most recent first for "trending"
 	return transformedRules
-		.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+		.sort((a, b) => {
+			const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+			const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+			return dateB - dateA;
+		})
 		.slice(0, 24);
 }
 
