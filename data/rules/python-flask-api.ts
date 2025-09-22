@@ -1,4 +1,8 @@
-export default {
+import { Rule } from "../types";
+
+export const rule: Rule = {
+	id: "python-flask-api",
+	slug: "python-flask-api",
 	title: "Python Flask API Development",
 	tags: ["python", "flask", "api", "backend", "rest"],
 	languages: ["python"],

@@ -1,6 +1,6 @@
 import { Rule } from "../types";
 
-export const rubyOnRailsRule: Rule = {
+export const rule: Rule = {
 	id: "ruby-on-rails",
 	slug: "ruby-on-rails",
 	name: "Ruby on Rails",

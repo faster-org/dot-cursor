@@ -1,4 +1,8 @@
-export default {
+import { Rule } from "../types";
+
+export const rule: Rule = {
+	id: "machine-learning-python",
+	slug: "machine-learning-python",
 	title: "Machine Learning with Python and Scikit-Learn",
 	tags: ["python", "machine-learning", "scikit-learn", "data-science", "ai"],
 	languages: ["python"],

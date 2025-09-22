@@ -13,10 +13,7 @@ export function ViewTracker({ slug }: ViewTrackerProps) {
 	useEffect(() => {
 		// Track view on component mount
 		trackViewMutation.mutate(slug);
-	}, [
-		slug, // Track view on component mount
-		trackViewMutation.mutate,
-	]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [slug, trackViewMutation]);
 
 	// This component doesn't render anything
 	return null;

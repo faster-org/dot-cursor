@@ -1,5 +1,9 @@
-export default {
-  title: "Docker Containerization Best Practices",
+import { Rule } from "../types";
+
+export const rule: Rule = {
+	id: "docker-containerization",
+	slug: "docker-containerization",
+	title: "Docker Containerization Best Practices",
   tags: ["docker", "containers", "devops", "deployment", "infrastructure"],
   languages: ["dockerfile", "yaml"],
   description: "Comprehensive guide for building efficient, secure, and production-ready Docker containers",
@@ -541,15 +545,15 @@ networks:
 set -e
 
 # Build and tag image
-docker build -t myapp:${VERSION} .
-docker tag myapp:${VERSION} myapp:latest
+docker build -t myapp:\${VERSION} .
+docker tag myapp:\${VERSION} myapp:latest
 
 # Run security scan
 docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
-  aquasec/trivy image myapp:${VERSION}
+  aquasec/trivy image myapp:\${VERSION}
 
 # Push to registry
-docker push myapp:${VERSION}
+docker push myapp:\${VERSION}
 docker push myapp:latest
 
 # Deploy to production

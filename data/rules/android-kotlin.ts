@@ -1,6 +1,6 @@
 import { Rule } from "../types";
 
-export const androidKotlinRule: Rule = {
+export const rule: Rule = {
 	id: "android-kotlin",
 	slug: "android-kotlin",
 	name: "Android Kotlin Development",

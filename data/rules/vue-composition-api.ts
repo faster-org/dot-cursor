@@ -1,4 +1,8 @@
-export default {
+import { Rule } from "../types";
+
+export const rule: Rule = {
+	id: "vue-composition-api",
+	slug: "vue-composition-api",
 	title: "Vue 3 Composition API Best Practices",
 	tags: ["vue", "javascript", "typescript", "composition-api", "frontend"],
 	languages: ["vue", "javascript", "typescript"],

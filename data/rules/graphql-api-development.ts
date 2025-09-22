@@ -1,4 +1,8 @@
-export default {
+import { Rule } from "../types";
+
+export const rule: Rule = {
+	id: "graphql-api-development",
+	slug: "graphql-api-development",
 	title: "GraphQL API Development with Apollo Server",
 	tags: ["graphql", "apollo", "api", "backend", "schema", "resolvers"],
 	languages: ["javascript", "typescript", "graphql"],

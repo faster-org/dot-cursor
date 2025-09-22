@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { RuleCard } from "@/components/rule/rule-card";
 import { Button } from "@/components/ui/button";
@@ -186,9 +186,9 @@ export function BrowseClient({ initialRules, categories, initialSearchParams }: 
 		updateUrl({ sortBy: sort });
 	};
 
-	const loadMoreRules = () => {
+	const loadMoreRules = useCallback(() => {
 		setDisplayCount((prev) => prev + 12);
-	};
+	}, []);
 
 	// Scroll listener for infinite scroll
 	useEffect(() => {

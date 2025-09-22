@@ -1,4 +1,8 @@
-export default {
+import { Rule } from "../types";
+
+export const rule: Rule = {
+	id: "socket-io-realtime-apps",
+	slug: "socket-io-realtime-apps",
 	title: "Socket.IO Real-time Application Development",
 	tags: ["socket-io", "realtime", "websockets", "nodejs", "chat"],
 	languages: ["javascript", "typescript"],

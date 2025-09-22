@@ -1,4 +1,8 @@
-export default {
+import { Rule } from "../types";
+
+export const rule: Rule = {
+	id: "aws-serverless-lambda",
+	slug: "aws-serverless-lambda",
 	title: "AWS Serverless Development with Lambda",
 	tags: ["aws", "serverless", "lambda", "cloud", "api-gateway", "dynamodb"],
 	languages: ["javascript", "typescript", "python"],

@@ -1,4 +1,8 @@
-export default {
+import { Rule } from "../types";
+
+export const rule: Rule = {
+	id: "web-security-best-practices",
+	slug: "web-security-best-practices",
 	title: "Web Security Best Practices",
 	tags: ["security", "web", "authentication", "encryption", "owasp"],
 	languages: ["javascript", "typescript", "php", "python"],

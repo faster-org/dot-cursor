@@ -1,4 +1,8 @@
-export default {
+import { Rule } from "../types";
+
+export const rule: Rule = {
+	id: "kotlin-android-jetpack-compose",
+	slug: "kotlin-android-jetpack-compose",
 	title: "Kotlin Android Development with Jetpack Compose",
 	tags: ["kotlin", "android", "jetpack-compose", "mvvm", "mobile"],
 	languages: ["kotlin"],

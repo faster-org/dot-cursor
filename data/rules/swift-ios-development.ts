@@ -1,4 +1,8 @@
-export default {
+import { Rule } from "../types";
+
+export const rule: Rule = {
+	id: "swift-ios-development",
+	slug: "swift-ios-development",
 	title: "Swift iOS Development with SwiftUI and UIKit",
 	tags: ["swift", "ios", "swiftui", "uikit", "mobile", "apple"],
 	languages: ["swift"],

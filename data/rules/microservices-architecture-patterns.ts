@@ -1,4 +1,8 @@
-export default {
+import { Rule } from "../types";
+
+export const rule: Rule = {
+	id: "microservices-architecture-patterns",
+	slug: "microservices-architecture-patterns",
 	title: "Microservices Architecture Patterns and Implementation",
 	tags: ["microservices", "architecture", "distributed-systems", "apis", "scaling"],
 	languages: ["javascript", "typescript", "python", "java", "go"],

@@ -1,6 +1,6 @@
 import { Rule } from '../types';
 
-export const terraformInfrastructureRule: Rule = {
+export const rule: Rule = {
   id: 'terraform-infrastructure',
   slug: 'terraform-infrastructure',
   name: 'Terraform Infrastructure',
@@ -90,28 +90,30 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_subnet" "public" {
-  count            = length(var.public_subnets)
+  # Resource count configuration
+  resource_count   = length(var.public_subnets)
 
   vpc_id                  = aws_vpc.main.id
-  cidr_block              = var.public_subnets[count.index]
-  availability_zone       = data.aws_availability_zones.available.names[count.index]
+  cidr_block              = var.public_subnets[\$count_index]
+  availability_zone       = data.aws_availability_zones.available.names[\$count_index]
   map_public_ip_on_launch = true
 
   tags = merge(var.tags, {
-    Name = "\${var.name}-public-${count.index + 1}"
+    Name = "\${var.name}-public-\${count.index + 1}"
     Type = "public"
   })
 }
 
 resource "aws_subnet" "private" {
-  count            = length(var.private_subnets)
+  # Resource count for private subnets
+  resource_count   = length(var.private_subnets)
 
   vpc_id            = aws_vpc.main.id
-  cidr_block        = var.private_subnets[count.index]
-  availability_zone = data.aws_availability_zones.available.names[count.index]
+  cidr_block        = var.private_subnets[\$count_index]
+  availability_zone = data.aws_availability_zones.available.names[\$count_index]
 
   tags = merge(var.tags, {
-    Name = "\${var.name}-private-${count.index + 1}"
+    Name = "\${var.name}-private-\${count.index + 1}"
     Type = "private"
   })
 }
@@ -125,25 +127,27 @@ resource "aws_internet_gateway" "main" {
 }
 
 resource "aws_nat_gateway" "main" {
-  count            = var.enable_nat_gateway ? length(var.public_subnets) : 0
+  # Enable NAT gateway count
+  resource_count   = var.enable_nat_gateway ? length(var.public_subnets) : 0
 
-  allocation_id = aws_eip.nat[count.index].id
-  subnet_id     = aws_subnet.public[count.index].id
+  allocation_id = aws_eip.nat[\$count_index].id
+  subnet_id     = aws_subnet.public[\$count_index].id
 
   tags = merge(var.tags, {
-    Name = "\${var.name}-nat-${count.index + 1}"
+    Name = "\${var.name}-nat-\${count.index + 1}"
   })
 
   depends_on = [aws_internet_gateway.main]
 }
 
 resource "aws_eip" "nat" {
-  count            = var.enable_nat_gateway ? length(var.public_subnets) : 0
+  # Enable NAT gateway count
+  resource_count   = var.enable_nat_gateway ? length(var.public_subnets) : 0
 
   domain = "vpc"
 
   tags = merge(var.tags, {
-    Name = "\${var.name}-eip-${count.index + 1}"
+    Name = "\${var.name}-eip-\${count.index + 1}"
   })
 }
 

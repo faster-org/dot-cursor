@@ -1,4 +1,8 @@
-export default {
+import { Rule } from "../types";
+
+export const rule: Rule = {
+	id: "devops-cicd-github-actions",
+	slug: "devops-cicd-github-actions",
   title: "DevOps CI/CD with GitHub Actions",
   tags: ["devops", "cicd", "github-actions", "deployment", "automation"],
   languages: ["yaml", "bash"],

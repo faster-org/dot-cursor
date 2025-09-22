@@ -1,4 +1,8 @@
-export default {
+import { Rule } from "../types";
+
+export const rule: Rule = {
+	id: "redis-caching-strategies",
+	slug: "redis-caching-strategies",
 	title: "Redis Caching Strategies and Implementation",
 	tags: ["redis", "caching", "performance", "scalability", "memory"],
 	languages: ["javascript", "typescript", "python", "java", "go"],

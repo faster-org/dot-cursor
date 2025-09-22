@@ -1,4 +1,8 @@
-export default {
+import { Rule } from "../types";
+
+export const rule: Rule = {
+	id: "tensorflow-machine-learning",
+	slug: "tensorflow-machine-learning",
 	title: "TensorFlow Machine Learning Development",
 	tags: ["tensorflow", "machine-learning", "deep-learning", "ai", "neural-networks"],
 	languages: ["python"],

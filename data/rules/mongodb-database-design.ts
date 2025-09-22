@@ -1,4 +1,8 @@
-export default {
+import { Rule } from "../types";
+
+export const rule: Rule = {
+	id: "mongodb-database-design",
+	slug: "mongodb-database-design",
 	title: "MongoDB Database Design and Optimization",
 	tags: ["mongodb", "database", "nosql", "schema-design", "performance"],
 	languages: ["javascript", "typescript", "python"],

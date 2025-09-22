@@ -1,6 +1,6 @@
 import { Rule } from "../types";
 
-export const csharpDotnetRule: Rule = {
+export const rule: Rule = {
 	id: "csharp-dotnet",
 	slug: "csharp-dotnet",
 	name: "C# .NET",

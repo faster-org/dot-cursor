@@ -1,6 +1,6 @@
 import { Rule } from "../types";
 
-export const rustDevelopmentRule: Rule = {
+export const rule: Rule = {
 	id: "rust-development",
 	slug: "rust-development",
 	name: "Rust Development",

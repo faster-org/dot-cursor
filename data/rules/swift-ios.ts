@@ -1,6 +1,6 @@
 import { Rule } from "../types";
 
-export const swiftIosRule: Rule = {
+export const rule: Rule = {
 	id: "swift-ios",
 	slug: "swift-ios",
 	name: "Swift iOS Development",

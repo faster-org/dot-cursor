@@ -1,6 +1,6 @@
 import { Rule } from "../types";
 
-export const javaSpringBootRule: Rule = {
+export const rule: Rule = {
 	id: "java-spring-boot",
 	slug: "java-spring-boot",
 	name: "Java Spring Boot",

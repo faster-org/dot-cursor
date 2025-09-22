@@ -1,6 +1,6 @@
 import { Rule } from "../types";
 
-export const phpLaravelRule: Rule = {
+export const rule: Rule = {
 	id: "php-laravel",
 	slug: "php-laravel",
 	name: "PHP Laravel",

@@ -1,4 +1,8 @@
-export default {
+import { Rule } from "../types";
+
+export const rule: Rule = {
+	id: "pytest-testing-framework",
+	slug: "pytest-testing-framework",
 	title: "Pytest Testing Framework for Python Applications",
 	tags: ["pytest", "testing", "python", "unit-tests", "tdd"],
 	languages: ["python"],

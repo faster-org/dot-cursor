@@ -1,4 +1,8 @@
-export default {
+import { Rule } from "../types";
+
+export const rule: Rule = {
+	id: "rust-web-development",
+	slug: "rust-web-development",
 	title: "Rust Web Development with Axum and SQLx",
 	tags: ["rust", "web", "axum", "sqlx", "backend", "tokio"],
 	languages: ["rust"],

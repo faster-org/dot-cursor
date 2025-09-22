@@ -1,6 +1,6 @@
 import { Rule } from '../types';
 
-export const kubernetesDeploymentRule: Rule = {
+export const rule: Rule = {
   id: 'kubernetes-deployment',
   slug: 'kubernetes-deployment',
   name: 'Kubernetes Deployment',
