@@ -16,12 +16,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
 	const ruleRoutes: MetadataRoute.Sitemap = rules.map((rule) => ({
 		url: `${baseUrl}/rules/${rule.slug}`,
-		lastModified: new Date(rule.createdAt),
+		lastModified: rule.createdAt ? new Date(rule.createdAt) : now,
 	}));
 
 	const collectionRoutes: MetadataRoute.Sitemap = collections.map((collection) => ({
 		url: `${baseUrl}/collections/${collection.slug}`,
-		lastModified: new Date(collection.createdAt),
+		lastModified: collection.createdAt ? new Date(collection.createdAt) : now,
 	}));
 
 	return [...staticRoutes, ...ruleRoutes, ...collectionRoutes];

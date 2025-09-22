@@ -72,7 +72,7 @@ export async function getCategories(): Promise<Category[]> {
 	// Get unique category slugs from rules
 	const usedCategorySlugs = new Set<string>();
 	allRules.forEach((rule) => {
-		rule.categories.forEach((catSlug) => usedCategorySlugs.add(catSlug));
+		rule.categories?.forEach((catSlug) => usedCategorySlugs.add(catSlug));
 	});
 
 	// Return only categories that have at least one rule
@@ -181,7 +181,7 @@ export async function getRuleWithStats(slug: string): Promise<RuleWithStats | nu
 // Get rules by category
 export async function getRulesByCategory(categorySlug: string): Promise<RuleWithStats[]> {
 	const allRules = await getRulesWithStats();
-	return allRules.filter((rule) => rule.categories.includes(categorySlug));
+	return allRules.filter((rule) => rule.categories?.includes(categorySlug));
 }
 
 // Get categories with rules
@@ -192,7 +192,7 @@ export async function getCategoriesWithRules(): Promise<(Category & { rules: Rul
 	return allCategories
 		.map((category) => ({
 			...category,
-			rules: allRules.filter((rule) => rule.categories.includes(category.slug)),
+			rules: allRules.filter((rule) => rule.categories?.includes(category.slug)),
 		}))
 		.filter((category) => category.rules.length > 0); // Only return categories with rules
 }
@@ -218,7 +218,7 @@ export async function getCategoriesWithRulesNoStats(): Promise<
 	return allCategories
 		.map((category) => ({
 			...category,
-			rules: rulesWithDefaultStats.filter((rule) => rule.categories.includes(category.slug)),
+			rules: rulesWithDefaultStats.filter((rule) => rule.categories?.includes(category.slug)),
 		}))
 		.filter((category) => category.rules.length > 0); // Only return categories with rules
 }
@@ -280,7 +280,7 @@ export async function searchRules(query: string): Promise<RuleWithStats[]> {
 			rule.title.toLowerCase().includes(lowerQuery) ||
 			rule.description.toLowerCase().includes(lowerQuery) ||
 			rule.content.toLowerCase().includes(lowerQuery) ||
-			rule.categories.some((cat) => cat.toLowerCase().includes(lowerQuery)) ||
+			rule.categories?.some((cat) => cat.toLowerCase().includes(lowerQuery)) ||
 			rule.tags?.some((tag) => tag.toLowerCase().includes(lowerQuery)),
 	);
 }

@@ -87,7 +87,7 @@ export default async function CollectionDetailPage({
 		downvotes: 0,
 		viewCount: 0,
 		copyCount: 0,
-		categories: rule.categories
+		categories: (rule.categories || [])
 			.map((catSlug) => {
 				return allCategories.find((c) => c.slug === catSlug);
 			})
