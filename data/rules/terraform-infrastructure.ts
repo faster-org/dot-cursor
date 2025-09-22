@@ -3,12 +3,12 @@ import { Rule } from '../types';
 export const rule: Rule = {
   id: 'terraform-infrastructure',
   slug: 'terraform-infrastructure',
-  name: 'Terraform Infrastructure',
+  title: 'Terraform Infrastructure',
   description: 'Best practices for Infrastructure as Code with Terraform',
+  categories: ['infrastructure', 'devops'],
   tags: ['terraform', 'infrastructure', 'iac', 'cloud', 'devops'],
-  votes: { up: 0, down: 0 },
-  featured: false,
   createdAt: '2024-01-01',
+  applicationMode: 'intelligent',
   content: `# Terraform Infrastructure as Code Best Practices
 
 ## 1. Project Structure & Organization
@@ -40,12 +40,12 @@ terraform {
 }
 
 provider "aws" {
-  region = var.aws_region
+  region = \var.aws_region
 
   default_tags {
     tags = {
-      Environment = var.environment
-      Project     = var.project_name
+      Environment = \var.environment
+      Project     = \var.project_name
       ManagedBy   = "terraform"
     }
   }
@@ -56,7 +56,7 @@ variable "environment" {
   description = "Environment name"
   type        = string
   validation {
-    condition     = contains(["dev", "staging", "prod"], var.environment)
+    condition     = contains(["dev", "staging", "prod"], \var.environment)
     error_message = "Environment must be dev, staging, or prod."
   }
 }
@@ -80,40 +80,40 @@ Create reusable modules with proper inputs, outputs, and documentation.
 \`\`\`hcl
 # modules/vpc/main.tf
 resource "aws_vpc" "main" {
-  cidr_block           = var.cidr_block
+  cidr_block           = \var.cidr_block
   enable_dns_hostnames = true
   enable_dns_support   = true
 
-  tags = merge(var.tags, {
-    Name = "\${var.name}-vpc"
+  tags = merge(\var.tags, {
+    Name = "\${\var.name}-vpc"
   })
 }
 
 resource "aws_subnet" "public" {
   # Resource count configuration
-  resource_count   = length(var.public_subnets)
+  count   = length(\var.public_subnets)
 
   vpc_id                  = aws_vpc.main.id
-  cidr_block              = var.public_subnets[\$count_index]
-  availability_zone       = data.aws_availability_zones.available.names[\$count_index]
+  cidr_block              = \var.public_subnets[\count.index]
+  availability_zone       = \data.aws_availability_zones.available.names[\count.index]
   map_public_ip_on_launch = true
 
-  tags = merge(var.tags, {
-    Name = "\${var.name}-public-\${count.index + 1}"
+  tags = merge(\var.tags, {
+    Name = "\${\var.name}-public-\${\count.index + 1}"
     Type = "public"
   })
 }
 
 resource "aws_subnet" "private" {
   # Resource count for private subnets
-  resource_count   = length(var.private_subnets)
+  count   = length(\var.private_subnets)
 
   vpc_id            = aws_vpc.main.id
-  cidr_block        = var.private_subnets[\$count_index]
-  availability_zone = data.aws_availability_zones.available.names[\$count_index]
+  cidr_block        = \var.private_subnets[\count.index]
+  availability_zone = \data.aws_availability_zones.available.names[\count.index]
 
-  tags = merge(var.tags, {
-    Name = "\${var.name}-private-\${count.index + 1}"
+  tags = merge(\var.tags, {
+    Name = "\${\var.name}-private-\${\count.index + 1}"
     Type = "private"
   })
 }
@@ -121,20 +121,20 @@ resource "aws_subnet" "private" {
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 
-  tags = merge(var.tags, {
-    Name = "\${var.name}-igw"
+  tags = merge(\var.tags, {
+    Name = "\${\var.name}-igw"
   })
 }
 
 resource "aws_nat_gateway" "main" {
   # Enable NAT gateway count
-  resource_count   = var.enable_nat_gateway ? length(var.public_subnets) : 0
+  count   = \var.enable_nat_gateway ? length(\var.public_subnets) : 0
 
-  allocation_id = aws_eip.nat[\$count_index].id
-  subnet_id     = aws_subnet.public[\$count_index].id
+  allocation_id = aws_eip.nat[\count.index].id
+  subnet_id     = aws_subnet.public[\count.index].id
 
-  tags = merge(var.tags, {
-    Name = "\${var.name}-nat-\${count.index + 1}"
+  tags = merge(\var.tags, {
+    Name = "\${\var.name}-nat-\${\count.index + 1}"
   })
 
   depends_on = [aws_internet_gateway.main]
@@ -142,12 +142,12 @@ resource "aws_nat_gateway" "main" {
 
 resource "aws_eip" "nat" {
   # Enable NAT gateway count
-  resource_count   = var.enable_nat_gateway ? length(var.public_subnets) : 0
+  count   = \var.enable_nat_gateway ? length(\var.public_subnets) : 0
 
   domain = "vpc"
 
-  tags = merge(var.tags, {
-    Name = "\${var.name}-eip-\${count.index + 1}"
+  tags = merge(\var.tags, {
+    Name = "\${\var.name}-eip-\${\count.index + 1}"
   })
 }
 
@@ -165,7 +165,7 @@ variable "cidr_block" {
   description = "CIDR block for VPC"
   type        = string
   validation {
-    condition     = can(cidrhost(var.cidr_block, 0))
+    condition     = can(cidrhost(\var.cidr_block, 0))
     error_message = "CIDR block must be valid."
   }
 }
@@ -299,7 +299,7 @@ variable "environment" {
   type        = string
 
   validation {
-    condition     = contains(["dev", "staging", "prod"], var.environment)
+    condition     = contains(["dev", "staging", "prod"], \var.environment)
     error_message = "Environment must be one of: dev, staging, prod."
   }
 }
@@ -325,7 +325,7 @@ variable "database_config" {
   })
 
   validation {
-    condition     = var.database_config.allocated_storage >= 20
+    condition     = \var.database_config.allocated_storage >= 20
     error_message = "Database storage must be at least 20 GB."
   }
 }
@@ -333,15 +333,15 @@ variable "database_config" {
 # locals.tf
 locals {
   common_tags = {
-    Environment = var.environment
-    Project     = var.project_name
+    Environment = \var.environment
+    Project     = \var.project_name
     ManagedBy   = "terraform"
     CreatedAt   = timestamp()
   }
 
-  instance_type = var.instance_types[var.environment]
+  instance_type = \var.instance_types[\var.environment]
 
-  azs = slice(data.aws_availability_zones.available.names, 0, 3)
+  azs = slice(\data.aws_availability_zones.available.names, 0, 3)
 
   vpc_cidr = {
     dev     = "10.0.0.0/16"
@@ -351,11 +351,11 @@ locals {
 }
 
 # data.tf
-data "aws_availability_zones" "available" {
+\data "aws_availability_zones" "available" {
   state = "available"
 }
 
-data "aws_ami" "amazon_linux" {
+\data "aws_ami" "amazon_linux" {
   most_recent = true
   owners      = ["amazon"]
 
@@ -370,9 +370,9 @@ data "aws_ami" "amazon_linux" {
   }
 }
 
-data "aws_caller_identity" "current" {}
+\data "aws_caller_identity" "current" {}
 
-data "aws_region" "current" {}
+\data "aws_region" "current" {}
 \`\`\`
 
 ## 5. Resource Configuration
@@ -382,8 +382,8 @@ Follow best practices for resource configuration and naming.
 \`\`\`hcl
 # ec2.tf
 resource "aws_launch_template" "app" {
-  name_prefix   = "\${var.project_name}-\${var.environment}-"
-  image_id      = data.aws_ami.amazon_linux.id
+  name_prefix   = "\${\var.project_name}-\${\var.environment}-"
+  image_id      = \data.aws_ami.amazon_linux.id
   instance_type = local.instance_type
 
   vpc_security_group_ids = [aws_security_group.app.id]
@@ -392,15 +392,15 @@ resource "aws_launch_template" "app" {
     name = aws_iam_instance_profile.app.name
   }
 
-  user_data = base64encode(templatefile("${path.module}/userdata.sh", {
-    environment = var.environment
-    app_version = var.app_version
+  user_data = base64encode(templatefile("\${\path.module}/userdata.sh", {
+    environment = \var.environment
+    app_version = \var.app_version
   }))
 
   tag_specifications {
     resource_type = "instance"
     tags = merge(local.common_tags, {
-      Name = "\${var.project_name}-\${var.environment}-app"
+      Name = "\${\var.project_name}-\${\var.environment}-app"
     })
   }
 
@@ -410,14 +410,14 @@ resource "aws_launch_template" "app" {
 }
 
 resource "aws_autoscaling_group" "app" {
-  name                = "\${var.project_name}-\${var.environment}-asg"
-  vpc_zone_identifier = var.private_subnet_ids
+  name                = "\${\var.project_name}-\${\var.environment}-asg"
+  vpc_zone_identifier = \var.private_subnet_ids
   target_group_arns   = [aws_lb_target_group.app.arn]
   health_check_type   = "ELB"
 
-  min_size         = var.asg_config.min_size
-  max_size         = var.asg_config.max_size
-  desired_capacity = var.asg_config.desired_capacity
+  min_size         = \var.asg_config.min_size
+  max_size         = \var.asg_config.max_size
+  desired_capacity = \var.asg_config.desired_capacity
 
   launch_template {
     id      = aws_launch_template.app.id
@@ -433,7 +433,7 @@ resource "aws_autoscaling_group" "app" {
 
   tag {
     key                 = "Name"
-    value               = "\${var.project_name}-\${var.environment}-asg"
+    value               = "\${\var.project_name}-\${\var.environment}-asg"
     propagate_at_launch = false
   }
 
@@ -449,8 +449,8 @@ resource "aws_autoscaling_group" "app" {
 
 # Security Groups
 resource "aws_security_group" "app" {
-  name_prefix = "\${var.project_name}-\${var.environment}-app-"
-  vpc_id      = var.vpc_id
+  name_prefix = "\${\var.project_name}-\${\var.environment}-app-"
+  vpc_id      = \var.vpc_id
 
   ingress {
     from_port       = 80
@@ -467,7 +467,7 @@ resource "aws_security_group" "app" {
   }
 
   tags = merge(local.common_tags, {
-    Name = "\${var.project_name}-\${var.environment}-app-sg"
+    Name = "\${\var.project_name}-\${\var.environment}-app-sg"
   })
 
   lifecycle {
@@ -592,7 +592,7 @@ Implement security best practices and compliance requirements.
 \`\`\`hcl
 # security.tf
 resource "aws_kms_key" "app" {
-  description             = "KMS key for \${var.project_name}-\${var.environment}"
+  description             = "KMS key for \${\var.project_name}-\${\var.environment}"
   deletion_window_in_days = 7
   enable_key_rotation     = true
 
@@ -603,7 +603,7 @@ resource "aws_kms_key" "app" {
         Sid    = "Enable IAM User Permissions"
         Effect = "Allow"
         Principal = {
-          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
+          AWS = "arn:aws:iam::\${\data.aws_caller_identity.current.account_id}:root"
         }
         Action   = "kms:*"
         Resource = "*"
@@ -615,13 +615,13 @@ resource "aws_kms_key" "app" {
 }
 
 resource "aws_kms_alias" "app" {
-  name          = "alias/\${var.project_name}-\${var.environment}"
+  name          = "alias/\${\var.project_name}-\${\var.environment}"
   target_key_id = aws_kms_key.app.key_id
 }
 
 # S3 Bucket with encryption and versioning
 resource "aws_s3_bucket" "app_data" {
-  bucket = "\${var.project_name}-\${var.environment}-data-${random_id.bucket_suffix.hex}"
+  bucket = "\${\var.project_name}-\${\var.environment}-data-\${random_id.bucket_suffix.hex}"
 }
 
 resource "aws_s3_bucket_versioning" "app_data" {
@@ -658,7 +658,7 @@ resource "random_id" "bucket_suffix" {
 
 # IAM Role with least privilege
 resource "aws_iam_role" "app" {
-  name = "\${var.project_name}-\${var.environment}-app-role"
+  name = "\${\var.project_name}-\${\var.environment}-app-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -677,8 +677,8 @@ resource "aws_iam_role" "app" {
 }
 
 resource "aws_iam_policy" "app" {
-  name        = "\${var.project_name}-\${var.environment}-app-policy"
-  description = "Policy for \${var.project_name} application"
+  name        = "\${\var.project_name}-\${\var.environment}-app-policy"
+  description = "Policy for \${\var.project_name} application"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -690,7 +690,7 @@ resource "aws_iam_policy" "app" {
           "s3:PutObject",
           "s3:DeleteObject"
         ]
-        Resource = "${aws_s3_bucket.app_data.arn}/*"
+        Resource = "\${aws_s3_bucket.app_data.arn}/*"
       },
       {
         Effect = "Allow"
@@ -806,7 +806,7 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
       with:
-        terraform_version: \${{ env.TF_VERSION }}
+        terraform_version: \${{env.TF_VERSION}}
 
     - name: Terraform Format
       run: terraform fmt -check
@@ -839,13 +839,13 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
       with:
-        terraform_version: \${{ env.TF_VERSION }}
+        terraform_version: \${{env.TF_VERSION}}
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v2
       with:
-        aws-access-key-id: \${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: \${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-access-key-id: \${{secrets.AWS_ACCESS_KEY_ID}}
+        aws-secret-access-key: \${{secrets.AWS_SECRET_ACCESS_KEY}}
         aws-region: us-west-2
 
     - name: Terraform Init
@@ -854,14 +854,14 @@ jobs:
     - name: Terraform Plan
       run: |
         terraform plan \\
-          -var-file="environments/\${{ matrix.environment }}/terraform.tfvars" \\
-          -out="\${{ matrix.environment }}.tfplan"
+          -var-file="environments/\${{matrix.environment}}/terraform.tfvars" \\
+          -out="\${{matrix.environment}}.tfplan"
 
     - name: Upload Plan
       uses: actions/upload-artifact@v3
       with:
-        name: \${{ matrix.environment }}-plan
-        path: \${{ matrix.environment }}.tfplan
+        name: \${{matrix.environment}}-plan
+        path: \${{matrix.environment}}.tfplan
 
   apply:
     runs-on: ubuntu-latest
@@ -869,20 +869,20 @@ jobs:
     if: github.ref == 'refs/heads/main'
     environment:
       name: production
-      url: \${{ steps.apply.outputs.app_url }}
+      url: \${{steps.apply.outputs.app_url}}
     steps:
     - uses: actions/checkout@v4
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
       with:
-        terraform_version: \${{ env.TF_VERSION }}
+        terraform_version: \${{env.TF_VERSION}}
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v2
       with:
-        aws-access-key-id: \${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: \${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-access-key-id: \${{secrets.AWS_ACCESS_KEY_ID}}
+        aws-secret-access-key: \${{secrets.AWS_SECRET_ACCESS_KEY}}
         aws-region: us-west-2
 
     - name: Terraform Init
