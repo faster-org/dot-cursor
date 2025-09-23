@@ -26,8 +26,19 @@ async function submitVote({ ruleId, voteType }: VoteVariables): Promise<VoteResp
 	});
 
 	if (!response.ok) {
-		const error = await response.text();
-		throw new Error(error || 'Failed to submit vote');
+		let errorMessage = 'Failed to submit vote';
+		try {
+			const errorData = await response.json();
+			errorMessage = errorData.error || errorMessage;
+		} catch {
+			// If JSON parsing fails, fallback to text
+			try {
+				errorMessage = await response.text() || errorMessage;
+			} catch {
+				// If everything fails, use default message
+			}
+		}
+		throw new Error(errorMessage);
 	}
 
 	return response.json();

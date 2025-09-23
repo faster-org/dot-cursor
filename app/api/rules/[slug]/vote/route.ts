@@ -25,6 +25,13 @@ export async function POST(
 	{ params }: { params: Promise<{ slug: string }> },
 ) {
 	try {
+		// Check if database is available
+		if (!prisma) {
+			return NextResponse.json(
+				{ error: "Database not available" },
+				{ status: 503 }
+			);
+		}
 		// Check rate limit for voting
 		const rateLimit = await checkRateLimit(request, "voting");
 		const errorResponse = rateLimitResponse(
@@ -133,6 +140,25 @@ export async function POST(
 		});
 	} catch (error) {
 		console.error("Error voting on rule:", error);
-		return NextResponse.json({ error: "Failed to vote on rule" }, { status: 500 });
+
+		// Provide more specific error messages for debugging
+		let errorMessage = "Failed to vote on rule";
+		if (error instanceof Error) {
+			// Check for specific error types
+			if (error.message.includes("P2002")) {
+				errorMessage = "Database constraint violation";
+			} else if (error.message.includes("connect")) {
+				errorMessage = "Database connection failed";
+			} else if (error.message.includes("timeout")) {
+				errorMessage = "Database operation timed out";
+			} else {
+				errorMessage = `Database error: ${error.message}`;
+			}
+		}
+
+		return NextResponse.json({
+			error: errorMessage,
+			details: process.env.NODE_ENV === 'development' ? String(error) : undefined
+		}, { status: 500 });
 	}
 }

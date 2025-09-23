@@ -18,9 +18,6 @@ export function CollectionsSection({ collections }: CollectionsSectionProps) {
 				<div className="flex items-center justify-between mb-6">
 					<div>
 						<h2 className="text-2xl font-medium">Collections</h2>
-						<p className="text-muted-foreground text-sm mt-1">
-							Curated groups of rules for common use cases
-						</p>
 					</div>
 					<Link
 						href="/collections"

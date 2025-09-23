@@ -64,15 +64,54 @@ export function BrowseClient({ initialRules, categories, initialSearchParams }: 
 	const [sortBy, setSortBy] = useState(currentSort);
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 	const [mounted, setMounted] = useState(false);
+	const [rulesWithStats, setRulesWithStats] = useState<Rule[]>(initialRules);
+	const [isLoadingStats, setIsLoadingStats] = useState(false);
 
 	// Ensure component is mounted before rendering Select to avoid hydration issues
 	useEffect(() => {
 		setMounted(true);
 	}, []);
 
+	// Fetch real stats from API after mounting
+	useEffect(() => {
+		if (!mounted) return;
+
+		const fetchStats = async () => {
+			setIsLoadingStats(true);
+			try {
+				const response = await fetch('/api/rules?limit=1000');
+				if (response.ok) {
+					const data = await response.json();
+					// Merge the stats from API with our initial rules
+					const rulesMap = new Map(data.rules.map((r: Rule) => [r.slug, r]));
+					const updatedRules = initialRules.map(rule => {
+						const apiRule = rulesMap.get(rule.slug);
+						if (apiRule) {
+							return {
+								...rule,
+								upvotes: apiRule.upvotes,
+								downvotes: apiRule.downvotes,
+								viewCount: apiRule.viewCount,
+								copyCount: apiRule.copyCount,
+							};
+						}
+						return rule;
+					});
+					setRulesWithStats(updatedRules);
+				}
+			} catch (error) {
+				console.error('Failed to fetch rule stats:', error);
+			} finally {
+				setIsLoadingStats(false);
+			}
+		};
+
+		fetchStats();
+	}, [mounted, initialRules]);
+
 	// Initialize filtered rules immediately
 	const getInitialFilteredRules = () => {
-		let filtered = [...initialRules];
+		let filtered = [...rulesWithStats];
 
 		// Filter by category
 		if (currentCategory && currentCategory !== "all") {
@@ -131,7 +170,7 @@ export function BrowseClient({ initialRules, categories, initialSearchParams }: 
 
 	// Client-side filtering and sorting - instant updates
 	useEffect(() => {
-		let filtered = [...initialRules];
+		let filtered = [...rulesWithStats];
 
 		// Filter by category
 		if (selectedCategory && selectedCategory !== "all") {
@@ -163,7 +202,7 @@ export function BrowseClient({ initialRules, categories, initialSearchParams }: 
 
 		setFilteredRules(filtered);
 		setDisplayCount(12); // Reset display count when filters change
-	}, [initialRules, selectedCategory, search, sortBy]);
+	}, [rulesWithStats, selectedCategory, search, sortBy]);
 
 	// Update displayed rules based on display count
 	useEffect(() => {

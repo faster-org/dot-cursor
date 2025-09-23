@@ -71,9 +71,10 @@ async function getInitialData() {
 export default async function BrowsePage({
 	searchParams,
 }: {
-	searchParams: { [key: string]: string | undefined };
+	searchParams: Promise<{ [key: string]: string | undefined }>;
 }) {
 	const { rules, categories } = await getInitialData();
+	const params = await searchParams;
 
 	return (
 		<div className="w-full max-w-7xl mx-auto px-8 py-4">
@@ -81,7 +82,7 @@ export default async function BrowsePage({
 				<BrowseClient
 					initialRules={rules}
 					categories={categories}
-					initialSearchParams={searchParams}
+					initialSearchParams={params}
 				/>
 			</div>
 		</div>
