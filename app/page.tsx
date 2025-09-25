@@ -3,7 +3,7 @@ import { getCategoriesWithRulesNoStats, getFeaturedCollections } from "@/lib/dat
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-	title: "Cursor IDE AI Rules - Community-Driven Prompts & Configurations",
+	title: "Cursor Rules - Community-Driven Prompts & Configurations",
 	description:
 		"Discover and share AI-powered rules for Cursor IDE. Browse community-created prompts, configurations, and automation rules to supercharge your development workflow with AI assistance.",
 	keywords: [
@@ -39,13 +39,13 @@ export const metadata: Metadata = {
 		locale: "en_US",
 		url: "https://dotcursor.com",
 		siteName: "Cursor IDE Rules",
-		title: "Cursor IDE AI Rules - Community-Driven Prompts & Configurations",
+		title: "Cursor Rules - Community-Driven Prompts & Configurations",
 		description:
 			"Discover and share AI-powered rules for Cursor IDE. Browse community-created prompts, configurations, and automation rules to supercharge your development workflow.",
 	},
 	twitter: {
 		card: "summary_large_image",
-		title: "Cursor IDE AI Rules - Community-Driven Prompts & Configurations",
+		title: "Cursor Rules - Community-Driven Prompts & Configurations",
 		description:
 			"Discover and share AI-powered rules for Cursor IDE. Browse community-created prompts, configurations, and automation rules.",
 		creator: "@cursor",

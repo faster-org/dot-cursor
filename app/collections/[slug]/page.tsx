@@ -41,7 +41,7 @@ export async function generateMetadata({
 	}
 
 	return {
-		title: `${collection.name} - Cursor IDE AI Rules Collection`,
+		title: `${collection.name} - Cursor Rules Collection`,
 		description: `${collection.description} Discover ${collection.ruleDetails.length} AI rules and prompts for Cursor IDE to enhance your ${collection.name} development workflow.`,
 		keywords: [
 			collection.name,
@@ -53,12 +53,12 @@ export async function generateMetadata({
 			...collection.name.toLowerCase().split(" "),
 		],
 		openGraph: {
-			title: `${collection.name} - Cursor IDE AI Rules Collection`,
+			title: `${collection.name} - Cursor Rules Collection`,
 			description: collection.description,
 			url: `https://dotcursor.com/collections/${slug}`,
 		},
 		twitter: {
-			title: `${collection.name} - Cursor IDE AI Rules Collection`,
+			title: `${collection.name} - Cursor Rules Collection`,
 			description: collection.description,
 		},
 		alternates: {
